@@ -1,0 +1,23 @@
+.top-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #fff;
+}
+
+.link-a{
+  position: relative;
+  top: 10px;
+  text-decoration: none; /* Remove o sublinhado */
+  color: #000; /* Cor inicial */
+  transition: color 0.3s ease; /* Suavidade na transição */
+}
+.link-a:hover {
+    color: #2E747F; /* Cor ao passar o mouse */
+  }
+
+.div-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
