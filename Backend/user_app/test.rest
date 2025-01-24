@@ -22,3 +22,23 @@ Content-Type: application/json
 Authorization: token 3b40b7353d5baf1cc330ad89067c2c30caa4f6b4
 
 {"token": "a"}
+
+# Requisição cadastro ecoturista
+POST http://127.0.0.1:8000/user/signup/tourist 
+Content-Type: application/json
+
+{ "username": "bob",
+  "email": "bob@mail.com", 
+  "cpf":"12345678990",
+  "password": "bob",
+  "telefone": "123456789"}
+
+# Requisição cadastro guia
+POST http://127.0.0.1:8000/user/signup/guide 
+Content-Type: application/json
+
+{ "username": "guia1",
+  "email": "guia1@mail.com", 
+  "cpf":"12345678910",
+  "password": "123456789",
+  "telefone": "123456789"}

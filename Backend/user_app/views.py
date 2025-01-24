@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from .models import CustomUser
-from .serializers import CustomUserSerializer
+from .serializers import CustomUserSerializer, GuideSerializer, TouristSerializer
 from django.contrib.auth import get_user_model
 
 User = get_user_model()  # Obter usuário customizado, é necessário por conta da autenticação
@@ -36,6 +36,31 @@ def signup(request):
         token = Token.objects.create(user=user)
         return Response({'token': token.key, 'user': serializer.data})
     return Response(serializer.errors, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def signup_guide(request):
+    serializer = GuideSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def signup_tourist(request):
+    serializer = TouristSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+
+        # Redirecionar para a página de preferências
+        user = CustomUser.objects.get(username=request.data['username'])
+        return Response(
+            {'message': 'Cadastro realizado com sucesso!', 'user': serializer.data},
+            status=status.HTTP_201_CREATED
+        )
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])

@@ -8,7 +8,14 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
-    cpf = models.CharField(max_length=12, blank=False, null=False)
+    cpf = models.CharField(max_length=12, blank=False, null=False, unique=True)
+    is_guide = models.BooleanField(default=False)  # Identifica se é um guia
+    is_tourist = models.BooleanField(default=False)  # Identifica se é um ecoturista
+    telefone = models.CharField(max_length=15, blank=True, null=True)
+
+    # Campos adicionais para guias
+    formacao = models.CharField(max_length=255, blank=True, null=True)  # Ex.: graduação, cursos
+    experiencia = models.TextField(blank=True, null=True)  # Descrição da experiência
 
     def __str__(self):
         return self.username
