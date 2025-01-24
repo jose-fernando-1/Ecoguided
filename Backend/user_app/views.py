@@ -27,7 +27,9 @@ User = get_user_model()  # Obter usuário customizado, é necessário por conta 
 def signup(request):
     if request.data['is_guide'] == 'True':
         serializer = GuideSerializer(data=request.data)
-    else: serializer = CustomUserSerializer(data = request.data)
+    else: 
+        serializer = CustomUserSerializer(data = request.data)
+    
     if serializer.is_valid():
         serializer.save()
         # caso todos os campos obrigatórios estejam corretamente preenchidos, adiciona usuário
@@ -39,31 +41,19 @@ def signup(request):
         return Response({'token': token.key, 'user': serializer.data})
     return Response(serializer.errors, status=status.HTTP_200_OK)
 
+'''
 @api_view(['POST'])
-@permission_classes([AllowAny])
-def signup_guide(request):
-    serializer = GuideSerializer(data=request.data)
+
+@permission_classes([Token])
+def create_trip(request):
+    guide = get_object_or_404(EcoGuide, username=request.data['username'] ou licenca)
+    
+    serializer = TripSerializer(data = request.data, guide = guide)
+    
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def signup_tourist(request):
-    serializer = TouristSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-
-        # Redirecionar para a página de preferências
-        user = CustomUser.objects.get(username=request.data['username'])
-        return Response(
-            {'message': 'Cadastro realizado com sucesso!', 'user': serializer.data},
-            status=status.HTTP_201_CREATED
-        )
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+        return Response({...})
+'''
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login(request):
