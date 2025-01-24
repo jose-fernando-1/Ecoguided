@@ -1,7 +1,7 @@
 POST http://127.0.0.1:8000/user/signup 
 Content-Type: application/json
 
-{ "username": "bob", "password": "bob", "email": "bob@mail.com", "cpf":"12345678910" }
+{ "username": "we", "password": "bob", "email": "a@mail.com", "cpf":"92342273990", "is_guide": "True"}
 
 ###
 

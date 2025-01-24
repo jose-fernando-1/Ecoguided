@@ -9,17 +9,32 @@ from django.db import models
 
 class CustomUser(AbstractUser):
     cpf = models.CharField(max_length=12, blank=False, null=False, unique=True)
-    is_guide = models.BooleanField(default=False)  # Identifica se é um guia
-    is_tourist = models.BooleanField(default=False)  # Identifica se é um ecoturista
+    is_guide = models.BooleanField(default=False)  # Acho que não é necessario um atributo para isso
     telefone = models.CharField(max_length=15, blank=True, null=True)
-
-    # Campos adicionais para guias
-    formacao = models.CharField(max_length=255, blank=True, null=True)  # Ex.: graduação, cursos
-    experiencia = models.TextField(blank=True, null=True)  # Descrição da experiência
+    endereco = models.CharField(max_length=15, blank=True, null=True)
 
     def __str__(self):
         return self.username
+    
+    
+class EcoGuide(CustomUser):
+    especialidades = [
+        ('floresta','Floresta'),
+        ('cachoeira', 'Cachoeira')
+    ]
+    
+    especialidade = models.CharField(max_length=15, choices=especialidades)
+    formacao = models.CharField(max_length=15, blank=True, null=True)
+    licenca = models.CharField(max_length=15, blank=False, null=False, default=0)
 
+
+    
+    
+    
+    
+    
+    
+    
 '''
 class CustomUser(AbstractUser):
     cpf = models.CharField(max_length=12, blank=False, null=False)

@@ -25,7 +25,9 @@ User = get_user_model()  # Obter usuário customizado, é necessário por conta 
 #colocar Allow_Any em funções que não precisam de autenticação
 @permission_classes([AllowAny])
 def signup(request):
-    serializer = CustomUserSerializer(data=request.data)
+    if request.data['is_guide'] == 'True':
+        serializer = GuideSerializer(data=request.data)
+    else: serializer = CustomUserSerializer(data = request.data)
     if serializer.is_valid():
         serializer.save()
         # caso todos os campos obrigatórios estejam corretamente preenchidos, adiciona usuário

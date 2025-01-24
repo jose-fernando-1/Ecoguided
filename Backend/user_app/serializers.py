@@ -1,6 +1,6 @@
 # minha_app/serializers.py
 from rest_framework import serializers
-from .models import CustomUser
+from .models import CustomUser, EcoGuide
 
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,25 +9,12 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 class GuideSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser
-        fields = ['id', 'username', 'email', 'cpf', 'telefone', 'formacao', 'experiencia', 'password']
+        model = EcoGuide
+        fields = ['id', 'username', 'email', 'cpf', 'telefone', 'formacao','licenca','password']
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        user = CustomUser.objects.create_user(**validated_data)
+        user = EcoGuide.objects.create_user(**validated_data)
         user.is_guide = True
-        user.save()
-        return user
-
-
-class TouristSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomUser
-        fields = ['id', 'username', 'email', 'cpf', 'telefone', 'password']
-        extra_kwargs = {'password': {'write_only': True}}
-
-    def create(self, validated_data):
-        user = CustomUser.objects.create_user(**validated_data)
-        user.is_tourist = True
         user.save()
         return user
