@@ -1,8 +1,8 @@
-import React from 'react'
-import img_logo from '../../img/img_logo.png'
-import Image from 'next/image'
-import styles from'./index.module.css'
-const LandingPage = () => {
+import img_logo from '../img/img_logo.png';
+import Image from 'next/image';
+import styles from '../styles/LandingPage.module.css';
+
+const Navbar = () => {
   return (
     <div>
       <div className={styles['top-bar']}>
@@ -14,8 +14,8 @@ const LandingPage = () => {
         />
 
         <a className={styles['link-a']} href='' >Os mais Procurados</a>
-        <a className={styles['link-a']} href='' >Quem Somos</a>
-        <a className={styles['link-a']} >Seja um EcoGuia</a>
+        <a className={styles['link-b']} href='' >Quem Somos</a>
+        <a className={styles['link-c']} >Seja um EcoGuia</a>
 
         
           <button 
@@ -40,4 +40,4 @@ const LandingPage = () => {
   )
 }
 
-export default LandingPage
+export default Navbar;
