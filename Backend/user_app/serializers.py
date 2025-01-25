@@ -1,6 +1,6 @@
 # minha_app/serializers.py
 from rest_framework import serializers
-from .models import CustomUser, EcoGuide, Trip
+from .models import CustomUser, EcoGuide
 
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,14 +18,3 @@ class GuideSerializer(serializers.ModelSerializer):
         user.is_guide = True
         user.save()
         return user
-
-class TripSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = Trip
-            fields = ['title', 'description', 'date', 'location', 'guide']
-            
-        def create(self, validated_data):
-            user = EcoGuide.objects.create_user(**validated_data)
-            user.is_guide = True
-            user.save()
-            return user

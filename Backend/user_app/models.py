@@ -28,41 +28,6 @@ class EcoGuide(CustomUser):
     formacao = models.CharField(max_length=15, blank=True, null=True)
     licenca = models.CharField(max_length=15, blank=False, null=False, default=0) # Número de Licença do guia
 
-from django.db import models
-from django.conf import settings
-
-class Trip(models.Model):
-    title = models.CharField(max_length=100)  # Nome do passeio
-    description = models.TextField()  # Descrição do passeio
-    date = models.DateField()  # Data do passeio
-    location = models.CharField(max_length=100)  # Local do passeio
-    
-    guide = models.ForeignKey(
-        'EcoGuide', 
-        on_delete=models.CASCADE, 
-        related_name='trips'
-    )  # Relaciona ao guia que criou o passeio
-    
-    participants = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, # Usa o modelo de usuário configurado, pode trocar por CustomUser, mas assim evita problemas futuros
-        related_name='trips_participated',
-        blank=True
-    )  # Relaciona aos usuários inscritos
-    max_participants = models.PositiveIntegerField(default=10)  # Limite de participantes
-
-    def __str__(self):
-        return f"{self.title} - {self.guide}"
-
-    def available_slots(self):
-        """Retorna o número de vagas disponíveis."""
-        return self.max_participants - self.participants.count()
-
-    
-    
-    
-    
-    
-    
     
 '''
 class CustomUser(AbstractUser):

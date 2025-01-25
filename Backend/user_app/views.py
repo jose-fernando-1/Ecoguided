@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from .models import CustomUser
-from .serializers import CustomUserSerializer, GuideSerializer, TouristSerializer
+from .serializers import CustomUserSerializer, GuideSerializer
 from django.contrib.auth import get_user_model
 
 User = get_user_model()  # Obter usuário customizado, é necessário por conta da autenticação

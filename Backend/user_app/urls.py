@@ -7,10 +7,8 @@ from . import views
  
 urlpatterns = [
     path('users/',views.UserList.as_view()),
-    re_path('signup', views.signup),
-    re_path('signup/guide', views.signup_guide, name='signup-guide'),
-    re_path('signup/tourist', views.signup_tourist, name='signup-tourist'),
-    re_path('login', views.login),
-    re_path('logout', views.logout),
+    re_path('users/signup', views.signup),
+    re_path('users/login', views.login),
+    re_path('users/logout', views.logout),
 
 ]
