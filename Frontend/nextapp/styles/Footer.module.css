@@ -69,3 +69,14 @@
     font-size: 0.9rem;
     font-weight: bold;
 }
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.contactItem h4 {
+  margin-left: 10px;
+}
+

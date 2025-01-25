@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styles from '../styles/LandingPage.module.css';
 import Navbar from '../components/Navbar';
 import img_chapada from '../img/img_chapada.jpg';
-import { Filter } from 'lucide-react';
+import { FilterIcon } from 'hugeicons-react';
 import oi from '../img/4.jpg';
 import Footer from '../components/Footer';
 
@@ -31,7 +31,7 @@ const LandingPage = () => {
               placeholder="Procure pelo seu próximo destino..."
             />
             <button className={styles['search-button']}>
-              <Filter />
+              <FilterIcon />
             </button>
           </div>
         </div>
