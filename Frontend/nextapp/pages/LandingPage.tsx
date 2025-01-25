@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import img_chapada from '../img/img_chapada.jpg';
 import { Filter } from 'lucide-react';
 import oi from '../img/4.jpg';
+import Footer from '../components/Footer';
 
 const LandingPage = () => {
   return (
@@ -39,6 +40,7 @@ const LandingPage = () => {
         <h2>Os mais procurados....</h2>
         
       </section>
+      <Footer/>
     </div>
   );
 };
