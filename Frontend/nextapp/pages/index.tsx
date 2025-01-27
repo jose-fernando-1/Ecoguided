@@ -1,9 +1,9 @@
 import LandingPage from "./LandingPage";
-import CadastroGuia from "./CadastroGuia";
+//import CadastroGuia from "./CadastroGuia";
 const home: React.FC = () => {
     return (
       <div>
-      <CadastroGuia/>
+      <LandingPage/>
       </div>
     );
   };

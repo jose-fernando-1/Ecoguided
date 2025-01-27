@@ -1,6 +1,8 @@
 import img_logo from '../img/img_logo.png';
 import Image from 'next/image';
 import styles from '../styles/LandingPage.module.css';
+import Link from 'next/link';
+
 
 // const Navbar = () => {
 //   return (
@@ -52,11 +54,13 @@ const Navbar = () => {
         <a className={styles['link']} href="">Seja um EcoGuia</a>
       </div>
       <div className={styles['nav-buttons']}>
-        <button className={styles['button-outline']}>Cadastrar</button>
+        <Link href="/CadastroGuia" passHref>
+          <button className={styles['button-outline']}>Cadastrar</button>
+        </Link>
         <button className={styles['button-filled']}>Entrar</button>
       </div>
     </nav>
-  )
-}
+  );
+};
 
 export default Navbar;

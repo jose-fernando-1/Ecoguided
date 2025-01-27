@@ -1,11 +1,11 @@
-import img_logo from '../img/img_logo.png';
 import Image from 'next/image';
 import styles from '../styles/LandingPage.module.css';
 import Navbar from '../components/Navbar';
+import { ArrowRight02Icon  } from 'hugeicons-react';
 import img_chapada from '../img/img_chapada.jpg';
-import { FilterIcon } from 'hugeicons-react';
-import oi from '../img/4.jpg';
 import Footer from '../components/Footer';
+import Carousel from '../components/Carousel';
+import Equipe from '../components/Equipe';
 
 const LandingPage = () => {
   return (
@@ -14,7 +14,7 @@ const LandingPage = () => {
       <div
         className={styles['banner']}
         style={{
-          backgroundImage: `url(${oi.src})`, 
+          backgroundImage: `url(${img_chapada.src})`, 
         }}
       > 
         <div className={styles['banner-content']}>
@@ -31,15 +31,18 @@ const LandingPage = () => {
               placeholder="Procure pelo seu próximo destino..."
             />
             <button className={styles['search-button']}>
-              <FilterIcon />
+            <ArrowRight02Icon />
             </button>
           </div>
         </div>
       </div>
       <section className={styles['most-wanted']}>
         <h2>Os mais procurados....</h2>
-        
       </section>
+       <section className={styles.mostWanted}>
+        <Carousel />
+      </section>
+      <Equipe />
       <Footer/>
     </div>
   );
