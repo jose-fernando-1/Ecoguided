@@ -1,0 +1,13 @@
+.div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.div-inside{
+    display: flex;
+    justify-content: center;
+    height: 450px;
+    width: 300px;
+    background-color: #f8f8f8;
+    border-radius: 20px;
+}
