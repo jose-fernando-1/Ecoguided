@@ -9,7 +9,7 @@ class Trip(models.Model):
     date = models.DateField()  # Data do passeio
     location = models.CharField(max_length=100)  # Local do passeio
     guide = models.ForeignKey(EcoGuide, on_delete=models.CASCADE, related_name='trips')  # Relaciona ao guia que criou o passeio
-    # participants = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='trips_participated', blank=True)  # Relaciona aos usuários inscritos
+    participants = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='trips_participated', blank=True)  # Relaciona aos usuários inscritos
     max_participants = models.PositiveIntegerField(default=10)  # Limite de participantes
     price = models.FloatField() # Preço do passeio
 

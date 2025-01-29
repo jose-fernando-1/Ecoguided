@@ -45,14 +45,14 @@ def signup(request):
 @api_view(['POST'])
 
 @permission_classes([Token])
-def create_trip(request):
-    guide = get_object_or_404(EcoGuide, username=request.data['username'] ou licenca)
+def subscribe_into_trip(request):
+    participante = get_object_or_404(User, username=request.data['username'] ou id)
+    trip = get_object_or_404(Trip, id=request.data['id_viagem'])
     
-    serializer = TripSerializer(data = request.data, guide = guide)
-    
-    if serializer.is_valid():
-        serializer.save()
-        return Response({...})
+    trip = Trip.objects.get(trip = trip)
+    if trip.get_avaliable_slots():
+        trip.participants.add(participant)
+
 '''
 @api_view(['POST'])
 @permission_classes([AllowAny])

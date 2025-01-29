@@ -9,7 +9,6 @@ from django.db import models
 
 class CustomUser(AbstractUser):
     cpf = models.CharField(max_length=12, blank=False, null=False, unique=True)
-    is_guide = models.BooleanField(default=False)  # Acho que não é necessario um atributo para isso
     telefone = models.CharField(max_length=15, blank=True, null=True)
     endereco = models.CharField(max_length=15, blank=True, null=True)
 
@@ -26,7 +25,7 @@ class EcoGuide(CustomUser):
     bio = models.TextField(blank=True, null=True)  # Descrição do guia
     especialidade = models.CharField(max_length=15, choices=especialidades)
     formacao = models.CharField(max_length=15, blank=True, null=True)
-    licenca = models.CharField(max_length=15, blank=False, null=False, default=0) # Número de Licença do guia
+    licenca = models.CharField(max_length=15, blank=False, null=False) # Número de Licença do guia
 
     
 '''

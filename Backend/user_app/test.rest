@@ -1,14 +1,14 @@
-POST http://127.0.0.1:8000/user/signup 
+POST http://127.0.0.1:8000/api/users/signup
 Content-Type: application/json
 
-{ "username": "we", "password": "bob", "email": "a@mail.com", "cpf":"92342273990", "is_guide": "True"}
+{ "username": "bob", "password": "bob", "email": "a@mail.com", "cpf":"92342273990", "is_guide": "False"}
 
 ###
 
-POST http://127.0.0.1:8000/user/login 
+POST http://127.0.0.1:8000/api/users/login
 Content-Type: application/json
 
-{ "username": "bob", "password": "bob"}
+{ "username": "juba", "password": "vfde2323"}
 
 ###
 GET http://127.0.0.1:8000/user/users
@@ -42,3 +42,12 @@ Content-Type: application/json
   "cpf":"12345678910",
   "password": "123456789",
   "telefone": "123456789"}
+
+###
+
+POST http://127.0.0.1:8000/api/trips/register_for_trip/
+Content-Type: application/json
+Authorization: token 394bfe13ba562a19e759144f09973d4180585366
+
+{ "id_viagem": 1}
+
