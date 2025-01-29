@@ -57,7 +57,9 @@ const Navbar = () => {
         <Link href="/CadastroGuia" passHref>
           <button className={styles['button-outline']}>Cadastrar</button>
         </Link>
+        <Link href="/Login" passHref>
         <button className={styles['button-filled']}>Entrar</button>
+        </Link>
       </div>
     </nav>
   );
