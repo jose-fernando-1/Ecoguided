@@ -1,10 +1,11 @@
-const LandingPage: React.FC = () => {
+import LandingPage from "./LandingPage";
+//import CadastroGuia from "./CadastroGuia";
+const home: React.FC = () => {
     return (
       <div>
-        <h1>Alow</h1>
-        <p>nice</p>
+      <LandingPage/>
       </div>
     );
   };
   
-  export default LandingPage;
+  export default home;
