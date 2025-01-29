@@ -46,11 +46,10 @@
   .sustainableGoals {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
 }
 
 .goal {
-    background-color: #2e747f;
+    background-color: #fff;
     color: #fff;
     padding: 1rem;
     border-radius: 8px;
@@ -58,11 +57,19 @@
     flex: 1 1 calc(50% - 1rem);
     max-width: calc(50% - 1rem);
     box-sizing: border-box; /* Adicionado para garantir que o padding não afete o tamanho */
+    transition: transform 0.3s ease; /* Adicionado para a transição suave */
 }
 
 .goal img {
-    max-width: 50px;
+    max-width: 80px;
+    max-height: 80px;
     margin-bottom: 0.5rem;
+    transition: transform 0.3s ease; /* Adicionado para a transição suave */
+}
+
+/* Efeito de hover para aumentar o tamanho da imagem */
+.goal:hover img {
+    transform: scale(1.1);
 }
 
 .goal p {
@@ -79,4 +86,3 @@
 .contactItem h4 {
   margin-left: 10px;
 }
-

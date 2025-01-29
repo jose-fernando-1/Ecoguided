@@ -1,5 +1,10 @@
 import { Facebook02Icon, XVariableIcon, InstagramIcon, Mail01Icon, TelephoneIcon } from 'hugeicons-react';
 import estilos from '../styles/Footer.module.css';
+import Image from 'next/image';
+import img_ods8 from '../img/ods8.png';
+import img_ods11 from '../img/ods11.png';
+import img_ods12 from '../img/ods12.png';
+import img_ods13 from '../img/ods13.png';
 
 const Footer = () => {
   return (
@@ -43,16 +48,16 @@ const Footer = () => {
         <h3>Objetivos de Desenvolvimento Sustentável</h3>
         <div className={estilos.sustainableGoals}>
           <div className={estilos.goal}>
-            <img src="/icons/education.png" alt="Educação" />
+            <Image src={img_ods8} alt="Ods8" />
           </div>
           <div className={estilos.goal}>
-            <img src="/icons/health.png" alt="Saúde" />
+            <Image src={img_ods11} alt="Ods11" />
           </div>
           <div className={estilos.goal}>
-            <img src="/icons/environment.png" alt="Meio Ambiente" />
+            <Image src={img_ods12} alt="Ods12" />
           </div>
           <div className={estilos.goal}>
-            <img src="/icons/justice.png" alt="Justiça" />
+            <Image src={img_ods13} alt="Ods13" />
           </div>
         </div>
       </div>
