@@ -1,6 +1,6 @@
 .footer {
     background-color: #fff;
-    color: #2e747f;
+    color: #000000;
     padding: 2rem 1rem;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -15,7 +15,7 @@
   
   .socialIcons a {
     margin-right: 1rem;
-    color: #2e747f;
+    color: #000000;
     font-size: 1.5rem;
     transition: color 0.3s ease;
   }
@@ -35,7 +35,7 @@
   
   .footerSection ul li a {
     text-decoration: none;
-    color: #2e747f;
+    color: #000000;
     transition: color 0.3s ease;
   }
   

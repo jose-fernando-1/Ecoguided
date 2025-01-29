@@ -27,11 +27,11 @@ const Footer = () => {
         <h3>Contato</h3>
         <div className={estilos.contactItem}>
           <Mail01Icon/>
-          <h4>contato@ecoturismo.com</h4>
+          <h4>contato@ecoguided.com</h4>
         </div>
         <div className={estilos.contactItem}>
           <TelephoneIcon/>
-          <h4>+55 (81) 98765-4321</h4>
+          <h4>+55 (81) XXXX-XXXX</h4>
         </div>
       </div>
 
