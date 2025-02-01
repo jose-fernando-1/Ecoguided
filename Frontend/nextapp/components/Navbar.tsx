@@ -46,7 +46,7 @@ const Navbar = () => {
   return (
     <nav className={styles['top-bar']}>
       <div className={styles['logo']}>
-        <Image src={img_logo} alt="Eco-Guided Logo" width={150} height={35} />
+        <Image src={img_logo} alt="Eco-Guided Logo" width={190} height={35} />
       </div>
       <div className={styles['nav-links']}>
         <a className={styles['link']} href="">Os mais Procurados</a>
