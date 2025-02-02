@@ -10,5 +10,6 @@ urlpatterns = [
     re_path('users/signup', views.signup),
     re_path('users/login', views.login),
     re_path('users/logout', views.logout),
+    re_path('users/preferences', views.UserPreferenceView.as_view(), name='create-preference'),
 
 ]
