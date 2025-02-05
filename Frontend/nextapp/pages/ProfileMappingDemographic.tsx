@@ -74,10 +74,10 @@ const DemographicPage = () => {
 
         {/* Botões de Navegação */}
         <div className={styles.navigation}>
-          <button className={styles.navButton}>
+          <button className={styles.navButton} onClick={() => window.location.href = '/ProfileMapping'}>
             <ArrowLeft02Icon /> Anterior
           </button>
-          <button className={`${styles.navButton} ${styles.nextButton}`}>
+          <button className={`${styles.navButton} ${styles.nextButton}`} onClick={() => window.location.href = '/ProfileMappingLifestyle'}>
             Próximo <ArrowRight02Icon />
           </button>
         </div>
