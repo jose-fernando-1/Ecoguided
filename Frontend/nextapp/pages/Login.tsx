@@ -19,7 +19,7 @@ const Login: React.FC = () => {
               <input type="password" id="password" className={styles.input} required />
             </div>
             <div className={styles['div-castrar-and-button']}>
-              <a className={styles.a} href="">Cadastra-se</a>
+              <a className={styles.a} href="/ProfileMapping">Cadastra-se</a>
               <button type="submit" className={styles.button}>Entrar</button>
             </div>
           </form>
