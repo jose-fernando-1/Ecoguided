@@ -71,7 +71,7 @@ const LifestylePage = () => {
           <button className={styles.navButton} onClick={() => window.location.href = '/ProfileMappingDemographic'}>
             <ArrowLeft02Icon /> Anterior
           </button>
-          <button className={`${styles.navButton} ${styles.nextButton}`} onClick={() => window.location.href = '/ProfileMappingLifestyle'}>
+          <button className={`${styles.navButton} ${styles.nextButton}`} onClick={() => window.location.href = '/ProfileMappingFinance'}>
             Próximo <ArrowRight02Icon />
           </button>
         </div>
