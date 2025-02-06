@@ -1,0 +1,139 @@
+/* Estilos para a página FeedGuia ajustado para melhor estética */
+
+/* Container principal da página */
+.container {
+    padding: 2rem; /* Adiciona espaçamento interno */
+    font-family: Arial, sans-serif; /* Define a fonte padrão */
+    background-color: #f8f9fa; /* Define um fundo levemente acinzentado */
+}
+
+/* Seção do perfil contendo formulário e detalhes do perfil */
+.profileSection {
+    display: flex; /* Usa flexbox para alinhar os elementos */
+    gap: 4rem; /* Define um espaçamento entre os blocos */
+    margin-bottom: 2rem; /* Adiciona espaçamento inferior */
+    align-items: flex-start; /* Alinha os itens no início do eixo transversal */
+    margin-top: 2rem; /* Aumenta a distância do topo para evitar sobreposição */
+}
+
+/* Container do formulário de entrada de dados */
+.formContainer {
+    display: flex; /* Usa flexbox para organizar os elementos */
+    flex-direction: column; /* Organiza os elementos em coluna */
+    gap: 1rem; /* Adiciona espaçamento entre os inputs */
+    width: 40%; /* Define a largura do formulário */
+    background: white; /* Define um fundo branco */
+    padding: 2rem; /* Adiciona espaçamento interno */
+    border-radius: 10px; /* Arredonda os cantos */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona sombra */
+    margin-top: 1.5rem; /* Adiciona margem superior para evitar colisão com elementos acima */
+}
+
+/* Estilização dos campos de entrada no formulário */
+.formContainer input {
+    padding: 0.8rem; /* Adiciona espaçamento interno */
+    border: 1px solid #ccc; /* Define uma borda cinza clara */
+    border-radius: 5px; /* Arredonda os cantos */
+}
+
+/* Seção dos detalhes do perfil */
+.profileDetails {
+    flex-grow: 1; /* Permite que o elemento cresça para ocupar espaço disponível */
+    background: white; /* Define um fundo branco */
+    padding: 2rem; /* Adiciona espaçamento interno */
+    border-radius: 10px; /* Arredonda os cantos */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona sombra */
+    margin-top: 1.5rem; /* Adiciona margem superior para evitar colisão com elementos acima */
+}
+
+/* Estilização da área de classificação */
+.rating {
+    font-size: 1.5rem; /* Define o tamanho da fonte das estrelas */
+    margin: 1rem 0; /* Adiciona espaçamento acima e abaixo */
+}
+
+/* Container para os botões de ação */
+.buttons {
+    display: flex; /* Usa flexbox para alinhar os botões */
+    gap: 1rem; /* Define espaçamento entre os botões */
+}
+
+/* Estilização dos botões */
+.buttons button {
+    padding: 0.8rem 1.5rem; /* Define o espaçamento interno */
+    border: none; /* Remove a borda */
+    border-radius: 5px; /* Arredonda os cantos */
+    cursor: pointer; /* Define o cursor como ponteiro ao passar por cima */
+}
+
+/* Botão de edição */
+.edit {
+    background-color: #007bff; /* Define cor azul */
+    color: white; /* Define cor do texto */
+}
+
+/* Botão de cancelamento */
+.cancel {
+    background-color: #dc3545; /* Define cor vermelha */
+    color: white; /* Define cor do texto */
+}
+
+/* Botão de confirmação */
+.confirm {
+    background-color: #28a745; /* Define cor verde */
+    color: white; /* Define cor do texto */
+}
+
+/* Estilização das categorias de ecotrip */
+.tags {
+    display: flex; /* Usa flexbox para organizar as tags */
+    flex-wrap: wrap; /* Permite quebra de linha */
+    gap: 1rem; /* Define espaçamento entre os elementos */
+    margin-bottom: 2rem; /* Adiciona espaçamento inferior */
+}
+
+.tags button {
+    background-color: #f1f1f1; /* Define cor de fundo */
+    border: none; /* Remove borda */
+    padding: 0.8rem; /* Define espaçamento interno */
+    border-radius: 20px; /* Arredonda os cantos */
+    cursor: pointer; /* Define cursor como ponteiro */
+}
+
+/* Seção de passeios disponíveis */
+.trips {
+    display: flex; /* Usa flexbox para organizar os cartões */
+    flex-wrap: wrap; /* Permite quebra de linha */
+    gap: 2rem; /* Define espaçamento entre os cartões */
+    justify-content: center; /* Centraliza os elementos */
+}
+
+/* Cartão de passeio individual */
+.card {
+    background-color: white; /* Define fundo branco */
+    border-radius: 10px; /* Arredonda os cantos */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona sombra */
+    padding: 1rem; /* Define espaçamento interno */
+    width: 280px; /* Define largura do cartão */
+    text-align: center; /* Centraliza o texto */
+}
+
+.card img {
+    border-radius: 10px; /* Arredonda os cantos da imagem */
+    width: 100%; /* Define a largura total da imagem */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+/* Botão para adicionar novo passeio */
+.newTrip {
+    display: block; /* Exibe o botão como bloco */
+    margin: 2rem auto; /* Centraliza horizontalmente */
+    padding: 1rem 2rem; /* Define espaçamento interno */
+    border: none; /* Remove borda */
+    background-color: #004d40; /* Define cor de fundo verde escuro */
+    color: white; /* Define cor do texto */
+    font-size: 1.2rem; /* Define tamanho da fonte */
+    border-radius: 10px; /* Arredonda os cantos */
+    cursor: pointer; /* Define cursor como ponteiro */
+    width: 300px; /* Define largura do botão */
+}
