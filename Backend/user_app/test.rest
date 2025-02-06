@@ -1,17 +1,28 @@
 POST http://127.0.0.1:8000/api/users/signup
 Content-Type: application/json
 
-{ "username": "bob", "password": "bob", "email": "a@mail.com", "cpf":"92342273990", "is_guide": "False"}
+{ "username": "notguide", "password": "guide", "email": "nguide@mail.com", "cpf":"12345678910", "is_guide": "False"}
+
+###
+POST http://127.0.0.1:8000/api/users/signup
+Content-Type: application/json
+
+{ "username": "guide", "password": "guide", "email": "guide@mail.com", "cpf":"12345678911","licenca":"1", "is_guide": "True"}
+###
+POST http://127.0.0.1:8000/api/users/signup
+Content-Type: application/json
+
+{ "username": "guide2", "password": "guide2", "email": "guide2@mail.com", "cpf":"02345678911","licenca":"2", "is_guide": "True"}
 
 ###
 
 POST http://127.0.0.1:8000/api/users/login
 Content-Type: application/json
 
-{ "username": "juba", "password": "vfde2323"}
+{ "username": "guide", "password": "guide"}
 
 ###
-GET http://127.0.0.1:8000/user/users
+GET http://127.0.0.1:8000/api/users/
 
 Content-Type: application/json
 
@@ -19,35 +30,66 @@ Content-Type: application/json
 
 POST http://127.0.0.1:8000/user/logout 
 Content-Type: application/json
-Authorization: token 3b40b7353d5baf1cc330ad89067c2c30caa4f6b4
+Authorization: token 
 
-{"token": "a"}
 
 # Requisição cadastro ecoturista
-POST http://127.0.0.1:8000/user/signup/tourist 
+POST http://127.0.0.1:8000/user/signup/ 
 Content-Type: application/json
 
-{ "username": "bob",
-  "email": "bob@mail.com", 
+{ "username": "turista",
+  "email": "turista@mail.com", 
   "cpf":"12345678990",
-  "password": "bob",
-  "telefone": "123456789"}
-
-# Requisição cadastro guia
-POST http://127.0.0.1:8000/user/signup/guide 
-Content-Type: application/json
-
-{ "username": "guia1",
-  "email": "guia1@mail.com", 
-  "cpf":"12345678910",
-  "password": "123456789",
+  "password": "turista",
   "telefone": "123456789"}
 
 ###
 
 POST http://127.0.0.1:8000/api/trips/register_for_trip/
 Content-Type: application/json
-Authorization: token 394bfe13ba562a19e759144f09973d4180585366
+Authorization: token 10ebd1bf1396e814ecf4dd870290d719f9f0f68e
 
 { "id_viagem": 1}
+###
+PATCH http://127.0.0.1:8000/api/trips/1/
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="photo"; filename="Screenshot_2025-01-15_140318.png"
+Content-Type: image/png
+C:\Users\mhmon\Desktop\imgs\greenpeace.jpg
+--boundary--
+
+
+###
+
+POST http://127.0.0.1:8000/api/trips/
+Content-Type: application/json
+Authorization: token 4b65d8c539bfffbb36e8de8df963ecd0cc14f79c
+
+
+{ "title": "Viagem",
+    "description": "Viagem uau",
+    "date": "2025-01-29",
+    "location": "Recife",
+    "max_participants": 5,
+    "price": 8.0,
+    "category": "trilha",
+    "guide": 1}
+
+###
+PATCH http://127.0.0.1:8000/api/trips/2/
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="photo"; filename="Screenshot_2025-01-15_140318.jpg"
+Content-Type: image/jpg
+C:\Users\mhmon\Desktop\imgs\1200px-Rainforest.jpg
+--boundary--
+
+###
+
+GET http://127.0.0.1:8000/api/get_trips/
+Content-Type: application/json
+
 

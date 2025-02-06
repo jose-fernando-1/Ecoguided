@@ -18,7 +18,7 @@ class Trip(models.Model):
     max_participants = models.PositiveIntegerField(default=10)  # Limite de participantes
     price = models.FloatField() # Preço do passeio
     category = models.CharField(max_length=100, choices=categories) # Categoria do passeio
-    photo = models.ImageField(upload_to='trips/')
+    photo = models.ImageField(upload_to='trips/', null=True)
 
     def __str__(self):
         return f"{self.title} - {self.guide}"
