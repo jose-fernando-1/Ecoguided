@@ -2,8 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/FeedGuia.module.css';
 import NavbarCadastro from '../components/NavbarCadastro';
+import Carousel from '../components/FeedGuiaCarousel';
 
 const FeedGuia = () => {
+  const trips = ['Reserva da Mantiqueira', 'Praia dos Carneiros', 'Cachoeira Diamantina', 'Praia de Porto de Galinhas'];
+
   return (
     <div className={styles.container}>
       <NavbarCadastro />
@@ -42,16 +45,7 @@ const FeedGuia = () => {
       </div>
       
       <h2>Passeios</h2>
-      <div className={styles.trips}>
-        {['Reserva da Mantiqueira', 'Praia dos Carneiros', 'Cachoeira Diamantina', 'Praia de Porto de Galinhas'].map((trip, index) => (
-          <div key={index} className={styles.card}>
-            <Image src={`/images/trip${index + 1}.jpg`} alt={trip} width={300} height={200} />
-            <h3>{trip}</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <button>Editar</button>
-          </div>
-        ))}
-      </div>
+      <Carousel trips={trips} />
       
       <button className={styles.newTrip}>Novo Passeio</button>
     </div>

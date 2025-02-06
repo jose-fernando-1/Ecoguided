@@ -68,7 +68,7 @@
 
 /* Botão de edição */
 .edit {
-    background-color: #007bff; /* Define cor azul */
+    background-color: #2e747f; /* Define cor azul */
     color: white; /* Define cor do texto */
 }
 
@@ -136,4 +136,16 @@
     border-radius: 10px; /* Arredonda os cantos */
     cursor: pointer; /* Define cursor como ponteiro */
     width: 300px; /* Define largura do botão */
+}
+
+/* Estilização do botão de editar nos passeios */
+.tripEditButton {
+    background-color: #2e747f; /* Define cor azul */
+    color: white; /* Define cor do texto */
+    font-weight: bold; /* Define o texto em negrito */
+    border: none; /* Remove a borda */
+    border-radius: 5px; /* Arredonda os cantos */
+    padding: 0.8rem 1.5rem; /* Define o espaçamento interno */
+    cursor: pointer; /* Define o cursor como ponteiro */
+    margin-top: 1rem; /* Adiciona margem superior */
 }
