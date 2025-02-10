@@ -1,1 +1,55 @@
+# Python environment and dependencies
+env
+db.sqlite3
+venv
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environments
+.Python
+env/
+.venv/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+.eggs/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# PyCharm project files
+.idea/
+
+# PyTest cache
+.pytest_cache/
+
+# Coverage
+.coverage
+coverage.xml
+
+# Tox
+.tox/
+.cache/
+.python-version
+
+# Developers
+*.sw*
+manage.py
+.DS_Store
+
+# Example database
+drf_example
+
+# Node.js dependencies
 node_modules/
