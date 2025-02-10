@@ -1,0 +1,50 @@
+.carouselContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative; /* Adiciona posição relativa para o contêiner */
+  padding-bottom: 3rem; /* Adiciona espaço inferior para a paginação */
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+}
+
+.cardImage {
+  border-radius: 10px;
+  width: 100%;
+  height: auto;
+}
+
+.cardContent {
+  margin-top: 1rem;
+}
+
+.cardTitle {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.cardDescription {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cardButton {
+  background-color: #2e747f;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  padding: 0.8rem 1.5rem;
+  cursor: pointer;
+}
+
+/* Ajuste da posição da paginação */
+.swiper-pagination {
+  bottom: 10px; /* Ajusta a posição da paginação para baixo */
+}
