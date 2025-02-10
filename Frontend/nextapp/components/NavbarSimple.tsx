@@ -8,7 +8,7 @@ const NavbarSimple = () => {
     <div className={styles['navbar']}>
       <div className={styles['logo']}>
         <Link href="/" passHref>
-            <Image src={logo} alt="Eco-Guided Logo" width={150} height={35} />
+            <Image src={logo} alt="Eco-Guided Logo" width={190} height={35} />
         </Link>
       </div>
     </div>

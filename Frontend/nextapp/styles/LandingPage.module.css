@@ -14,13 +14,13 @@
   display: block;
 }
 
-
 .nav-links {
   display: flex;
   gap: 2rem; 
 }
 
 .link {
+  cursor: pointer;
   text-decoration: none; 
   color: #000; 
   font-size: 1rem;
@@ -30,6 +30,10 @@
 
 .link:hover {
   color: #2e747f; 
+}
+
+.nav-links :global(a) {
+  text-decoration: none; 
 }
 
 .nav-buttons {

@@ -2,8 +2,10 @@
 
 .h1 {
     text-align: left;
-    margin-left: 8rem;
+    font-size: 20px;
     font-weight: bold;
+    margin-left: 8rem;
+    font-family: 'Roboto', sans-serif;
     color: #2a3b33;
     margin-top: 4rem;
 }
@@ -14,20 +16,18 @@
 }
 
 .headerIcon {
- display: flex;
- flex-direction: row;
-align-items: center;
-justify-content: center;
-gap: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    gap: 1rem;
 }
 
 .headerIcon .icon {
     margin-top: 4.1rem;
 }
 
-
-
-.iconesTextos{
+.iconesTextos {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,7 +49,7 @@ gap: 1rem;
     line-height: 1.5;
 }
 
-.iconTextContainer .icon{
+.iconTextContainer .icon {
     margin-bottom: 0.5rem;
 }
 
@@ -58,7 +58,8 @@ gap: 1rem;
     flex-direction: column;
     align-items: center;
     padding: 2rem;
-    background-color: #edf2f7; /* Fundo levemente cinza */
+    background-color: #edf2f7;
+    /* Fundo levemente cinza */
     border-radius: 8px;
     margin: 2rem auto;
     width: 80%;
