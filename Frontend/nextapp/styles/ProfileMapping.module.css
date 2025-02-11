@@ -53,5 +53,9 @@
 }
 
 .button:hover {
-  background-color: #2a7d74;
+  background-color: #3b9288;
+}
+
+.button-link {
+  text-decoration: none;
 }
