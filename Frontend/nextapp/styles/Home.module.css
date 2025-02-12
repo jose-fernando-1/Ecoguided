@@ -1,0 +1,28 @@
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  .header {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .ecotripHighlight {
+    color: #2e747f; /* Azul similar ao usado nos botões */
+    font-weight: bold;
+  }
+  
