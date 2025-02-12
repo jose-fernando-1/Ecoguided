@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from '../styles/ProfileMappingLifestyle.module.css';
 import NavbarSimple from '../components/NavbarSimple';
 import { ArrowRight02Icon, ArrowLeft02Icon } from 'hugeicons-react';
+import Link from 'next/link';
 
 const LifestylePage = () => {
   const [selectedEcotrip, setSelectedEcotrip] = useState('Observação de Pássaros');
@@ -68,12 +69,16 @@ const LifestylePage = () => {
 
         {/* Botões de Navegação */}
         <div className={styles.navigation}>
-          <button className={styles.navButton} onClick={() => window.location.href = '/ProfileMappingDemographic'}>
-            <ArrowLeft02Icon /> Anterior
-          </button>
-          <button className={`${styles.navButton} ${styles.nextButton}`} onClick={() => window.location.href = '/ProfileMappingFinance'}>
-            Próximo <ArrowRight02Icon />
-          </button>
+          <Link href="/ProfileMappingDemographic" passHref legacyBehavior>
+            <button className={styles.navButton}>
+              <ArrowLeft02Icon /> Anterior
+            </button>
+          </Link>
+          <Link href="/ProfileMappingFinance" passHref legacyBehavior>
+            <button className={`${styles.navButton} ${styles.nextButton}`}>
+              Próximo <ArrowRight02Icon />
+            </button>
+          </Link>
         </div>
       </div>
     </div>

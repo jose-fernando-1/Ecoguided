@@ -17,6 +17,7 @@ const Carousel = () => {
         slidesPerView={3}
         navigation
         pagination={{ clickable: true }}
+        loop={true}
         breakpoints={{
           1024: { slidesPerView: 3 }, 
           768: { slidesPerView: 2 },  
