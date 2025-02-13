@@ -1,16 +1,15 @@
+# Python environment and dependencies
 env
 db.sqlite3
 venv
-# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-
-# C extensions
 *.so
 
-# Distribution / packaging
+# Virtual environments
 .Python
 env/
+.venv/
 build/
 develop-eggs/
 dist/
@@ -29,7 +28,7 @@ var/
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Pycharm project files
+# PyCharm project files
 .idea/
 
 # PyTest cache
@@ -44,13 +43,13 @@ coverage.xml
 .cache/
 .python-version
 
-# VirtualEnv
-.venv/
-
 # Developers
 *.sw*
 manage.py
 .DS_Store
 
-# example database
+# Example database
 drf_example
+
+# Node.js dependencies
+node_modules/

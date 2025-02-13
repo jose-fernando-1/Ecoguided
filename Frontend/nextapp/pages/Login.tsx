@@ -18,7 +18,10 @@ const Login: React.FC = () => {
               <label htmlFor="password" className={styles.label}>Password</label>
               <input type="password" id="password" className={styles.input} required />
             </div>
-            <button type="submit" className={styles.button}>Login</button>
+            <div className={styles['div-castrar-and-button']}>
+              <a className={styles.a} href="/ProfileMapping">Cadastra-se</a>
+              <button type="submit" className={styles.button}>Entrar</button>
+            </div>
           </form>
         </div>
       </div>

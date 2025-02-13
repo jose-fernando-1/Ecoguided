@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import styles from '../styles/LandingPage.module.css';
 import Navbar from '../components/Navbar';
 import { ArrowRight02Icon  } from 'hugeicons-react';
