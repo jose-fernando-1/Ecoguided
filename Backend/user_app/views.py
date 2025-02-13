@@ -8,8 +8,8 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
-from .models import CustomUser, UserPreference
-from .serializers import CustomUserSerializer, GuideSerializer, UserPreferenceSerializer
+from .models import CustomUser, UserPreference, PreferenceCategory
+from .serializers import CustomUserSerializer, GuideSerializer, UserPreferenceSerializer,PreferenceCategorySerializer
 from django.contrib.auth import get_user_model
 
 User = get_user_model()  # Obter usuário customizado, é necessário por conta da autenticação
@@ -41,19 +41,7 @@ def signup(request):
         return Response({'token': token.key, 'user': serializer.data})
     return Response(serializer.errors, status=status.HTTP_200_OK)
 
-'''
-@api_view(['POST'])
 
-@permission_classes([Token])
-def subscribe_into_trip(request):
-    participante = get_object_or_404(User, username=request.data['username'] ou id)
-    trip = get_object_or_404(Trip, id=request.data['id_viagem'])
-    
-    trip = Trip.objects.get(trip = trip)
-    if trip.get_avaliable_slots():
-        trip.participants.add(participant)
-
-'''
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login(request):
@@ -76,9 +64,21 @@ def logout(request):
     return Response({'message': 'Logout realizado com sucesso!'}, status=status.HTTP_200_OK)
 
 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+class UserRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+    def perform_destroy(self, instance):
+        return super().perform_destroy(instance)
+    
+    
+    
+    
+    
 class UserPreferenceView(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [TokenAuthentication]
+    permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
         user = request.user  # Obtém o usuário autenticado
@@ -106,3 +106,13 @@ class UserList(APIView):
         return Response(serializer.data)
 
 
+# Preferências Categóricas
+class PreferenceCategoryView(generics.ListCreateAPIView):
+    queryset = PreferenceCategory.objects.all()
+    serializer_class = PreferenceCategorySerializer
+    permission_classes = [AllowAny]
+
+class PreferenceCategoryRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = PreferenceCategory.objects.all()
+    serializer_class = PreferenceCategorySerializer
+    permission_classes = [AllowAny]
