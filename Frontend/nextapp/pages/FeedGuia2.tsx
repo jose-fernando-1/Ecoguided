@@ -3,7 +3,7 @@ import ImageUploader from "../components/ImageUploader";
 import TripSelector from "../components/TripSelector";
 import EditableText from "../components/EditableText";
 import Button from "../components/Button";
-import Navbar from "../components/Navbar";
+import NewNavbar from "../components/NewNavbar";
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
 
@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <Navbar />
+      <NewNavbar userName="Niciu" />
       
       <main className={styles.main}>
         <h1 className={styles.title}></h1>

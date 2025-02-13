@@ -1,28 +1,70 @@
+/* Container principal centralizado com largura máxima */
 .container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-  }
-  
-  .header {
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .main {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Layout do main centralizado em coluna */
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Define espaçamento e largura para seções de input */
+.inputSection {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+/* Responsividade para o container do uploader */
+.imageUploaderContainer {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+/* Responsividade para o container do seletor de passeios */
+.tripSelectorContainer {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+/* Botões centralizados e responsivos */
+.buttonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* Títulos e subtítulos com espaçamento e centralização */
+.title, .subtitle {
+  text-align: center;
+  width: 100%;
+}
+
+/* Ajustes responsivos para telas menores */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 0.5rem;
   }
   
   .buttonContainer {
-    display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .ecotripHighlight {
-    color: #2e747f; /* Azul similar ao usado nos botões */
-    font-weight: bold;
-  }
-  
+}
+
+.header {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.ecotripHighlight {
+  color: #2e747f; /* Azul similar ao usado nos botões */
+  font-weight: bold;
+}
