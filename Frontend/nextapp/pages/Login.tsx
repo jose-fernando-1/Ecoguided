@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../styles/Login.module.css';
 import NavbarSimple from '../components/NavbarSimple';
+import Link from 'next/link';
 
 const Login: React.FC = () => {
   return (
@@ -19,7 +20,11 @@ const Login: React.FC = () => {
               <input type="password" id="password" className={styles.input} required />
             </div>
             <div className={styles['div-castrar-and-button']}>
-              <a className={styles.a} href="/ProfileMapping">Cadastra-se</a>
+              <Link href="/ProfileMapping">
+              <button className={styles['button']}>
+                Cadastre-se
+              </button>
+              </Link>
               <button type="submit" className={styles.button}>Entrar</button>
             </div>
           </form>

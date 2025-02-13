@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import styles from '../styles/ProfileMappingWelcome.module.css';
 import NavbarSimple from '../components/NavbarSimple';
 
 const ProfileMappingWelcome = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push('/');
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, [router]);
+
   return (
     <div className={styles.container}>
       <div className={styles.navbar}>
