@@ -41,7 +41,7 @@ const CadastroGuia = () => {
 
             if (response.ok) {
                 alert('Cadastro efetuado!');
-                router.push('/CadastroPasseioGuia');
+                router.push('/FeedGuia');
             } else {
                 const error = await response.json();
                 alert(`Erro: ${error.message}`);
