@@ -3,9 +3,14 @@ import Link from 'next/link';
 import styles from '../styles/FeedGuia.module.css';
 import NavbarCadastro from '../components/NavbarCadastro';
 import Carousel from '../components/FeedGuiaCarousel';
+import router from 'next/router'
 
 const FeedGuia = () => {
   const trips = ['Reserva da Mantiqueira', 'Praia dos Carneiros', 'Cachoeira Diamantina', 'Praia de Porto de Galinhas'];
+  const handleNewTrip = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    router.push('/CadastroPasseioGuia')
+  }
 
   return (
     <div className={styles.container}>
@@ -46,11 +51,11 @@ const FeedGuia = () => {
 
       <h2>Passeios</h2>
       <Carousel trips={trips} />
-      <Link href="/NovoPasseio" className={styles['button-link']}>
-        <button className={styles.newTrip}>Novo Passeio</button>
-      </Link>
+      <button className={styles.newTrip} onClick={handleNewTrip}>
+        Novo Passeio
+      </button>
     </div>
-  );
-};
+  )
+}
 
 export default FeedGuia;
