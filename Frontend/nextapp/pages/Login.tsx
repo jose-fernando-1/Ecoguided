@@ -29,8 +29,13 @@ const Login: React.FC = () => {
       });
 
       if (response.ok) {
+
+        const responseData =  await response.json();
+        const token = responseData.token;
+        localStorage.setItem('sessionToken', token);
         alert('Login efetuado');
         router.push('/LandingPage');
+
       } else {
         const error = await response.json();
         alert(`Erro: ${error.message}`);
@@ -57,9 +62,9 @@ const Login: React.FC = () => {
               <label htmlFor="password" className={styles.label}>Password</label>
               <input type="password" id="password" className={styles.input} required />
             </div>
-            <div className={styles['div-castrar-and-button']}>
-              <Link href="/Cadastro">
-                <a className={styles['button']}>Cadastre-se</a>
+            <div className={styles['div-cadastrar-and-button']}>
+              <Link href="/Cadastro" className={styles['button']}>
+                Cadastre-se
               </Link>
               <button type="submit" className={styles.button}>Entrar</button>
             </div>
