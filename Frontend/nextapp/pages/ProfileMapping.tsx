@@ -1,6 +1,7 @@
 import styles from '../styles/ProfileMapping.module.css';
 import { ArrowRight02Icon } from 'hugeicons-react';
 import NavbarSimple from '../components/NavbarSimple';
+import Link from 'next/link';
 
 const ProfileMapping = () => {
   return (
@@ -13,9 +14,11 @@ const ProfileMapping = () => {
         <p className={styles['description']}>
           Iniciaremos um <span className={styles['highlight']}>mapeamento de perfil</span> para podermos trazer as opções que mais combinam com você.
         </p>
-        <button className={styles['start-button']} onClick={() => window.location.href = '/ProfileMappingDemographic'}>
+        <Link href="/ProfileMappingDemographic" className={styles['button-link']}>
+        <button className={styles['button']}>
           Iniciar <ArrowRight02Icon />
-        </button>
+          </button>
+        </Link>
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ from django.db import models
 class CustomUser(AbstractUser):
     profile_photo = models.ImageField(upload_to='users/', null=True)
 
-    cpf = models.CharField(max_length=12, blank=False, null=False, unique=True)
+    cpf = models.CharField(max_length=14, blank=False, null=False, unique=True)
     telefone = models.CharField(max_length=15, blank=True, null=True)
     endereco = models.CharField(max_length=15, blank=True, null=True)
 

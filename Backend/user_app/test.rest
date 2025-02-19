@@ -1,3 +1,19 @@
+Para rodar as requisições nesse arquivo `.rest`, você pode usar a extensão [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) no Visual Studio Code.
+
+### Passos para instalar e usar a extensão REST Client:
+
+1. **Instalar a extensão REST Client**:
+    - Abra o Visual Studio Code.
+    - Vá para a aba de extensões (ícone de quadrado no lado esquerdo ou `Ctrl+Shift+X`).
+    - Pesquise por "REST Client" e instale a extensão desenvolvida por `humao`.
+
+2. **Usar a extensão REST Client**:
+    - Abra o arquivo `.rest` no Visual Studio Code.
+    - Você verá um botão "Send Request" acima de cada requisição. Clique nele para enviar a requisição.
+    - A resposta será exibida em um painel separado dentro do Visual Studio Code.
+
+### Exemplo de como o arquivo deve ser formatado:
+
 POST http://127.0.0.1:8000/api/users/signup
 Content-Type: application/json
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from '../styles/ProfileMappingDemographic.module.css';
 import { ArrowRight02Icon, ArrowLeft02Icon } from 'hugeicons-react';
 import NavbarSimple from '../components/NavbarSimple';
+import Link from 'next/link';
 
 const statesOfBrazil = [
   'Acre', 'Alagoas', 'Amapá', 'Amazonas', 'Bahia', 'Ceará', 'Distrito Federal', 'Espírito Santo',
@@ -74,12 +75,16 @@ const DemographicPage = () => {
 
         {/* Botões de Navegação */}
         <div className={styles.navigation}>
-          <button className={styles.navButton} onClick={() => window.location.href = '/ProfileMapping'}>
-            <ArrowLeft02Icon /> Anterior
-          </button>
-          <button className={`${styles.navButton} ${styles.nextButton}`} onClick={() => window.location.href = '/ProfileMappingLifestyle'}>
-            Próximo <ArrowRight02Icon />
-          </button>
+          <Link href="/ProfileMapping" passHref legacyBehavior>
+            <button className={styles.navButton}>
+              <ArrowLeft02Icon /> Anterior
+            </button>
+          </Link>
+          <Link href="/ProfileMappingLifestyle" passHref legacyBehavior>
+            <button className={`${styles.navButton} ${styles.nextButton}`}>
+              Próximo <ArrowRight02Icon />
+            </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from '../styles/ProfileMappingEco.module.css';
 import NavbarSimple from '../components/NavbarSimple';
 import { ArrowRight02Icon, ArrowLeft02Icon } from 'hugeicons-react';
+import Link from 'next/link';
 
 const ProfileMappingEco = () => {
   const [selectedEcoRelevance, setSelectedEcoRelevance] = useState('Muito Importante');
@@ -64,12 +65,16 @@ const ProfileMappingEco = () => {
         </div>
 
         <div className={styles.navigation}>
-          <button className={styles.navButton} onClick={() => window.location.href = '/ProfileMappingFinance'}>
-            <ArrowLeft02Icon /> Anterior
-          </button>
-          <button className={`${styles.navButton} ${styles.nextButton}`} onClick={() => window.location.href = '/ProfileMappingWelcome'}>
-            Finalizar <ArrowRight02Icon />
-          </button>
+          <Link href="/ProfileMappingFinance" passHref legacyBehavior>
+            <button className={styles.navButton}>
+              <ArrowLeft02Icon /> Anterior
+            </button>
+          </Link>
+          <Link href="/ProfileMappingWelcome" passHref legacyBehavior>
+            <button className={`${styles.navButton} ${styles.nextButton}`}>
+              Finalizar <ArrowRight02Icon />
+            </button>
+          </Link>
         </div>
       </div>
     </div>

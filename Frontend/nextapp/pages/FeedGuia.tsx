@@ -10,7 +10,7 @@ const FeedGuia = () => {
   return (
     <div className={styles.container}>
       <NavbarCadastro />
-      
+
       <div className={styles.profileSection}>
         <div className={styles.formContainer}>
           <input type="text" placeholder="Nome" />
@@ -19,7 +19,7 @@ const FeedGuia = () => {
           <input type="password" placeholder="Senha" />
           <input type="password" placeholder="Confirmar Senha" />
         </div>
-        
+
         <div className={styles.profileDetails}>
           <Image src="/images/guia.jpg" alt="Foto do Guia" width={250} height={250} className={styles.profileImage} />
           <h2>Biografia</h2>
@@ -36,18 +36,19 @@ const FeedGuia = () => {
           </div>
         </div>
       </div>
-      
+
       <h2>Qual o seu estilo de ecotrip?</h2>
       <div className={styles.tags}>
         {['Observação de Pássaros', 'Água Trekking', 'Trilhas e Caminhadas', 'Eco-Diving', 'Arborismo', 'Passeios a Cavalo', 'Canoagem e Caiaque', 'Ciclismo de Montanha'].map(tag => (
           <button key={tag}>{tag}</button>
         ))}
       </div>
-      
+
       <h2>Passeios</h2>
       <Carousel trips={trips} />
-      
-      <button className={styles.newTrip}>Novo Passeio</button>
+      <Link href="/NovoPasseio" className={styles['button-link']}>
+        <button className={styles.newTrip}>Novo Passeio</button>
+      </Link>
     </div>
   );
 };
