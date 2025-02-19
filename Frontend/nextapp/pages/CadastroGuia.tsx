@@ -17,6 +17,8 @@ const CadastroGuia = () => {
         const confirmarSenha = (document.getElementById('confirmarSenha') as HTMLInputElement).value;
         const licenca = (document.getElementById('licenca') as HTMLInputElement).value;
 
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
         if (password !== confirmarSenha) {
             alert('As senhas não coincidem');
             return;
@@ -24,6 +26,16 @@ const CadastroGuia = () => {
 
         if (!username || !cpf || !email || !password || !licenca) {
             alert('Preencha todos os campos');
+            return;
+        }
+
+        if (cpf.length !== 11) {
+            alert('CPF inválido');
+            return;
+        }
+
+        if (!emailRegex.test(email)) {
+            alert('Email inválido');
             return;
         }
 

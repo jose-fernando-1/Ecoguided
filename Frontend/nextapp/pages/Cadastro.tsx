@@ -10,6 +10,7 @@ const Cadastro = () => {
     confirmPassword: '',
     email: '',
     cpf: '',
+    telefone: '',
     is_guide: false,
     licenca: ''
   });
@@ -20,6 +21,7 @@ const Cadastro = () => {
     confirmPassword: string;
     email: string;
     cpf: string;
+    telefone: string;
     is_guide: boolean;
     licenca: string;
   }
@@ -74,8 +76,20 @@ const Cadastro = () => {
           'Content-Type': 'application/json'
         }
       });
-      console.log('Cadastro realizado com sucesso:', response.data);
-    } catch (error) {
+      if (response.status === 200) {
+
+        console.log('Cadastro realizado com sucesso:', response.data);
+        console.log(response);
+        alert('Cadastro efetuado!');
+
+      }
+      else if(response.status === 400) {
+        console.error('Erro ao realizar cadastro:', response.data);
+        alert('Erro ao realizar cadastro. Usuário já existe.');
+      }
+    }
+
+    catch (error) {
       console.error('Erro ao realizar cadastro:', error);
     }
   };
@@ -96,6 +110,10 @@ const Cadastro = () => {
                 <div className={styles.inputGroup}>
                   <label htmlFor="email" className={styles.label}>Email</label>
                   <input type="email" id="email" name="email" className={styles.input} value={formData.email} onChange={handleChange} required />
+                </div>
+                <div className={styles.inputGroup}>
+                  <label htmlFor="telefone" className={styles.label}>Telefone</label>
+                  <input type="text" id="telefone" name="telefone" className={styles.input} value={formData.telefone} onChange={handleChange} required />
                 </div>
               </div>
               <div className={styles.rightColumn}>
