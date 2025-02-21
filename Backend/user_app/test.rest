@@ -22,7 +22,9 @@ Content-Type: application/json
 POST http://127.0.0.1:8000/api/users/login
 Content-Type: application/json
 
-{ "username": "guide", "password": "a"}
+{ "username": "guia2", "password": "22222222"}
+//{ "username": "pref", "password": "123"}
+
 ###
 
 POST http://127.0.0.1:8000/api/users/login

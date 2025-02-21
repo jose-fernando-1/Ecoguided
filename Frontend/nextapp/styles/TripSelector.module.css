@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .tripButton {
+    padding: 10px 15px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    cursor: pointer;
+    background: white;
+  }
+  
+  .active {
+    background: #007f5f;
+    color: white;
+    border-color: #007f5f;
+  }
+  

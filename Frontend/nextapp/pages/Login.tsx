@@ -2,28 +2,69 @@ import React from 'react';
 import styles from '../styles/Login.module.css';
 import NavbarSimple from '../components/NavbarSimple';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Login: React.FC = () => {
+
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const username = (document.getElementById('username') as HTMLInputElement).value;
+    const password = (document.getElementById('password') as HTMLInputElement).value;
+
+    if (!username || !password) {
+      alert('Preencha todos os campos');
+      return;
+    }
+
+    const data = { username, password };
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+
+        const responseData =  await response.json();
+        const token = responseData.token;
+        localStorage.setItem('sessionToken', token);
+        alert('Login efetuado');
+        router.push('/LandingPage');
+
+      } else {
+        const error = await response.json();
+        alert(`Erro: ${error.message}`);
+      }
+
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+      alert("Houve um erro ao enviar os dados. Tente novamente.");
+    }
+  }
+
   return (
     <div>
       <NavbarSimple />
       <div className={styles.container}>
         <div className={styles.loginBox}>
           <h2 className={styles.title}>Login</h2>
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.inputGroup}>
-              <label htmlFor="email" className={styles.label}>Email</label>
-              <input type="email" id="email" className={styles.input} required />
+              <label htmlFor="username" className={styles.label}>Username</label>
+              <input type="text" id="username" className={styles.input} required />
             </div>
             <div className={styles.inputGroup}>
               <label htmlFor="password" className={styles.label}>Password</label>
               <input type="password" id="password" className={styles.input} required />
             </div>
-            <div className={styles['div-castrar-and-button']}>
-              <Link href="/ProfileMapping">
-              <button className={styles['button']}>
+            <div className={styles['div-cadastrar-and-button']}>
+              <Link href="/Cadastro" className={styles['button']}>
                 Cadastre-se
-              </button>
               </Link>
               <button type="submit" className={styles.button}>Entrar</button>
             </div>
