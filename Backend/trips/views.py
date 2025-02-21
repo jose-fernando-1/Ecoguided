@@ -11,6 +11,9 @@ from rest_framework.exceptions import PermissionDenied
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.generics import ListAPIView
 
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter
+from rest_framework.filters import OrderingFilter
 
 
 
@@ -28,9 +31,9 @@ class TripCreateListView(generics.ListCreateAPIView):
         # Garante que a viagem seja salva para o usuário autenticado
         user = self.request.user
         guide = get_object_or_404(EcoGuide, id=user.id)
-        guide_id = self.request.data.get('guide')
-        if guide.id != int(guide_id):
-            raise ValidationError({"error": "Guia inválido"})
+        # guide_id = self.request.data.get('guide')
+        # if guide.id != int(guide_id):
+        #     raise ValidationError({"error": "Guia inválido"})
         if not isinstance(guide, EcoGuide):  # Verifica se o usuário é uma instância de EcoGuide
             raise PermissionDenied("Apenas guias com licença podem criar viagens.")
         serializer.save(guide=guide)
@@ -69,4 +72,11 @@ def register_for_trip(request):
 class TripsView(ListAPIView):
     serializer_class = TripSerializer
     queryset =  Trip.objects.all()
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     permission_classes = [AllowAny]
+    search_fields = ( 
+        '^title', 
+    )
+    order_fields = ("price",
+                    'date',
+                    )

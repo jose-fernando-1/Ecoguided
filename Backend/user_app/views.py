@@ -12,6 +12,7 @@ from .models import CustomUser, UserPreference, PreferenceCategory
 from .serializers import CustomUserSerializer, GuideSerializer, UserPreferenceSerializer,PreferenceCategorySerializer
 from django.contrib.auth import get_user_model
 
+from django_filters.rest_framework import DjangoFilterBackend
 User = get_user_model()  # Obter usuário customizado, é necessário por conta da autenticação
 
 '''
@@ -79,6 +80,7 @@ class UserRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 class UserPreferenceView(APIView):
     # authentication_classes = [TokenAuthentication]
     permission_classes = [AllowAny]
+    filter_backends = [DjangoFilterBackend]
 
     def post(self, request, *args, **kwargs):
         user = request.user  # Obtém o usuário autenticado
@@ -100,6 +102,8 @@ class UserPreferenceView(APIView):
 
 class UserList(APIView):
     permission_classes = [AllowAny]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['telefone']
     def get(self, request):
         custom_users = CustomUser.objects.all()
         serializer = CustomUserSerializer(custom_users, many=True)
@@ -111,6 +115,8 @@ class PreferenceCategoryView(generics.ListCreateAPIView):
     queryset = PreferenceCategory.objects.all()
     serializer_class = PreferenceCategorySerializer
     permission_classes = [AllowAny]
+    filter_backends = [DjangoFilterBackend]
+
 
 class PreferenceCategoryRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = PreferenceCategory.objects.all()
