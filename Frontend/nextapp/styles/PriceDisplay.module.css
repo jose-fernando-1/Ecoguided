@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Ajuste conforme necessidade (center, left, right) */
+    position: relative;
+    left: 30px;
+  }
+  
+  .originalPrice {
+    font-size: 14px; /* Tamanho do texto do preço original */
+    color: #999;     /* Cor mais clara para indicar preço antigo */
+    text-decoration: line-through; /* Traço no texto para mostrar desconto */
+    margin-bottom: 4px; /* Espaçamento entre o original e o novo preço */
+  }
+  
+  .discountedPrice {
+    font-size: 18px; /* Tamanho do texto do preço com desconto */
+    font-weight: bold;
+    color: #000; /* Cor do preço em destaque */
+  }
+  

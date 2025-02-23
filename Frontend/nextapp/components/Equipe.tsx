@@ -5,7 +5,7 @@ import img_equipe from '../img/img_equipe.png';
 
 const QuemSomos = () => {
   return (
-    <div className={styles.container}>
+    <div id="quem-somos" className={styles.container}>
       <div className={styles.textContainer}>
         <h2 className={styles.title}>
           Quem Somos <span role="img" aria-label="bird">🕊️</span>

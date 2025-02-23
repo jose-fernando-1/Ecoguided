@@ -10,7 +10,7 @@ import img_porto from '../img/img_porto_galinhas.jpg';
 
 const Carousel = () => {
   return (
-    <div className={styles.carouselContainer}>
+    <div id="os-mais-procurados" className={styles.carouselContainer}>
       <Swiper
         modules={[Navigation, Pagination]}
         spaceBetween={20}

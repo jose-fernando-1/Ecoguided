@@ -48,10 +48,10 @@
   color: #2e747f;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  font-family: 'Roboto', sans-serif; /* Adicionado ponto e vírgula */
+  font-family: 'Roboto', sans-serif; 
   font-size: 0.9rem;
 }
 
@@ -151,13 +151,6 @@
   z-index: 1; 
 }
 
-/* .most-wanted {
-  padding: 2rem;
-  text-align: left;
-  color: #000; 
-  font-family: 'Roboto', sans-serif; 
-} */
-
 .most-wanted {
   padding: 0;
   margin: 0;
@@ -172,4 +165,12 @@
   font-weight: bold;
   margin-bottom: 1rem;
 }
+
+.container {
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100%;
+}
+
+
 
