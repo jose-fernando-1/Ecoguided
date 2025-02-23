@@ -5,6 +5,8 @@ import img_chapada from '../img/img_chapada.jpg';
 import Footer from '../components/Footer';
 import Carousel from '../components/Carousel';
 import Equipe from '../components/Equipe';
+import logout from '../scripts/logout';
+import Button from '../components/Button';
 
 const LandingPage = () => {
   return (

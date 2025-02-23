@@ -52,8 +52,14 @@ const CadastroGuia = () => {
             });
 
             if (response.ok) {
-                alert('Cadastro efetuado!');
+
+                //Considera o usuário logado automaticamente após o cadastro
+                const responseData = await response.json();
+                const token = responseData.token;
+                localStorage.setItem('sessionToken', token);
+                alert('Cadastro efetuado e login realizado!');
                 router.push('/FeedGuia');
+
             } else {
                 const error = await response.json();
                 alert(`Erro: ${error.message}`);
