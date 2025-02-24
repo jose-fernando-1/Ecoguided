@@ -1,12 +1,14 @@
 
 ### Exemplo de como o arquivo deve ser formatado:
 
+# Cadastro de usuário padrão
 POST http://127.0.0.1:8000/api/users/signup
 Content-Type: application/json
 
 { "username": "notguide3", "password": "a", "email": "nguidee@mail.com", "cpf":"12345617110", "is_guide": "False"}
 
 ###
+# Cadastro de guia
 POST http://127.0.0.1:8000/api/users/signup
 Content-Type: application/json
 
@@ -14,16 +16,17 @@ Content-Type: application/json
 
 ###
 
+# Ver usuarios cadastrados
 GET http://127.0.0.1:8000/api/users/
 Content-Type: application/json
 
 ###
 
+# Fazer login e receber o token
 POST http://127.0.0.1:8000/api/users/login
 Content-Type: application/json
 
 { "username": "guia2", "password": "22222222"}
-//{ "username": "pref", "password": "123"}
 
 ###
 
@@ -34,29 +37,27 @@ Content-Type: application/json
 
 ###
 
-# POST http://127.0.0.1:8000/api/users/login
-# Content-Type: application/json
-
-# { "username": "juba", "password": "vfde2323"}
-
-###
-
+# Fazer logout (Excluir Token)
 POST http://127.0.0.1:8000/api/users/logout 
 Content-Type: application/json
 Authorization: token 44f0ab236f925dfeb18f60a92391c082c8cfd513
 
+###
+# Cadastro de avaliação (Necessário passar token do user logado, user deve estar na viagem avaliada)
+POST http://127.0.0.1:8000/api/reviews/create_review/
+Content-Type: application/json
+Authorization: token 461a5e09cc0bdc99446afff880d4daf357b76c64
 
-# Requisição cadastro ecoturista
-# POST http://127.0.0.1:8000/user/signup/ 
-# Content-Type: application/json
-
-# { "username": "turista",
-#   "email": "turista@mail.com", 
-#   "cpf":"12345678990",
-#   "password": "turista",
-#   "telefone": "123456789"}
+{ "trip_id": 1,"comment": "passeio legal sla","stars": 2}
 
 ###
+# Edição de avaliação (Necessário passar token do user logado)
+DELETE http://127.0.0.1:8000/api/reviews/edit_review/2/
+Content-Type: application/json
+Authorization: token 461a5e09cc0bdc99446afff880d4daf357b76c64
+
+###
+# Cadastro de passeio (Necessário passar token do guia logado)
 POST http://127.0.0.1:8000/api/trips/
 Content-Type: application/json
 Authorization: token a91ba61d4d14f22be41509246ae75c4eb4b508a2
@@ -72,6 +73,7 @@ Authorization: token a91ba61d4d14f22be41509246ae75c4eb4b508a2
 
 ###
 
+# Requisição para editar foto da viagem
 PATCH http://127.0.0.1:8000/api/trips/1/
 Authorization: Token a91ba61d4d14f22be41509246ae75c4eb4b508a2
 Content-Type: multipart/form-data; boundary=boundary
@@ -84,6 +86,7 @@ Content-Type: image/jpeg
 --boundary--
 ###
 
+# Edição de viagem
 PATCH http://127.0.0.1:8000/api/trips/1/
 Authorization: Token a91ba61d4d14f22be41509246ae75c4eb4b508a2
 Content-Type: application/json
@@ -111,21 +114,19 @@ Content-Type: application/json
 
 ###
 
+# Recuperar todas as viagens cadastradas
 GET http://127.0.0.1:8000/api/get_trips/
 Content-Type: application/json
 
-###
-POST http://127.0.0.1:8000/api/users/login
-Content-Type: application/json
-
-{ "username": "notguide", "password": "a"}
 
 ###
+
+# Cadastrar em viagem (Usuário padrão)
 POST http://127.0.0.1:8000/api/trips/register_for_trip/
 Content-Type: application/json
-Authorization: token 920e38e86dd125d51fdcad4bb9272fb478d2ffc7
+Authorization: token 461a5e09cc0bdc99446afff880d4daf357b76c64
 
-{ "id_viagem": 2}
+{ "id_viagem": 1}
 ###
 # Requisição para pegar id de preferencias multipla escolha
 
@@ -133,6 +134,8 @@ GET  http://127.0.0.1:8000/api/users/category_preferences
 Content-Type: application/json
 
 ###
+
+# Aplicar preferencias ao usuário
 POST  http://127.0.0.1:8000/api/users/preferences 
 Content-Type: application/json
 Authorization: token c4938ff0f7a120be65decd0d573e8aa9db0bcd4c
@@ -151,3 +154,12 @@ Authorization: token c4938ff0f7a120be65decd0d573e8aa9db0bcd4c
 }
 
 ###
+
+# Pesquisar viagem especifica
+GET http://127.0.0.1:8000/api/get_trips/?search=Viagem 
+Content-Type: application/json
+###
+
+# Ordenar por maior preço
+GET http://127.0.0.1:8000/api/get_trips/?ordering=-price 
+Content-Type: application/json

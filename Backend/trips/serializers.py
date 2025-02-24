@@ -1,9 +1,10 @@
 from rest_framework import serializers
 from trips.models import Trip, Review
-from user_app.serializers import GuideSerializer
+from user_app.serializers import GuideSerializer, CustomUserSerializer
 
 
 class ReviewSerializer(serializers.ModelSerializer):
+    author = CustomUserSerializer(read_only=True)
 
     class Meta:
         model = Review
@@ -15,4 +16,4 @@ class TripSerializer(serializers.ModelSerializer):
     guide = GuideSerializer(read_only=True)
     class Meta:
         model = Trip
-        fields = ['id', 'description', 'location', 'guide', 'participants', 'max_participants','price', 'date', 'reviews','photo']
+        fields = ['id','title','description', 'location', 'guide', 'participants', 'max_participants','price', 'date', 'reviews','photo']

@@ -18,10 +18,10 @@ from rest_framework.filters import OrderingFilter
 
 
 
-from .models import Trip
+from .models import Trip, Review
 from user_app.models import CustomUser, EcoGuide
 
-from trips.serializers import TripSerializer
+from trips.serializers import TripSerializer, ReviewSerializer
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 class TripCreateListView(generics.ListCreateAPIView):
@@ -77,6 +77,41 @@ class TripsView(ListAPIView):
     search_fields = ( 
         '^title', 
     )
-    order_fields = ("price",
+    ordering_fields = ("price",
                     'date',
                     )
+
+
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+class ReviewCreateListView(generics.ListCreateAPIView):
+    serializer_class = ReviewSerializer
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        # Pegar id da requisição
+        trip_id = self.request.data.get('trip_id')
+        trip = Trip.objects.get(id=trip_id)
+        if not trip:
+            return Response({"error": "Viagem inválida."}, status=status.HTTP_404_NOT_FOUND)
+        if not trip.participants.filter(id=user.id).exists():
+            return Response({"error": "Você não pode avaliar uma viagem que não participou."}, status=status.HTTP_403_FORBIDDEN)
+        
+        else: 
+            serializer.save(
+                author= user,
+                trip = trip,
+                comment= self.request.data.get('comment'),
+                stars= self.request.data.get('stars'),
+            )
+
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+class ReviewRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+    def get_queryset(self):
+        """Garante que um usuário só pode modificar/excluir sua própria avaliação."""
+        user = self.request.user
+        return Review.objects.filter(author=user)

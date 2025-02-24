@@ -102,8 +102,6 @@ class UserPreferenceView(APIView):
 
 class UserList(APIView):
     permission_classes = [AllowAny]
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['telefone']
     def get(self, request):
         custom_users = CustomUser.objects.all()
         serializer = CustomUserSerializer(custom_users, many=True)
