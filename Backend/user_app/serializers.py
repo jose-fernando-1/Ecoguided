@@ -37,9 +37,7 @@ class UserPreferenceSerializer(serializers.ModelSerializer):
     prefere_viajar_com = serializers.PrimaryKeyRelatedField(
         queryset=PreferenceCategory.objects.filter(category='travel_companion'), many=True
     )
-    prioridade_viagem = serializers.PrimaryKeyRelatedField(
-        queryset=PreferenceCategory.objects.filter(category='travel_priority'), many=True
-    )
+
 
 
     user = serializers.StringRelatedField(read_only=True)  # Retorna `username` do usuário
@@ -52,7 +50,7 @@ class UserPreferenceSerializer(serializers.ModelSerializer):
         fields = [
             'user', 'genero', 'faixa_etaria', 'pais_regiao',
             'estilo_ecotrip', 'prefere_viajar_com', 'viagens_anuais',
-            'orcamento_medio', 'prioridade_viagem',
+            'orcamento_medio',
             'importancia_sustentabilidade',
             'pagaria_por_servicos_sustentaveis', 'participa_ecoturismo',
         ]

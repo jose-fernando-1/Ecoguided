@@ -9,6 +9,8 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from .models import CustomUser, UserPreference, PreferenceCategory
+from trips.models import Trip
+from trips.serializers import TripSerializer
 from .serializers import CustomUserSerializer, GuideSerializer, UserPreferenceSerializer,PreferenceCategorySerializer
 from django.contrib.auth import get_user_model
 
@@ -80,7 +82,6 @@ class UserRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 class UserPreferenceView(APIView):
     # authentication_classes = [TokenAuthentication]
     permission_classes = [AllowAny]
-    filter_backends = [DjangoFilterBackend]
 
     def post(self, request, *args, **kwargs):
         user = request.user  # Obtém o usuário autenticado
@@ -97,6 +98,16 @@ class UserPreferenceView(APIView):
         preferences = get_object_or_404(UserPreference, user=request.user)
         serializer = UserPreferenceSerializer(preferences)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+class UserPreferenceRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UserPreferenceSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        # Retorna as preferências do usuário autenticado
+        return get_object_or_404(UserPreference, user=self.request.user)
 
 
 
@@ -120,3 +131,37 @@ class PreferenceCategoryRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroy
     queryset = PreferenceCategory.objects.all()
     serializer_class = PreferenceCategorySerializer
     permission_classes = [AllowAny]
+    
+    
+class RecommendationSystem(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self,request):
+        user = request.user
+        
+        preferences = get_object_or_404(UserPreference, user=user)
+        trips = Trip.objects.all()
+        budget_map = {'$': 100, '$$': 300, '$$$': 600, '$$$$': 1000, '$$$$$': 2000}  
+        preferred_styles = preferences.estilo_ecotrip.values_list('name', flat=True)
+        preferred_companion = preferences.prefere_viajar_com.values_list('name', flat=True)
+        scored_trips = []
+        for trip in trips:
+            score = 0
+            for tag in trip.tags.all():
+                print(tag.name)
+                if tag.name in preferred_styles:
+                    score += 2
+                elif tag.name in preferred_companion:
+                    score +=1
+            print(score)
+            scored_trips.append((score, trip))
+        # Ordenar os passeios por score (do maior para o menor)
+        scored_trips.sort(reverse=True, key=lambda x: x[0])
+        recommended_trips = [trip[1] for trip in scored_trips]
+
+        # Serializar e retornar os passeios recomendados
+        serializer = TripSerializer(recommended_trips, many=True)
+        return Response(serializer.data)
+
+
+        
