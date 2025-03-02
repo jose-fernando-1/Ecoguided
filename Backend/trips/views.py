@@ -18,10 +18,10 @@ from rest_framework.filters import OrderingFilter
 
 
 
-from .models import Trip, Review
+from .models import Trip, Review, TripTag
 from user_app.models import CustomUser, EcoGuide
 
-from trips.serializers import TripSerializer, ReviewSerializer
+from trips.serializers import TripSerializer, ReviewSerializer, TripTagSerializer
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 class TripCreateListView(generics.ListCreateAPIView):
@@ -77,9 +77,7 @@ class TripsView(ListAPIView):
     search_fields = ( 
         '^title', 
     )
-    ordering_fields = ("price",
-                    'date',
-                    )
+    
 
 
 @authentication_classes([TokenAuthentication])
@@ -115,3 +113,10 @@ class ReviewRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
         """Garante que um usuário só pode modificar/excluir sua própria avaliação."""
         user = self.request.user
         return Review.objects.filter(author=user)
+
+
+@permission_classes([AllowAny])
+class TagView(generics.ListCreateAPIView):
+    queryset = TripTag.objects.all()
+    serializer_class = TripTagSerializer
+

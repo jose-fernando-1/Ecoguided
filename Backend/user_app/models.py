@@ -32,8 +32,8 @@ class PreferenceCategory(models.Model):
     CATEGORY_CHOICES = [
         ('ecotrip_style', 'Estilo Ecotrip'),
         ('travel_companion', 'Companheiro de Viagem'),
-        ('travel_priority', 'Prioridade de Viagem'),
     ]
+    
     name = models.CharField(max_length=50, unique=True)
     category = models.CharField(max_length=20,choices=CATEGORY_CHOICES, null=True)
 
@@ -78,16 +78,14 @@ class UserPreference(models.Model):
         blank=True,
         null=True
     )
-    prioridade_viagem = models.ManyToManyField(PreferenceCategory, blank=True,related_name='prioridade_viagem')
-
     # Sustentabilidade
     importancia_sustentabilidade = models.CharField(
         max_length=20,
         choices=[
-            (1, 'Muito importante'),
-            (2, 'Importante'),
-            (3, 'Pouco importante'),
-            (4, 'Nada importante')
+            ( 'muito','Muito importante'),
+            ('medio','Importante'),
+            ('pouco','Pouco importante'),
+            ('nada','Nada importante')
         ],
         blank=True,
         null=True
@@ -119,4 +117,3 @@ class UserPreference(models.Model):
 
     
 
-# classe cartao de credito
