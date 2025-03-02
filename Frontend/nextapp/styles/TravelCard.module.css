@@ -1,0 +1,143 @@
+.travelCard {
+    display: flex;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    gap: 16px;
+    align-items: center;
+    width: 800px; /* Ajuste se quiser limitar a largura */
+    margin: 16px auto; /* Centraliza no container, se desejado */
+  }
+  
+  /* Imagem do card */
+  .imageWrapper {
+    width: 300px; /* Ajuste conforme seu layout */
+    height: 200px;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  
+  .imageWrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Conteúdo textual */
+  .info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  /* Linha superior: título, nota, favorito */
+  .topRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .topRow h2 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  
+  /* Nota e ícone de estrela */
+  .rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #ffa500; /* cor da estrela */
+    font-weight: bold;
+  }
+  
+  /* Botão de favorito (coração) */
+  .favButton {
+    margin-left: auto; /* empurra para o canto direito */
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.2s;
+  }
+  
+  .favButton:hover {
+    color: #ff5a5a;
+  }
+  
+  /* Nome do guia/autor */
+  .author {
+    margin: 4px 0;
+    font-size: 0.95rem;
+    color: #555;
+  }
+  
+  /* Tags de características */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0;
+  }
+  
+  .tags span {
+    background-color: #eef;
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+  }
+  
+  /* Texto adicional (curiosidades) */
+  .extras {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #777;
+  }
+  
+  /* Seção de preços e botão de comparar */
+  .priceRow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  /* Preço antigo (cortado) */
+  .oldPrice {
+    text-decoration: line-through;
+    color: #999;
+  }
+  
+  /* Preço novo */
+  .newPrice {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #008000; /* Verde */
+  }
+  
+  /* Botão "Comparar" */
+  .compareButton {
+    margin-left: auto; /* empurra para a direita */
+    background-color: #008080;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    padding: 8px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .compareButton:hover {
+    background-color: #006666;
+  }
+  
+  /* Ícone no botão */
+  .compareIcon {
+    font-size: 1rem; /* Ajuste conforme o ícone desejado */
+  }
+  
