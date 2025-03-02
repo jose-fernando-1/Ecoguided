@@ -9,9 +9,9 @@ def populate_tags(apps, schema_editor):
     
     categories = {
         'ecotrip_style': [
-            ('trilha', 'Trilhas e Caminhadas'),
             ('passaro', 'Observação de Pássaros'),
             ('aqua', 'Aqua Trekking'),
+            ('trilha', 'Trilhas e Caminhadas'),
             ('ecodiving', 'Eco-Diving'),
             ('arborismo', 'Arborismo'),
             ('cavalo', 'Passeios a Cavalo'),
