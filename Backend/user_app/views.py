@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
-from .models import CustomUser, UserPreference, PreferenceCategory
+from .models import CustomUser, EcoGuide, UserPreference, PreferenceCategory
 from trips.models import Trip
 from trips.serializers import TripSerializer
 from .serializers import CustomUserSerializer, GuideSerializer, UserPreferenceSerializer,PreferenceCategorySerializer
@@ -165,3 +165,31 @@ class RecommendationSystem(APIView):
 
 
         
+# Retornar viagens participadas
+
+class UserTrips(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        trips = Trip.objects.filter(participants=user)
+        if not trips:
+            return Response({"message": "Você não se cadastrou em nenhuma viagem."}, status=status.HTTP_200_OK)
+        serializer = TripSerializer(trips, many=True)
+        
+        return Response(serializer.data)
+        
+class GuideTrips(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        guide = get_object_or_404(EcoGuide, id=user.id)
+        if not isinstance(guide, EcoGuide):  # Verifica se o usuário é uma instância de EcoGuide
+            return Response({"message": "Apenas EcoGuias podem ver viagens criadas"}, status=status.HTTP_401_UNAUTHORIZED)
+        trips = Trip.objects.filter(guide=user)
+        if not trips:
+            return Response({"message": "Você não criou nenhuma viagem."}, status=status.HTTP_200_OK)
+        serializer = TripSerializer(trips, many=True)
+        
+        return Response(serializer.data)

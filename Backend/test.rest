@@ -1,0 +1,168 @@
+
+### Exemplo de como o arquivo deve ser formatado:
+
+# Cadastro de usuário padrão
+POST http://127.0.0.1:8000/api/users/signup
+Content-Type: application/json
+
+{ "username": "user", "password": "a", "email": "user@mail.com", "cpf":"12345617120", "is_guide": "False"}
+
+###
+# Cadastro de guia
+POST http://127.0.0.1:8000/api/users/signup
+Content-Type: application/json
+
+{ "username": "guide", "password": "a", "email": "guide@mail.com", "cpf":"12345618911", "is_guide": "True", "licenca": "0"}
+
+###
+
+# Ver usuarios cadastrados
+GET http://127.0.0.1:8000/api/users/
+Content-Type: application/json
+
+###
+# Ver viagens participadas pelo user 
+GET http://127.0.0.1:8000/api/users/trips
+Authorization: token bb536087159b5c6721f0376868b2e4e54d45b8f0
+
+Content-Type: application/json
+
+###
+# Ver viagens cadastradas pelo guia
+GET http://127.0.0.1:8000/api/users/guide_trips
+Authorization: token bb536087159b5c6721f0376868b2e4e54d45b8f0
+
+Content-Type: application/json
+
+###
+
+# Fazer login e receber o token
+POST http://127.0.0.1:8000/api/users/login
+Content-Type: application/json
+
+{ "username": "guide", "password": "a"}
+
+###
+
+
+# Fazer logout (Excluir Token)
+POST http://127.0.0.1:8000/api/users/logout 
+Content-Type: application/json
+Authorization: token 44f0ab236f925dfeb18f60a92391c082c8cfd513
+
+###
+# Cadastro de avaliação (Necessário passar token do user logado, user deve estar na viagem avaliada)
+POST http://127.0.0.1:8000/api/reviews/create_review/
+Content-Type: application/json
+Authorization: token 461a5e09cc0bdc99446afff880d4daf357b76c64
+
+{ "trip_id": 1,"comment": "passeio legal sla","stars": 2}
+
+###
+# Edição de avaliação (Necessário passar token do user logado)
+DELETE http://127.0.0.1:8000/api/reviews/edit_review/2/
+Content-Type: application/json
+Authorization: token 461a5e09cc0bdc99446afff880d4daf357b76c64
+
+###
+# Cadastro de passeio (Necessário passar token do guia logado)
+POST http://127.0.0.1:8000/api/trips/
+Content-Type: application/json
+Authorization: token bb536087159b5c6721f0376868b2e4e54d45b8f0
+
+
+{ "title": "Passeio Muito Legal!!!!!!",
+    "description": "arvore e mais coisa",
+    "date": "2025-01-29",
+    "location": "Recife",
+    "max_participants": 5,
+    "price": 8.0,
+    "tags": [1,2,3]}
+
+###
+
+# Requisição para editar foto da viagem
+PATCH http://127.0.0.1:8000/api/trips/1/
+Authorization: Token a91ba61d4d14f22be41509246ae75c4eb4b508a2
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="photo"; filename="greenpeace.jpg"
+Content-Type: image/jpeg
+
+< C:\Users\mhmon\Desktop\imgs\greenpeace.jpg
+--boundary--
+###
+
+# Edição de viagem
+PATCH http://127.0.0.1:8000/api/trips/1/
+Authorization: Token a91ba61d4d14f22be41509246ae75c4eb4b508a2
+Content-Type: application/json
+
+{ "title": "Viagem2",
+    "description": "Viagem uau",
+    "date": "2025-01-29",
+    "location": "Recife",
+    "max_participants": 5,
+    "price": 2.0}
+
+###
+
+# Recuperar todas as viagens cadastradas
+GET http://127.0.0.1:8000/api/get_trips/
+Content-Type: application/json
+
+
+###
+
+# Cadastrar em viagem (Usuário padrão)
+POST http://127.0.0.1:8000/api/trips/register_for_trip/
+Content-Type: application/json
+Authorization: token e2adc6778acd6aff5c2c3d3b7c4ac3e0a087823e
+
+{ "id_viagem": 1}
+
+
+
+###
+# Requisição para pegar id de preferencias multipla escolha
+GET  http://127.0.0.1:8000/api/category_preferences
+Content-Type: application/json
+
+###
+# Verificar Tags e Ids
+GET  http://127.0.0.1:8000/api/tags
+Content-Type: application/json
+
+###
+
+# Aplicar preferencias ao usuário
+POST  http://127.0.0.1:8000/api/users/preferences
+Content-Type: application/json
+Authorization: token 86bb4825a6126c1f2ed493e6e15a93849384e9c9
+
+{ "genero": "Outro",
+  "faixa_etaria": "25-34",
+  "pais_regiao": "Brasil",
+  "estilo_ecotrip": [1,2,3],
+  "prefere_viajar_com": [10,11,12],
+  "viagens_anuais": "3-5",
+  "orcamento_medio": "$",
+  "importancia_sustentabilidade": "pouco",
+  "pagaria_por_servicos_sustentaveis": "Sim, sem problemas!",
+  "participa_ecoturismo": "Sim, frequentemente"
+}
+
+###
+# Ordenar por maior preço
+GET http://127.0.0.1:8000/api/get_trips/?ordering=-price 
+Content-Type: application/json
+###
+
+# Receber Viagens Recomendadas
+GET http://127.0.0.1:8000/api/users/recommendation
+Authorization: token 86bb4825a6126c1f2ed493e6e15a93849384e9c9
+
+Content-Type: application/json
+
+###
