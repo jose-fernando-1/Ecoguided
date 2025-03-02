@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import styles from '../styles/ProfileMappingEco.module.css';
 import NavbarSimple from '../components/NavbarSimple';
 import { ArrowRight02Icon, ArrowLeft02Icon } from 'hugeicons-react';
 import Link from 'next/link';
 
 const ProfileMappingEco = () => {
+  const router = useRouter();
+  const { username } = router.query;
   const [selectedEcoRelevance, setSelectedEcoRelevance] = useState('Muito Importante');
   const [selectedEcoFinance, setSelectedEcoFinance] = useState('Sim, sem problemas!');
   const [selectedEcoPreference, setSelectedEcoPreference] = useState('Sim, frequentemente');
@@ -65,12 +68,12 @@ const ProfileMappingEco = () => {
         </div>
 
         <div className={styles.navigation}>
-          <Link href="/ProfileMappingFinance" passHref legacyBehavior>
+          <Link href={`/ProfileMappingFinance?username=${username}`} passHref legacyBehavior>
             <button className={styles.navButton}>
               <ArrowLeft02Icon /> Anterior
             </button>
           </Link>
-          <Link href="/ProfileMappingWelcome" passHref legacyBehavior>
+          <Link href={`/ProfileMappingWelcome?username=${username}`} passHref legacyBehavior>
             <button className={`${styles.navButton} ${styles.nextButton}`}>
               Finalizar <ArrowRight02Icon />
             </button>

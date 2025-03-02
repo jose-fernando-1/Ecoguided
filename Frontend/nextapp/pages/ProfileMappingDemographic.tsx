@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import styles from '../styles/ProfileMappingDemographic.module.css';
 import { ArrowRight02Icon, ArrowLeft02Icon } from 'hugeicons-react';
 import NavbarSimple from '../components/NavbarSimple';
@@ -12,6 +13,8 @@ const statesOfBrazil = [
 ];
 
 const DemographicPage = () => {
+  const router = useRouter();
+  const { username } = router.query;
   const [selectedGender, setSelectedGender] = useState('Feminino');
   const [selectedAge, setSelectedAge] = useState('25-34 anos');
   const [selectedState, setSelectedState] = useState('Pernambuco');
@@ -75,12 +78,12 @@ const DemographicPage = () => {
 
         {/* Botões de Navegação */}
         <div className={styles.navigation}>
-          <Link href="/ProfileMapping" passHref legacyBehavior>
+          <Link href={`/ProfileMapping?username=${username}`} passHref legacyBehavior>
             <button className={styles.navButton}>
               <ArrowLeft02Icon /> Anterior
             </button>
           </Link>
-          <Link href="/ProfileMappingLifestyle" passHref legacyBehavior>
+          <Link href={`/ProfileMappingLifestyle?username=${username}`} passHref legacyBehavior>
             <button className={`${styles.navButton} ${styles.nextButton}`}>
               Próximo <ArrowRight02Icon />
             </button>

@@ -5,10 +5,11 @@ import NavbarSimple from '../components/NavbarSimple';
 
 const ProfileMappingWelcome = () => {
   const router = useRouter();
+  const { username } = router.query;
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      router.push('/');
+      router.push('/FeedCliente');
     }, 2500);
 
     return () => clearTimeout(timer);
@@ -20,7 +21,7 @@ const ProfileMappingWelcome = () => {
         <NavbarSimple />
       </div>
       <div className={styles.content}>
-        <h1 className={styles.title}>Seja Bem-vinda, Marina!</h1>
+        <h1 className={styles.title}>Seja Bem-vindo(a), {username}!</h1>
       </div>
     </div>
   );

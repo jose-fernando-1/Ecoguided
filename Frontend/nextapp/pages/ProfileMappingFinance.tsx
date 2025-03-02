@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import styles from '../styles/ProfileMappingFinance.module.css';
 import { ArrowRight02Icon, ArrowLeft02Icon } from 'hugeicons-react';
 import NavbarSimple from '../components/NavbarSimple';
 import Link from 'next/link';
 
 const ProfileMappingFinance = () => {
+  const router = useRouter();
+  const { username } = router.query;
   const [selectedBudget, setSelectedBudget] = useState('$');
   const [selectedPriority, setSelectedPriority] = useState('Economia');
 
@@ -49,12 +52,12 @@ const ProfileMappingFinance = () => {
         </div>
 
         <div className={styles.navigation}>
-          <Link href="/ProfileMappingLifestyle" passHref legacyBehavior>
+          <Link href={`/ProfileMappingLifestyle?username=${username}`} passHref legacyBehavior>
             <button className={styles.navButton}>
               <ArrowLeft02Icon /> Anterior
             </button>
           </Link>
-          <Link href="/ProfileMappingEco" passHref legacyBehavior>
+          <Link href={`/ProfileMappingEco?username=${username}`} passHref legacyBehavior>
             <button className={`${styles.navButton} ${styles.nextButton}`}>
               Próximo <ArrowRight02Icon />
             </button>

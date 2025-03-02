@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import styles from '../styles/ProfileMappingLifestyle.module.css';
 import NavbarSimple from '../components/NavbarSimple';
 import { ArrowRight02Icon, ArrowLeft02Icon } from 'hugeicons-react';
 import Link from 'next/link';
 
 const LifestylePage = () => {
+  const router = useRouter();
+  const { username } = router.query;
   const [selectedEcotrip, setSelectedEcotrip] = useState('Observação de Pássaros');
   const [selectedTravelPreference, setSelectedTravelPreference] = useState('Com amigos');
   const [selectedTravelFrequency, setSelectedTravelFrequency] = useState('1-2 vezes');
@@ -69,12 +72,12 @@ const LifestylePage = () => {
 
         {/* Botões de Navegação */}
         <div className={styles.navigation}>
-          <Link href="/ProfileMappingDemographic" passHref legacyBehavior>
+          <Link href={`/ProfileMappingDemographic?username=${username}`} passHref legacyBehavior>
             <button className={styles.navButton}>
               <ArrowLeft02Icon /> Anterior
             </button>
           </Link>
-          <Link href="/ProfileMappingFinance" passHref legacyBehavior>
+          <Link href={`/ProfileMappingFinance?username=${username}`} passHref legacyBehavior>
             <button className={`${styles.navButton} ${styles.nextButton}`}>
               Próximo <ArrowRight02Icon />
             </button>

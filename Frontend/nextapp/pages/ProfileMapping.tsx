@@ -18,7 +18,7 @@ const ProfileMapping = () => {
         <p className={styles['description']}>
           Iniciaremos um <span className={styles['highlight']}>mapeamento de perfil</span> para podermos trazer as opções que mais combinam com você.
         </p>
-        <Link href="/ProfileMappingDemographic" className={styles['button-link']}>
+        <Link href={`/ProfileMappingDemographic?username=${username}`} className={styles['button-link']}>
           <button className={styles['button']}>
             Iniciar <ArrowRight02Icon />
           </button>
