@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import NavbarSimple from '../components/NavbarSimple';
 import styles from '../styles/Cadastro.module.css';
 
@@ -11,9 +12,10 @@ const Cadastro = () => {
     email: '',
     cpf: '',
     telefone: '',
-    is_guide: false,
-    licenca: ''
+    is_guide: false
   });
+
+  const router = useRouter();
 
   interface FormData {
     username: string;
@@ -23,7 +25,6 @@ const Cadastro = () => {
     cpf: string;
     telefone: string;
     is_guide: boolean;
-    licenca: string;
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,25 +72,22 @@ const Cadastro = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/users/signup', formData, {
+      const response = await axios.post<{ token: string }>('http://127.0.0.1:8000/api/users/signup', formData, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
       if (response.status === 200) {
-
+        const token = response.data.token;
+        localStorage.setItem('authToken', token);
         console.log('Cadastro realizado com sucesso:', response.data);
-        console.log(response);
         alert('Cadastro efetuado!');
-
-      }
-      else if(response.status === 400) {
+        router.push(`/ProfileMapping?username=${formData.username}`);
+      } else if (response.status === 400) {
         console.error('Erro ao realizar cadastro:', response.data);
         alert('Erro ao realizar cadastro. Usuário já existe.');
       }
-    }
-
-    catch (error) {
+    } catch (error) {
       console.error('Erro ao realizar cadastro:', error);
     }
   };
@@ -131,16 +129,6 @@ const Cadastro = () => {
                 </div>
               </div>
             </div>
-            <div className={styles.inputGroup}>
-              <label htmlFor="is_guide" className={styles.label}>Guia</label>
-              <input type="checkbox" id="is_guide" name="is_guide" className={styles.checkbox} checked={formData.is_guide} onChange={handleChange} />
-            </div>
-            {formData.is_guide && (
-              <div className={styles.inputGroup}>
-                <label htmlFor="licenca" className={styles.label}>Licença</label>
-                <input type="text" id="licenca" name="licenca" className={styles.input} value={formData.licenca} onChange={handleChange} required />
-              </div>
-            )}
             <div className={styles.divCastrarAndButton}>
               <button type="submit" className={styles.button}>Cadastrar</button>
             </div>
