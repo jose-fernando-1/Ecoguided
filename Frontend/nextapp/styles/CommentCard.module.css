@@ -1,0 +1,66 @@
+.commentCard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0; /* espaçamento vertical */
+    width: 650px;
+  }
+  
+  /* Parte esquerda: avatar + texto */
+  .commentLeft {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  /* Avatar circular */
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  /* Nome e texto do comentário */
+  .userName {
+    display: block;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .comment {
+    margin-top: 4px;
+    font-size: 0.9rem;
+    color: #555;
+    max-width: 400px; /* Ajuste conforme necessidade */
+  }
+  
+  /* Caixa de rating (lado direito) */
+  .ratingBox {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 50px;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  /* Valor da nota e estrela */
+  .ratingValue {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .ratingStar {
+    font-size: 1rem;
+    color: #ffd700; /* Cor de estrela dourada */
+  }
+  

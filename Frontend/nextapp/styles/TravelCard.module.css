@@ -8,12 +8,25 @@
     align-items: center;
     width: 800px; /* Ajuste se quiser limitar a largura */
     margin: 16px auto; /* Centraliza no container, se desejado */
+    font-family: 'Roboto', sans-serif;
+  }
+.travelCard2 {
+    display: flex;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    gap: 16px;
+    align-items: center;
+    width: 1000px; /* Ajuste se quiser limitar a largura */
+    margin: 16px auto; /* Centraliza no container, se desejado */
+    font-family: 'Roboto', sans-serif;
   }
   
   /* Imagem do card */
   .imageWrapper {
     width: 300px; /* Ajuste conforme seu layout */
-    height: 200px;
+    height: 250px;
     overflow: hidden;
     border-radius: 8px;
   }
