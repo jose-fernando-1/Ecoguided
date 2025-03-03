@@ -4,8 +4,10 @@ import styles from '../styles/ProfileMappingEco.module.css';
 import NavbarSimple from '../components/NavbarSimple';
 import { ArrowRight02Icon, ArrowLeft02Icon } from 'hugeicons-react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const ProfileMappingEco = () => {
+  const router = useRouter();
   const [authToken, setAuthToken] = useState('');
 
   const [selectedGender, setSelectedGender] = useState('');
@@ -124,6 +126,7 @@ const ProfileMappingEco = () => {
         localStorage.removeItem('selectedEcoRelevance');
         localStorage.removeItem('selectedEcoFinance');
         localStorage.removeItem('selectedEcoPreference');
+        router.push('/ProfileMappingWelcome');
       } else {
         
         console.error('Error saving preferences:', response.data);
@@ -195,11 +198,9 @@ const ProfileMappingEco = () => {
               <ArrowLeft02Icon /> Anterior
             </button>
           </Link>
-          <Link href="/ProfileMappingWelcome" passHref legacyBehavior>
-            <button className={`${styles.navButton} ${styles.nextButton}`} onClick={handleSubmit}>
-              Finalizar <ArrowRight02Icon />
-            </button>
-          </Link>
+          <button className={`${styles.navButton} ${styles.nextButton}`} onClick={handleSubmit}>
+            Finalizar <ArrowRight02Icon />
+          </button>
         </div>
       </div>
     </div>
