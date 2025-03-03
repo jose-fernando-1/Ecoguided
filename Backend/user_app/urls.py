@@ -12,7 +12,9 @@ urlpatterns = [
     re_path('users/logout', views.logout),
     path('users/preferences', views.UserPreferenceView.as_view(), name='create-preference'), 
     path('users/delete/<int:pk>/', views.UserRetrieveUpdateDestroyView.as_view(), name='destroy'), 
-    path('users/category_preferences', views.PreferenceCategoryView.as_view(), name='cat-preference'), 
-    path('users/category_preferences/<int:pk>/', views.PreferenceCategoryRetrieveUpdateDestroyView.as_view(), name='cat-preference-urd'), 
+    path('category_preferences', views.PreferenceCategoryView.as_view(), name='cat-preference'), 
+    path('category_preferences/<int:pk>/', views.PreferenceCategoryRetrieveUpdateDestroyView.as_view(), name='cat-preference-urd'), 
+    path('users/preferences/<int:pk>/', views.UserPreferenceRetrieveUpdateDestroyView.as_view(), name='usr-preference-urd'), 
+    path('users/recommendation', views.RecommendationSystem.as_view())
 
 ]

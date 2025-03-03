@@ -5,11 +5,11 @@ import { ArrowRight02Icon, ArrowLeft02Icon } from 'hugeicons-react';
 import NavbarSimple from '../components/NavbarSimple';
 import Link from 'next/link';
 
-const statesOfBrazil = [
-  'Acre', 'Alagoas', 'Amapá', 'Amazonas', 'Bahia', 'Ceará', 'Distrito Federal', 'Espírito Santo',
-  'Goiás', 'Maranhão', 'Mato Grosso', 'Mato Grosso do Sul', 'Minas Gerais', 'Pará', 'Paraíba',
-  'Paraná', 'Pernambuco', 'Piauí', 'Rio de Janeiro', 'Rio Grande do Norte', 'Rio Grande do Sul',
-  'Rondônia', 'Roraima', 'Santa Catarina', 'São Paulo', 'Sergipe', 'Tocantins'
+const citiesOfBrazil = [
+  'São Paulo', 'Rio de Janeiro', 'Salvador', 'Brasília', 'Fortaleza', 'Belo Horizonte', 'Manaus', 'Curitiba',
+  'Recife', 'Goiânia', 'Belém', 'Porto Alegre', 'Guarulhos', 'Campinas', 'São Luís', 'São Gonçalo',
+  'Maceió', 'Duque de Caxias', 'Natal', 'Teresina', 'Campo Grande', 'São Bernardo do Campo', 'João Pessoa',
+  'Nova Iguaçu', 'São José dos Campos', 'Santo André', 'Ribeirão Preto', 'Jaboatão dos Guararapes', 'Uberlândia'
 ];
 
 const DemographicPage = () => {
@@ -17,7 +17,7 @@ const DemographicPage = () => {
   const { username } = router.query;
   const [selectedGender, setSelectedGender] = useState('Feminino');
   const [selectedAge, setSelectedAge] = useState('25-34 anos');
-  const [selectedState, setSelectedState] = useState('Pernambuco');
+  const [selectedCity, setSelectedCity] = useState('Recife');
 
   return (
     <div className={styles.container}>
@@ -63,14 +63,14 @@ const DemographicPage = () => {
 
         {/* Seção de País/Região */}
         <div className={styles.section}>
-          <h3>País/Região</h3>
+          <h3>País/Cidade</h3>
           <div className={styles.selectGroup}>
             <select className={styles.select} value="Brasil" disabled>
               <option>Brasil</option>
             </select>
-            <select className={styles.select} value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
-              {statesOfBrazil.map((state) => (
-                <option key={state} value={state}>{state}</option>
+            <select className={styles.select} value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
+              {citiesOfBrazil.map((city) => (
+                <option key={city} value={city}>{city}</option>
               ))}
             </select>
           </div>

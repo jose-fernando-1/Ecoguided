@@ -68,6 +68,7 @@ const CadastroGuia = () => {
             console.error("Erro na requisição:", error);
             alert("Houve um erro ao enviar os dados. Tente novamente.");
         }
+        router.push('/FeedGuia')
     };
 
     return (
