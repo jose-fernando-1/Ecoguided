@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styles from '../styles/ProfileMappingEco.module.css';
 import NavbarSimple from '../components/NavbarSimple';
 import { ArrowRight02Icon, ArrowLeft02Icon } from 'hugeicons-react';
 import Link from 'next/link';
 
 const ProfileMappingEco = () => {
-  
   const [authToken, setAuthToken] = useState('');
 
   const [selectedGender, setSelectedGender] = useState('');
@@ -100,22 +100,37 @@ const ProfileMappingEco = () => {
       orcamento_medio: selectedBudget,
       importancia_sustentabilidade: selectedEcoRelevance,
       pagaria_por_servicos_sustentaveis: selectedEcoFinance,
-      participa_ecoturismo: selectedEcoPreference,
+      participa_ecoturismo: selectedEcoPreference
     };
 
-    const response = await fetch('http://127.0.0.1:8000/api/users/preferences', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `token ${authToken}`,
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/users/preferences', data, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `token ${authToken}`,
+        },
+      });
 
-    if (response.ok) {
-      console.log('Preferences saved successfully');
-    } else {
-      console.error('Failed to save preferences');
+      if (response.status === 201) {
+        console.log('Preferences saved successfully:', response.data);
+        localStorage.removeItem('selectedGender');
+        localStorage.removeItem('selectedAge');
+        localStorage.removeItem('selectedCity');
+        localStorage.removeItem('selectedEcotrips');
+        localStorage.removeItem('selectedTravelPreferences');
+        localStorage.removeItem('selectedTravelFrequency');
+        localStorage.removeItem('selectedBudget');
+        localStorage.removeItem('selectedPriority');
+        localStorage.removeItem('selectedEcoRelevance');
+        localStorage.removeItem('selectedEcoFinance');
+        localStorage.removeItem('selectedEcoPreference');
+      } else {
+        
+        console.error('Error saving preferences:', response.data);
+      }
+    } catch (error) {
+      console.log(JSON.stringify(data));
+      console.error('Error saving preferences:', error);
     }
   };
 

@@ -53,8 +53,8 @@ class UserPreference(models.Model):
     )
     faixa_etaria = models.CharField(
         max_length=15,
-        choices=[('18-24', '18-24 anos'), ('25-34', '25-34 anos'), ('35-44', '35-44 anos'), 
-                 ('45-54', '45-54 anos'), ('55+', '55+ anos')],
+        choices=[('18-24 anos', '18-24 anos'), ('25-34 anos', '25-34 anos'), ('35-44 anos', '35-44 anos'), 
+                 ('45-54 anos', '45-54 anos'), ('55+ anos', '55+ anos')],
         blank=True,
         null=True
     )
@@ -65,7 +65,7 @@ class UserPreference(models.Model):
     prefere_viajar_com = models.ManyToManyField(PreferenceCategory, blank=True, related_name="preferencia_companhia")
     viagens_anuais = models.CharField(
         max_length=15,
-        choices=[('Nunca', 'Nunca'), ('1-2', '1-2 vezes'), ('3-5', '3-5 vezes'), ('5+', '5+ vezes')],
+        choices=[('Nunca', 'Nunca'), ('1-2 vezes', '1-2 vezes'), ('3-5 vezes', '3-5 vezes'), ('5+ vezes', '5+ vezes')],
         blank=True,
         null=True
     )
@@ -82,10 +82,10 @@ class UserPreference(models.Model):
     importancia_sustentabilidade = models.CharField(
         max_length=20,
         choices=[
-            ( 'muito','Muito importante'),
-            ('medio','Importante'),
-            ('pouco','Pouco importante'),
-            ('nada','Nada importante')
+            ('Muito Importante','Muito Importante'),
+            ('Importante','Importante'),
+            ('Pouco Importante','Pouco Importante'),
+            ('Nada Importante','Nada Importante')
         ],
         blank=True,
         null=True
