@@ -8,9 +8,9 @@ import reserva_mantiqueira from '../img/Reserva_mantiqueira_nuvem.png'
 import praia_carneiros from '../img/praia_carneiros.png'
 import cachoeira_diamantina from '../img/cachoeira_diamantina.png'
 import porto_de_galinhas from '../img/porto_de_galinha.png'
-import trilha_dos_cocais from '../img/trilha_dos_cocais.png'
-import praia_pescadores from '../img/praia_pescadores.png'
-import alpes_suicos from '../img/alpes_suiços.png'
+// import trilha_dos_cocais from '../img/trilha_dos_cocais.png'
+// import praia_pescadores from '../img/praia_pescadores.png'
+// import alpes_suicos from '../img/alpes_suiços.png'
 import TravelCard from '../components/TravelCard'
 
 const FeedCliente = () => {
