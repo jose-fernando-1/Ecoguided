@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -6,17 +6,118 @@ import styles from '../styles/CadastroPasseioGuia.module.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import NavbarSimple from '../components/NavbarSimple';
-import img_montanha from '../img/img_montanha.jpeg'
 import { useRouter } from 'next/router';
 import NewNavbar from '../components/NewNavbar';
+import ImageUploader from '../components/ImageUploader';
+
+const citiesOfBrazil = [
+  'São Paulo', 'Rio de Janeiro', 'Salvador', 'Brasília', 'Fortaleza', 'Belo Horizonte',
+  'Manaus', 'Curitiba', 'Recife', 'Goiânia', 'Belém', 'Porto Alegre', 'Guarulhos',
+  'Campinas', 'São Luís', 'Maceió', 'Natal', 'Teresina', 'Campo Grande'
+];
 
 const CadastroPasseioGuia = () => {
-  const router = useRouter(); 
+  const router = useRouter();
 
-  const [images, setImages] = useState<string[]>([img_montanha.src, img_montanha.src, img_montanha.src, img_montanha.src]);
-  const [description, setDescription] = useState('')
-  const [selectedTrips, setSelectedTrips] = useState<string[]>([])
+  const [images, setImages] = useState<string[]>([]);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [selectedTrips, setSelectedTrips] = useState<number[]>([]);
+  const [location, setLocation] = useState<string>('Recife');
+  const [date, setDate] = useState('');
+  const [maxParticipants, setMaxParticipants] = useState<number | ''>('');
+  const [price, setPrice] = useState<number | ''>('');
+
+  const ecoTripStyles = [
+    { key: 'trilha', label: 'Trilhas e Caminhadas' },
+    { key: 'passaro', label: 'Observação de Pássaros' },
+    { key: 'aqua', label: 'Aqua Trekking' },
+    { key: 'ecodiving', label: 'Eco-Diving' },
+    { key: 'arborismo', label: 'Arborismo' },
+    { key: 'cavalo', label: 'Passeios a Cavalo' },
+    { key: 'canoa', label: 'Canoagem e Caiaque' },
+    { key: 'ciclismo', label: 'Ciclismo de Montanha' },
+  ];
+  
+  useEffect(() => {
+    const storedTitle = localStorage.getItem('title');
+    if (storedTitle) {
+      setTitle(storedTitle);
+    }
+  
+    const storedDescription = localStorage.getItem('description');
+    if (storedDescription) {
+      setDescription(storedDescription);
+    }
+  
+    const storedLocation = localStorage.getItem('location');
+    if (storedLocation) {
+      setLocation(storedLocation);
+    }
+  
+    const storedDate = localStorage.getItem('date');
+    if (storedDate) {
+      setDate(storedDate);
+    }
+  
+    const storedMaxParticipants = localStorage.getItem('maxParticipants');
+    if (storedMaxParticipants) {
+      setMaxParticipants(Number(storedMaxParticipants));
+    }
+  
+    const storedPrice = localStorage.getItem('price');
+    if (storedPrice) {
+      setPrice(Number(storedPrice));
+    }
+  
+    const storedTrips = localStorage.getItem('selectedTrips');
+    if (storedTrips) {
+      setSelectedTrips(JSON.parse(storedTrips));
+    }
+  }, []);
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+    localStorage.setItem('title', e.target.value);
+  };
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value);
+    localStorage.setItem('description', e.target.value);
+  };
+
+  const handleLocationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setLocation(e.target.value);
+    localStorage.setItem('location', e.target.value);
+  };
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDate(e.target.value)
+    localStorage.setItem('date', e.target.value);
+  };
+
+  const handleParticipantsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(e.target.value);
+    setMaxParticipants(value);
+    localStorage.setItem('maxParticipants', value.toString());
+  };
+
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(e.target.value);
+    setPrice(value > 0 ? value : '');
+    localStorage.setItem('price', value.toString());
+  }
+
+  const handleSelectedTripsChange = (tripKey: string) => {
+    setSelectedTrips(prevSelectedTrips => {
+      const updatedTrips = prevSelectedTrips.includes(tripKey)
+        ? prevSelectedTrips.filter(key => key !== tripKey) 
+        : [...prevSelectedTrips, tripKey]; 
+  
+      localStorage.setItem('selectedTrips', JSON.stringify(updatedTrips));
+      return updatedTrips;
+    });
+  };
 
   const handleAddImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -29,10 +130,6 @@ const CadastroPasseioGuia = () => {
     setImages(prevImages => prevImages.filter((_, i) => i !== index));
   };
 
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(e.target.value);
-  };
-
   const toggleTripSelection = (trip: string) => {
     setSelectedTrips(prevSelectedTrips =>
       prevSelectedTrips.includes(trip)
@@ -40,120 +137,169 @@ const CadastroPasseioGuia = () => {
         : [...prevSelectedTrips, trip]
     );
   };
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
 
-    const description = (document.getElementById('description') as HTMLInputElement)
-    const style = (document.getElementById('style') as HTMLInputElement)
-    const details = (document.getElementById('details') as HTMLInputElement)
+  const convertDateToDjangoFormat = (dateString: string) => {
+    const [year, month, day] = dateString.split('-');
+    return `${year}-${month}-${day}`;
+  };
 
-    const data = { description, style, details, is_guide: true }
-  try {
-    const token = localStorage.getItem('sessionToken')
-    const response = await fetch('http://127.0.0.1:8000/api/trips/', {
+  const handleSubmit = async () => {
+    const formattedDate = convertDateToDjangoFormat(date);
+    const data = {
+      title: title,
+      description: description,
+      location: location,
+      is_guide: true,
+      date: formattedDate,
+      max_participants: maxParticipants,
+      price: price,
+      tags: selectedTrips,
+    };
+
+    console.log('Dados enviados:', data); 
+
+    const token = localStorage.getItem('sessionToken');
+    if (!token) {
+      alert("Erro: Usuário não autenticado.");
+      return;
+    }
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/trips/', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `token ${token}`
+          'Content-Type': 'application/json',
+          Authorization: `token ${token}`
         },
         body: JSON.stringify(data)
-    })
-    if (response.ok) {
-        alert('Passeio cadastrado!');
+      });
+
+      if (response.ok) {
+        alert('Passeio cadastrado com sucesso!');
         router.push('/FeedGuia');
-    } else {
+      } else {
         const error = await response.json();
+        console.log('Erro na resposta da API:', error);
         alert(`Erro: ${error.message}`);
-    }
-  }
-    catch (error) {
+      } 
+    } catch (error) {
       console.error("Erro na requisição:", error);
       alert("Houve um erro ao enviar os dados. Tente novamente.");
+    }
   }
-  router.push('/FeedGuia')
-}
 
-return ( 
-  <div>
-    <div className={styles.container}>
-      <NewNavbar userName="Niciu" />
-      <section className={styles.headerSection}>
-        <form className={styles['form']} onSubmit={handleSubmit}>
-          <h1 className={styles.title}>Reserva da Mantiqueira</h1>
-          <section className={styles.imageGalleryContainer}>
-            <Swiper
-              modules={[Navigation, Pagination]}
-              spaceBetween={10}
-              slidesPerView={4} 
-              navigation
-              pagination={{ clickable: true }}
-              className={styles.imageCarousel}
-            >
-              {images.map((image, index) => (
-                <SwiperSlide key={index} className={styles.imageSlide}>
-                  <Image src={image} alt={`Imagem ${index}`} width={500} height={500} className={styles.image} />
-                  <button type="button" className={styles.removeImageButton} onClick={() => handleRemoveImage(index)}>
-                    Remover
-                  </button>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-
-            <label className={styles.addImageButton}>
-              Adicionar Imagem
-              <input type="file" multiple accept="image/*" onChange={handleAddImage} className={styles.hiddenInput} />
-            </label>
-
-            <textarea
-              className={styles.descriptionInput}
-              placeholder="Digite a descrição aqui..."
-              value={description}
-              onChange={handleDescriptionChange}
+  return (
+    <div>
+      <div className={styles.container}>
+        <NewNavbar userName="Niciu" />
+        <section className={styles.headerSection}>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <input
+              type="text"
+              className={styles.titleInput}
+              value={title}
+              onChange={handleTitleChange}
+              placeholder="Digite o título aqui..."
             />
-          </section>
 
-          <section className={styles.ecoTripStyles}>
-            <h2 className={styles.subtitle}>
-              Qual o seu estilo de <span className={styles.highlight}>ecotrip</span>?
-            </h2>
-            <div className={styles.buttonGroup}>
-              {[
-                'Observação de Pássaros', 'Aqua Trekking', 'Trilhas e Caminhadas',
-                'Eco-Diving', 'Arborismo', 'Passeios a Cavalo',
-                'Canoagem e Caiaque', 'Ciclismo de Montanha'
-              ].map(trip => (
-                <button
-                  type="button"
-                  key={trip}
-                  className={`${styles.tripButton} ${selectedTrips.includes(trip) ? styles.selected : ''}`}
-                  onClick={() => toggleTripSelection(trip)}
+            <section className={styles.imageGalleryContainer}>
+              {images.length > 0 ? (
+                <Swiper
+                  modules={[Navigation, Pagination]}
+                  spaceBetween={10}
+                  slidesPerView={4}
+                  navigation
+                  pagination={{ clickable: true }}
+                  className={styles.imageCarousel}
                 >
-                  {trip}
-                </button>
-              ))}
-            </div>
-          </section>
+                  {images.map((image, index) => (
+                    <SwiperSlide key={index} className={styles.imageSlide}>
+                      <div className={styles.imageContainer}>
+                        <Image src={image} alt={`Imagem ${index}`} width={200} height={200} className={styles.image} />
+                        <button type="button" className={styles.removeImageButton} onClick={() => handleRemoveImage(index)}>
+                          Remover
+                        </button>
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              ) : (
+                <div className={styles.noImagesMessage}>
+                  Nenhuma imagem adicionada. Adicione imagens para que os turistas possam ver o seu passeio.
+                </div>
+              )}
+              <ImageUploader onAddImage={handleAddImage} />
+              <textarea
+                className={styles.descriptionInput}
+                placeholder="Digite a descrição aqui..."
+                value={description}
+                onChange={handleDescriptionChange}
+              />
+            </section>
 
-          <section className={styles.detailsSection}>
-            <h2 className={styles.detailsTitle}>Detalhes</h2>
-            <div className={styles.detailsGrid}>
-              <input type="text" placeholder="Eco Turistas" className={styles.detailInput} />
-              <input type="text" placeholder="Data / Horário" className={styles.detailInput} />
-              <input type="text" placeholder="Localização" className={styles.detailInput} />
-              <input type="text" placeholder="Roteiros / Translados" className={styles.detailInput} />
-              <input type="text" placeholder="Itens / Recomendações" className={styles.detailInput} />
-              <input type="text" placeholder="Preço" className={styles.detailInput} />
-            </div>
-            <div className={styles.actionButtons}>
-              <button type="button" className={styles.deleteButton}>Excluir passeio</button>
-              <button type="submit" className={styles.confirmButton}>Confirmar</button>
-            </div> 
-          </section>
-        </form>  
-      </section>
+            <section className={styles.ecoTripStyles}>
+              <h2 className={styles.subtitle}>
+                Qual o seu estilo de <span className={styles.highlight}>ecotrip</span>?
+              </h2>
+              <div className={styles.buttonGroup}>
+                {ecoTripStyles.map(({ key, label }) => (
+                  <button
+                    type="button"
+                    key={key}
+                    className={`${styles.tripButton} ${selectedTrips.includes(key) ? styles.selected : ''}`}
+                    onClick={() => handleSelectedTripsChange(key)}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            <section className={styles.detailsSection}>
+              <h2 className={styles.detailsTitle}>Detalhes</h2>
+              <div className={styles.detailsGrid}>
+                <input
+                  type="number"
+                  placeholder="Quantidade de participantes"
+                  className={styles.detailInput}
+                  value={maxParticipants}
+                  onChange={handleParticipantsChange}
+                />
+                <input
+                  type="date"
+                  placeholder="Data / Horário"
+                  className={styles.detailInput}
+                  value={date}
+                  onChange={handleDateChange} 
+                />
+                <select
+                  className={styles.detailInput}
+                  value={location}
+                  onChange={handleLocationChange} 
+                >
+                  {citiesOfBrazil.map((city) => (
+                    <option key={city} value={city}>{city}</option>
+                  ))}
+                </select>
+                <input
+                  type="number"
+                  placeholder="Preço"
+                  className={styles.detailInput}
+                  value={price}
+                  onChange={handlePriceChange} 
+                />
+              </div>
+
+              <div className={styles.actionButtons}>
+                <button type="button" className={styles.deleteButton}>Excluir passeio</button>
+                <button type="submit" className={styles.confirmButton} onClick={handleSubmit}>Confirmar</button>
+              </div>
+            </section>
+          </form>
+        </section>
+      </div>
     </div>
-  </div>
-);
-}
+  );
+};
 
-export default CadastroPasseioGuia
+export default CadastroPasseioGuia;

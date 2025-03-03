@@ -1,6 +1,6 @@
 
 .container {
-  padding: 2rem;
+  padding: 1.5rem;
   background-color: #f9f9f9;
   font-family: 'Roboto', sans-serif;
 }
@@ -23,7 +23,7 @@
   margin-bottom: 2rem;
   text-align: center;
   background-color: #f0f0f0; 
-  padding: 3rem; 
+  padding: 1.5rem; 
   border-radius: 8px; 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
   width: 100%; 
@@ -34,23 +34,62 @@
   align-items: center;
 }
 
-.detailsSection {
-margin-bottom: 2rem;
-text-align: center;
-background-color: #f0f0f0;
-padding: 3rem; 
-border-radius: 8px;
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-width: 95%;
-max-width: 1250px; 
-margin: 0 auto;
+.noImagesMessage {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 1rem;
 }
 
+/* .detailsSection {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  background-color: #f0f0f0;
+  padding: 3rem; 
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 95%;
+  max-width: 1250px; 
+  margin: 0 auto;
+} */
+
+/* .detailsSection {
+  background-color: #f0f0f0;
+  padding: 3rem; 
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 95%;
+  max-width: 1200px; 
+  margin: 2rem auto; 
+} */
+
+.detailsSection {
+  background-color: #f0f0f0;
+  padding: 3rem; /* Adicionando espaçamento interno maior */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 95%;
+  max-width: 1200px; /* Agora igual ao container superior */
+  margin: 2rem auto; /* Espaçamento externo entre seções */
+  position: relative;
+}
 
 .imageCarousel {
+  height: 250px; /* Ajuste conforme necessário */
+  margin-bottom: 0.5rem; /* Reduzindo a distância entre o carrossel e o botão */
   width: 100%;
   max-width: 900px; 
-  height: 400px;
+}
+
+.imageSlide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageContainer {
+  position: relative;
+  width: 200px;
+  height: 200px;
 }
 
 .image {
@@ -60,7 +99,6 @@ margin: 0 auto;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
 
 .addImageButton {
   margin-top: 1rem;
@@ -94,7 +132,6 @@ margin: 0 auto;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   background-color: white;
 }
-
 
 .descriptionInput:focus {
   border-color: #2e747f;
@@ -143,13 +180,11 @@ margin: 0 auto;
   color: #2e747f;
 }
 
-
 .selected {
   background-color: #2e747f !important; 
   color: white !important;
   border-color: #2e747f !important;
 }
-
 
 .detailsSection {
   margin-bottom: 2rem;
@@ -161,12 +196,11 @@ margin: 0 auto;
 }
 
 .detailsTitle {
-  font-size: 1.8rem;
+  font-size: 2.0rem;
   font-weight: bold;
   color: #2e747f;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem; 
 }
-
 
 .detailButton {
   background-color: #f0f0f0;
@@ -222,9 +256,11 @@ margin: 0 auto;
 
 .detailsGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem; 
+  width: 100%;
+  max-width: 800px; 
+  margin: 0 auto; 
 }
 
 .detailInput {
@@ -247,14 +283,31 @@ margin: 0 auto;
   color: #000;
 }
 
-.imageSlide {
+.imageGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.imageContainer {
   position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .removeImageButton {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 5px;
+  right: 5px;
   background-color: rgba(255, 0, 0, 0.8);
   color: white;
   border: none;
@@ -269,21 +322,19 @@ margin: 0 auto;
   background-color: rgba(200, 0, 0, 1);
 }
 
-
 .addImageButton {
-  display: inline-block;
-  background-color: #2e747f;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 0.75rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  font-size: 2rem;
+  color: #ccc;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-  text-align: center;
-  margin-top: 1rem;
   position: relative;
-  overflow: hidden;
+  margin-top: 10px; 
 }
 
 .hiddenInput {
@@ -297,26 +348,47 @@ margin: 0 auto;
 }
 
 .addImageButton:hover {
-  background-color: #245a62;
+  background-color: #e1f5f0;
+  border-color: #2e747f;
+  color: #2e747f;
 }
 
 .swiper-pagination {
-position: absolute;
-bottom: 10px; 
-left: 50%;
-transform: translateX(-50%);
-z-index: 10;
+  position: absolute;
+  bottom: 10px; 
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
 }
 
 .swiper-pagination-bullet {
-background-color: #2e747f !important; 
-width: 10px;
-height: 10px;
-opacity: 0.7;
-transition: opacity 0.3s ease;
+  background-color: #2e747f !important; 
+  width: 10px;
+  height: 10px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
 }
 
 .swiper-pagination-bullet-active {
-background-color: #2e747f !important; 
-opacity: 1;
+  background-color: #2e747f !important; 
+  opacity: 1;
 }
+
+
+.titleInput {
+  font-size: 2.5rem;
+  color: #2e747f;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  border: none;
+  background: none;
+  outline: none;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0.5rem;
+  border-bottom: 2px solid #2e747f;
+}
+

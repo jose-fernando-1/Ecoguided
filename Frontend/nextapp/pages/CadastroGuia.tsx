@@ -46,14 +46,13 @@ const CadastroGuia = () => {
             const response = await fetch('http://127.0.0.1:8000/api/users/signup', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data)
             });
 
             if (response.ok) {
 
-                //Considera o usuário logado automaticamente após o cadastro
                 const responseData = await response.json();
                 const token = responseData.token;
                 localStorage.setItem('sessionToken', token);

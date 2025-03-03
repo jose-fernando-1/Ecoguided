@@ -64,7 +64,6 @@ Authorization: token 86070ad95a23dfc6e5dfa23dd78128c95146b6cd
     "max_participants": 5,
     "price": 8.0,
     "tags": [1]}
-
 ###
 
 # Requisição para editar foto da viagem
