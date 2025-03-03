@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/ProfileMappingWelcome.module.css';
 import NavbarSimple from '../components/NavbarSimple';
 
 const ProfileMappingWelcome = () => {
+  const [username, setUsername] = useState('');
   const router = useRouter();
-  const { username } = router.query;
 
   useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+
     const timer = setTimeout(() => {
       router.push('/FeedCliente');
     }, 2500);

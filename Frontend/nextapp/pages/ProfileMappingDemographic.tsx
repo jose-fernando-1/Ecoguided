@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/ProfileMappingDemographic.module.css';
 import { ArrowRight02Icon, ArrowLeft02Icon } from 'hugeicons-react';
 import NavbarSimple from '../components/NavbarSimple';
@@ -13,11 +12,39 @@ const citiesOfBrazil = [
 ];
 
 const DemographicPage = () => {
-  const router = useRouter();
-  const { username } = router.query;
-  const [selectedGender, setSelectedGender] = useState('Feminino');
-  const [selectedAge, setSelectedAge] = useState('25-34 anos');
-  const [selectedCity, setSelectedCity] = useState('Recife');
+  const [selectedGender, setSelectedGender] = useState<string>('Feminino');
+  const [selectedAge, setSelectedAge] = useState<string>('25-34 anos');
+  const [selectedCity, setSelectedCity] = useState<string>('Recife');
+
+  useEffect(() => {   
+    const storedGender = localStorage.getItem('selectedGender');
+    if (storedGender) {
+      setSelectedGender(storedGender);
+    }
+    const storedAge = localStorage.getItem('selectedAge');
+    if (storedAge) {
+      setSelectedAge(storedAge);
+    }
+    const storedCity = localStorage.getItem('selectedCity');
+    if (storedCity) {
+      setSelectedCity(storedCity);
+    }
+  }, []);
+
+  const handleGenderChange = (gender: string) => {
+    setSelectedGender(gender);
+    localStorage.setItem('selectedGender', gender);
+  };
+
+  const handleAgeChange = (age: string) => {
+    setSelectedAge(age);
+    localStorage.setItem('selectedAge', age);
+  };
+
+  const handleCityChange = (city: string) => {
+    setSelectedCity(city);
+    localStorage.setItem('selectedCity', city);
+  };
 
   return (
     <div className={styles.container}>
@@ -37,7 +64,7 @@ const DemographicPage = () => {
               <button
                 key={gender}
                 className={`${styles.option} ${selectedGender === gender ? styles.selected : ''}`}
-                onClick={() => setSelectedGender(gender)}
+                onClick={() => handleGenderChange(gender)}
               >
                 {gender}
               </button>
@@ -53,7 +80,7 @@ const DemographicPage = () => {
               <button
                 key={age}
                 className={`${styles.option} ${selectedAge === age ? styles.selected : ''}`}
-                onClick={() => setSelectedAge(age)}
+                onClick={() => handleAgeChange(age)}
               >
                 {age}
               </button>
@@ -68,7 +95,7 @@ const DemographicPage = () => {
             <select className={styles.select} value="Brasil" disabled>
               <option>Brasil</option>
             </select>
-            <select className={styles.select} value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
+            <select className={styles.select} value={selectedCity} onChange={(e) => handleCityChange(e.target.value)}>
               {citiesOfBrazil.map((city) => (
                 <option key={city} value={city}>{city}</option>
               ))}
@@ -78,12 +105,12 @@ const DemographicPage = () => {
 
         {/* Botões de Navegação */}
         <div className={styles.navigation}>
-          <Link href={`/ProfileMapping?username=${username}`} passHref legacyBehavior>
+          <Link href="/ProfileMapping" passHref legacyBehavior>
             <button className={styles.navButton}>
               <ArrowLeft02Icon /> Anterior
             </button>
           </Link>
-          <Link href={`/ProfileMappingLifestyle?username=${username}`} passHref legacyBehavior>
+          <Link href="/ProfileMappingLifestyle" passHref legacyBehavior>
             <button className={`${styles.navButton} ${styles.nextButton}`}>
               Próximo <ArrowRight02Icon />
             </button>

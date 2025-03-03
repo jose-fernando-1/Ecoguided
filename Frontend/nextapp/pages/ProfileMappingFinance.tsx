@@ -1,15 +1,33 @@
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/ProfileMappingFinance.module.css';
 import { ArrowRight02Icon, ArrowLeft02Icon } from 'hugeicons-react';
 import NavbarSimple from '../components/NavbarSimple';
 import Link from 'next/link';
 
 const ProfileMappingFinance = () => {
-  const router = useRouter();
-  const { username } = router.query;
   const [selectedBudget, setSelectedBudget] = useState('$');
   const [selectedPriority, setSelectedPriority] = useState('Economia');
+
+  useEffect(() => {
+    const storedBudget = localStorage.getItem('selectedBudget');
+    if (storedBudget) {
+      setSelectedBudget(storedBudget);
+    }
+    const storedPriority = localStorage.getItem('selectedPriority');
+    if (storedPriority) {
+      setSelectedPriority(storedPriority);
+    }
+  }, []);
+
+  const handleBudgetChange = (budget: string) => {
+    setSelectedBudget(budget);
+    localStorage.setItem('selectedBudget', budget);
+  };
+
+  const handlePriorityChange = (priority: string) => {
+    setSelectedPriority(priority);
+    localStorage.setItem('selectedPriority', priority);
+  };
 
   return (
     <div className={styles.container}>
@@ -28,7 +46,7 @@ const ProfileMappingFinance = () => {
               <button
                 key={budget}
                 className={`${styles.option} ${selectedBudget === budget ? styles.selected : ''}`}
-                onClick={() => setSelectedBudget(budget)}
+                onClick={() => handleBudgetChange(budget)}
               >
                 {budget}
               </button>
@@ -43,7 +61,7 @@ const ProfileMappingFinance = () => {
               <button
                 key={priority}
                 className={`${styles.option} ${selectedPriority === priority ? styles.selected : ''}`}
-                onClick={() => setSelectedPriority(priority)}
+                onClick={() => handlePriorityChange(priority)}
               >
                 {priority}
               </button>
@@ -52,12 +70,12 @@ const ProfileMappingFinance = () => {
         </div>
 
         <div className={styles.navigation}>
-          <Link href={`/ProfileMappingLifestyle?username=${username}`} passHref legacyBehavior>
+          <Link href="/ProfileMappingLifestyle" passHref legacyBehavior>
             <button className={styles.navButton}>
               <ArrowLeft02Icon /> Anterior
             </button>
           </Link>
-          <Link href={`/ProfileMappingEco?username=${username}`} passHref legacyBehavior>
+          <Link href="/ProfileMappingEco" passHref legacyBehavior>
             <button className={`${styles.navButton} ${styles.nextButton}`}>
               Próximo <ArrowRight02Icon />
             </button>

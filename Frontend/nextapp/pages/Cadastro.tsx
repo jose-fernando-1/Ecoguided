@@ -80,9 +80,10 @@ const Cadastro = () => {
       if (response.status === 200) {
         const token = response.data.token;
         localStorage.setItem('authToken', token);
+        localStorage.setItem('username', formData.username);
         console.log('Cadastro realizado com sucesso:', response.data);
         alert('Cadastro efetuado!');
-        router.push(`/ProfileMapping?username=${formData.username}`);
+        router.push('/ProfileMapping');
       } else if (response.status === 400) {
         console.error('Erro ao realizar cadastro:', response.data);
         alert('Erro ao realizar cadastro. Usuário já existe.');
