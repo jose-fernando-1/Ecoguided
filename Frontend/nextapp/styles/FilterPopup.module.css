@@ -1,0 +1,144 @@
+.filterPopup .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.filterPopup .popup {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  text-align: center;
+  position: relative;
+}
+
+.filterPopup .closeButton {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.filterPopup .filterContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filterPopup .filterContainer select,
+.filterPopup .filterContainer input {
+  padding: 8px;
+  font-size: 16px;
+}
+
+.filterPopup .searchButton {
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.filterPopup .rangeSlider {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.filterPopup .rangeSlider::-webkit-slider-runnable-track {
+  height: 8px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+
+.filterPopup .rangeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -4px;
+}
+
+.filterPopup .rangeSlider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.filterPopup .rangeSlider::-moz-range-track {
+  height: 8px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+
+.filterPopup .rangeSlider::-ms-track {
+  width: 100%;
+  height: 8px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+  color: transparent;
+}
+
+.filterPopup .rangeSlider::-ms-thumb {
+  width: 16px;
+  height: 16px;
+  background: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.filterPopup .datalist {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.filterPopup .datalist option {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  text-align: center;
+  font-size: 14px;
+  color: #000;
+}
+
+.filterRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.filterColumn {
+  flex: 1;
+  margin-right: 0.5rem;
+}
+
+.filterColumn:last-child {
+  margin-right: 0;
+}
+
+.filterColumn label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
