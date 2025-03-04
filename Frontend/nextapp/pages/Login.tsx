@@ -29,13 +29,17 @@ const Login: React.FC = () => {
       });
 
       if (response.ok) {
-
-        const responseData =  await response.json();
+        const responseData = await response.json();
         const token = responseData.token;
+        const isGuide = {is_guide: 'True'}
         localStorage.setItem('sessionToken', token);
+        localStorage.setItem('username', username);
         alert('Login efetuado');
-        router.push('/LandingPage');
-
+        if (isGuide) {
+          router.push('/FeedGuia');
+        } else {
+          router.push('/FeedCliente');
+        }
       } else {
         const error = await response.json();
         alert(`Erro: ${error.message}`);
