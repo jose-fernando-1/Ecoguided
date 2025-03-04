@@ -12,7 +12,7 @@ Content-Type: application/json
 POST http://127.0.0.1:8000/api/users/signup
 Content-Type: application/json
 
-{ "username": "guide", "password": "a", "email": "guide@mail.com", "cpf":"12345618911", "is_guide": "True", "licenca": "0"}
+{ "username": "guide", "password": "a", "email": "guide@mail.com", "cpf":"12345618911", "is_guide": "True"}
 
 ###
 
@@ -68,17 +68,16 @@ Authorization: token 461a5e09cc0bdc99446afff880d4daf357b76c64
 # Cadastro de passeio (Necessário passar token do guia logado)
 POST http://127.0.0.1:8000/api/trips/
 Content-Type: application/json
-Authorization: token bb536087159b5c6721f0376868b2e4e54d45b8f0
+Authorization: token de06c2db62d79e4f61d31edc3f531083e4aa86a1
 
 
-{ "title": "Passeio Muito Legal!!!!!!",
+{ "title": "Passeio Muito ruim!!!!!!",
     "description": "arvore e mais coisa",
     "date": "2025-01-29",
     "location": "Recife",
     "max_participants": 5,
     "price": 8.0,
-    "tags": [1,2,3]}
-
+    "tags": [1]}
 ###
 
 # Requisição para editar foto da viagem
