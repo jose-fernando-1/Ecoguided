@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import NavbarSimple from '../components/NavbarSimple';
 import styles from '../styles/Cadastro.module.css';
+import NavbarCadastro from '../components/NavbarCadastro';
 
 const Cadastro = () => {
   const [formData, setFormData] = useState({
@@ -95,7 +96,7 @@ const Cadastro = () => {
 
   return (
     <div>
-      <NavbarSimple />
+      <NavbarCadastro />
       <div className={styles.container}>
         <div className={styles.loginBox}>
           <h2 className={styles.title}>Cadastro</h2>
