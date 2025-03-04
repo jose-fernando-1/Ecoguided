@@ -54,6 +54,7 @@
   /* Seções gerais */
   .section {
     margin-bottom: 48px;
+    font-family: 'Roboto', sans-serif;
   }
   
   .section h2 {
