@@ -16,6 +16,17 @@ const citiesOfBrazil = [
   'Campinas', 'São Luís', 'Maceió', 'Natal', 'Teresina', 'Campo Grande'
 ];
 
+const ecoTripStyles = [
+  { key: 1, label: 'Observação de Pássaros' },
+  { key: 2, label: 'Aqua Trekking' },
+  { key: 3, label: 'Trilhas e Caminhadas' },
+  { key: 4, label: 'Eco-Diving' },
+  { key: 5, label: 'Arborismo' },
+  { key: 6, label: 'Passeios a Cavalo' },
+  { key: 7, label: 'Canoagem e Caiaque' },
+  { key: 8, label: 'Ciclismo de Montanha' }
+];
+
 const CadastroPasseioGuia = () => {
   const router = useRouter();
 
@@ -28,17 +39,6 @@ const CadastroPasseioGuia = () => {
   const [maxParticipants, setMaxParticipants] = useState<number | ''>('');
   const [price, setPrice] = useState<number | ''>('');
 
-  const ecoTripStyles = [
-    { key: 'trilha', label: 'Trilhas e Caminhadas' },
-    { key: 'passaro', label: 'Observação de Pássaros' },
-    { key: 'aqua', label: 'Aqua Trekking' },
-    { key: 'ecodiving', label: 'Eco-Diving' },
-    { key: 'arborismo', label: 'Arborismo' },
-    { key: 'cavalo', label: 'Passeios a Cavalo' },
-    { key: 'canoa', label: 'Canoagem e Caiaque' },
-    { key: 'ciclismo', label: 'Ciclismo de Montanha' },
-  ];
-  
   useEffect(() => {
     const storedTitle = localStorage.getItem('title');
     if (storedTitle) {
@@ -108,7 +108,7 @@ const CadastroPasseioGuia = () => {
     localStorage.setItem('price', value.toString());
   }
 
-  const handleSelectedTripsChange = (tripKey: string) => {
+  const handleSelectedTripsChange = (tripKey: number) => {
     setSelectedTrips(prevSelectedTrips => {
       const updatedTrips = prevSelectedTrips.includes(tripKey)
         ? prevSelectedTrips.filter(key => key !== tripKey) 
@@ -130,7 +130,7 @@ const CadastroPasseioGuia = () => {
     setImages(prevImages => prevImages.filter((_, i) => i !== index));
   };
 
-  const toggleTripSelection = (trip: string) => {
+  const toggleTripSelection = (trip: number) => {
     setSelectedTrips(prevSelectedTrips =>
       prevSelectedTrips.includes(trip)
         ? prevSelectedTrips.filter(t => t !== trip)
@@ -183,9 +183,11 @@ const CadastroPasseioGuia = () => {
         alert(`Erro: ${error.message}`);
       } 
     } catch (error) {
-      console.error("Erro na requisição:", error);
-      alert("Houve um erro ao enviar os dados. Tente novamente.");
-    }
+      console.log(JSON.stringify(data));
+      // console.error("Erro na requisição:", error);
+      // alert("Houve um erro ao enviar os dados. Tente novamente.");
+
+    } 
   }
 
   return (
@@ -242,14 +244,14 @@ const CadastroPasseioGuia = () => {
                 Qual o seu estilo de <span className={styles.highlight}>ecotrip</span>?
               </h2>
               <div className={styles.buttonGroup}>
-                {ecoTripStyles.map(({ key, label }) => (
+                {ecoTripStyles.map((style) => (
                   <button
                     type="button"
-                    key={key}
-                    className={`${styles.tripButton} ${selectedTrips.includes(key) ? styles.selected : ''}`}
-                    onClick={() => handleSelectedTripsChange(key)}
+                    key={style.key}
+                    className={`${styles.tripButton} ${selectedTrips.includes(style.key) ? styles.selected : ''}`}
+                    onClick={() => handleSelectedTripsChange(style.key)}
                   >
-                    {label}
+                    {style.label}
                   </button>
                 ))}
               </div>
