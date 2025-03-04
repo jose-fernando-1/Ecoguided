@@ -149,7 +149,6 @@ const CadastroPasseioGuia = () => {
       title: title,
       description: description,
       location: location,
-      is_guide: true,
       date: formattedDate,
       max_participants: maxParticipants,
       price: price,
@@ -169,11 +168,12 @@ const CadastroPasseioGuia = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `token ${token}`
+          'Authorization': `token ${token}`
         },
         body: JSON.stringify(data)
       });
 
+      console.log(token)
       if (response.ok) {
         console.log(JSON.stringify(data));
         alert('Passeio cadastrado com sucesso!');
@@ -187,8 +187,7 @@ const CadastroPasseioGuia = () => {
     } catch (error) {
       console.log(JSON.stringify(data));
       console.error("Erro na requisição:", error);
-      alert("Houve um erro ao enviar os dados. Tente novamente.");
-
+      alert("Houve um erro ao enviar os dados. Tente novamente.")
     } 
   }
 

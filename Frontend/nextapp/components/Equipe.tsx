@@ -2,13 +2,14 @@ import React from 'react';
 import styles from '../styles/Equipe.module.css';
 import Image from 'next/image';
 import img_equipe from '../img/img_equipe.png';
+import img_passarinho_branco from '../img/img_passarinho_branco.png';
 
 const QuemSomos = () => {
   return (
     <div id="quem-somos" className={styles.container}>
       <div className={styles.textContainer}>
         <h2 className={styles.title}>
-          Quem Somos <span role="img" aria-label="bird">🕊️</span>
+          Quem Somos <Image src={img_passarinho_branco} alt="Pássaro Branco" width={24} height={24} />
         </h2>
         <p className={styles.description}>
           Bem-vindo à EcoGuided, a plataforma que conecta eco turistas a guias de turismo ecológico apaixonados e experientes. Nossa missão é promover o turismo sustentável, oferecendo experiências únicas que valorizam e protegem o meio ambiente.

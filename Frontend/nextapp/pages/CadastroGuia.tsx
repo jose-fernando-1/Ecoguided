@@ -4,7 +4,7 @@ import NavbarCadastro from '../components/NavbarCadastro';
 import { useRouter } from 'next/router';
 
 const CadastroGuia = () => {
-    const router = useRouter()
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -51,18 +51,20 @@ const CadastroGuia = () => {
             });
 
             if (response.ok) {
-
                 const responseData = await response.json();
+                console.log('Response Data:', responseData); 
                 const token = responseData.token;
+                console.log('Token:', token); 
                 localStorage.setItem('sessionToken', token);
                 localStorage.setItem('username', username);
                 localStorage.setItem('email', email);
                 localStorage.setItem('cpf', cpf);
                 localStorage.setItem('licenca', licenca);
                 alert('Cadastro efetuado e login realizado!');
-                router.push('/FeedGuia')
+                router.push('/FeedGuia');
             } else {
                 const error = await response.json();
+                console.log('Error Response:', error); 
                 alert(`Erro: ${error.message}`);
             }
         } catch (error) {
