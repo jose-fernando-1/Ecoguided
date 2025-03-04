@@ -1,6 +1,6 @@
 .container {
     font-family: Arial, sans-serif;
-    background-color: #2a7d74;    /* Cor de fundo sólida */
+    background-color: #007f5f;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,20 +9,12 @@
     margin: 0;
   }
   
-  .navbar {
-    width: 100%;
-    position: fixed;
-    background-color: #fff; 
-    top: 0;
-  }
+  .logo {
+    max-width: 100%;
+    height: auto;
+}
   
-  .content {
-    text-align: center;
-    margin-top: 60px; /* Ajuste para o navbar */
-  }
-  
-  .title {
-    color: #fff;
+  .text {
     font-size: 2.5rem;
-    margin-bottom: 20px;
-  }
+    color: white;
+}

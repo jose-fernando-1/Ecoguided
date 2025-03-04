@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/ProfileMappingWelcome.module.css';
-import NavbarSimple from '../components/NavbarSimple';
+import imgLogo from '../img/img_logo_2.png';
+import Image from 'next/image';
 
 const ProfileMappingWelcome = () => {
   const [username, setUsername] = useState('');
@@ -22,12 +23,8 @@ const ProfileMappingWelcome = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.navbar}>
-        <NavbarSimple />
-      </div>
-      <div className={styles.content}>
-        <h1 className={styles.title}>Seja Bem-vindo(a), {username}!</h1>
-      </div>
+      <Image src={imgLogo} alt="Logo" className={styles.logo} />
+      <h1 className={styles.text}>Seja Bem-vindo(a), {username}!</h1>
     </div>
   );
 };

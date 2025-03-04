@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import imgLogo from '../img/img_logo.png';
+import imgLogo from '../img/img_logo_2.png';
 import Image from 'next/image';
 import styles from '../styles/Filtering.module.css';
 
@@ -10,7 +10,7 @@ const Filtering = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             router.push('/FeedCliente');
-        }, 2000);
+        }, 2500);
 
         return () => clearTimeout(timer);
     }, [router]);
