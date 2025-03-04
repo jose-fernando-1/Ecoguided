@@ -74,7 +74,7 @@ const FilterPopup: React.FC<FilterPopupProps> = ({ isOpen, onClose }) => {
               <div className={styles.filterColumn}>
                 <label>EcoTrip Lifestyle</label>
                 <select>
-                  {["Aqua Trekking", "Montanhismo", "Trilha"].sort().map((lifestyle) => (
+                  {["Observação de Pássaros", "Aqua Trekking", "Trilhas e Caminhadas", "Eco-Diving", "Arborismo", "Passeios a Cavalo", "Canoagem e Caiaque", "Ciclismo de Montanha"].sort().map((lifestyle) => (
                     <option key={lifestyle} value={lifestyle}>{lifestyle}</option>
                   ))}
                 </select>
@@ -82,7 +82,7 @@ const FilterPopup: React.FC<FilterPopupProps> = ({ isOpen, onClose }) => {
               <div className={styles.filterColumn}>
                 <label>Viajarei...</label>
                 <select>
-                  {["Amigos", "Família", "Sozinho"].sort().map((viajarei) => (
+                  {["Sozinho(a)", "Em casal", "Com amigos", "Em familia"].sort().map((viajarei) => (
                     <option key={viajarei} value={viajarei}>{viajarei}</option>
                   ))}
                 </select>
