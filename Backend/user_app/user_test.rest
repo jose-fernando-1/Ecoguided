@@ -1,0 +1,91 @@
+
+### Exemplo de como o arquivo deve ser formatado:
+
+# Cadastro de usuário padrão
+POST http://127.0.0.1:8000/api/users/signup
+Content-Type: application/json
+
+{ "username": "user", "password": "a", "email": "user@mail.com", "cpf":"12345617120", "is_guide": "False"}
+
+###
+# Cadastro de guia
+POST http://127.0.0.1:8000/api/users/signup
+Content-Type: application/json
+
+{ "username": "guide", "password": "a", "email": "guide@mail.com", "cpf":"12345618911", "is_guide": "True", "licenca": "0"}
+
+###
+
+# Ver usuarios cadastrados
+GET http://127.0.0.1:8000/api/users/
+Content-Type: application/json
+
+###
+# Ver viagens participadas pelo user 
+GET http://127.0.0.1:8000/api/users/trips
+Authorization: token bb536087159b5c6721f0376868b2e4e54d45b8f0
+
+Content-Type: application/json
+
+
+###
+# Ver viagens cadastradas pelo guia
+GET http://127.0.0.1:8000/api/users/guide_trips
+Authorization: token bb536087159b5c6721f0376868b2e4e54d45b8f0
+
+Content-Type: application/json
+
+###
+
+# Fazer login e receber o token
+POST http://127.0.0.1:8000/api/users/login
+Content-Type: application/json
+
+{ "username": "guide", "password": "a"}
+
+###
+
+
+# Fazer logout (Excluir Token)
+POST http://127.0.0.1:8000/api/users/logout 
+Content-Type: application/json
+Authorization: token 44f0ab236f925dfeb18f60a92391c082c8cfd513
+
+
+###
+# Requisição para pegar id de preferencias multipla escolha
+GET  http://127.0.0.1:8000/api/category_preferences
+Content-Type: application/json
+
+###
+# Verificar Tags e Ids
+GET  http://127.0.0.1:8000/api/tags
+Content-Type: application/json
+
+###
+
+# Aplicar preferencias ao usuário
+POST  http://127.0.0.1:8000/api/users/preferences
+Content-Type: application/json
+Authorization: token 86bb4825a6126c1f2ed493e6e15a93849384e9c9
+
+{ "genero": "Outro",
+  "faixa_etaria": "25-34",
+  "pais_regiao": "Brasil",
+  "estilo_ecotrip": [1,2,3],
+  "prefere_viajar_com": [10,11,12],
+  "viagens_anuais": "3-5",
+  "orcamento_medio": "$",
+  "importancia_sustentabilidade": "pouco",
+  "pagaria_por_servicos_sustentaveis": "Sim, sem problemas!",
+  "participa_ecoturismo": "Sim, frequentemente"
+}
+
+###
+# Receber Viagens Recomendadas
+GET http://127.0.0.1:8000/api/users/recommendation
+Authorization: token 86bb4825a6126c1f2ed493e6e15a93849384e9c9
+
+Content-Type: application/json
+
+###
