@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -164,30 +165,33 @@ const CadastroPasseioGuia = () => {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/trips/', {
-        method: 'POST',
+      const response = await axios.post('http://127.0.0.1:8000/api/trips/', data, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `token ${token}`
-        },
-        body: JSON.stringify(data)
+        }
       });
-
       console.log(token)
-      if (response.ok) {
+      if (response.status === 200 || response.status === 201) {
         console.log(JSON.stringify(data));
         alert('Passeio cadastrado com sucesso!');
         router.push('/FeedGuia');
       } else {
-        console.log(JSON.stringify(data));
-        const error = await response.json();
-        console.log('Erro na resposta da API:', error);
-        alert(`Erro: ${error.message}`);
+        console.log('Erro na resposta da API:', response.data);
+        alert(`Erro: ${response.data}`);
       } 
     } catch (error) {
-      console.log(JSON.stringify(data));
       console.error("Erro na requisição:", error);
-      alert("Houve um erro ao enviar os dados. Tente novamente.")
+      if (error) {
+        console.log('Erro na resposta da API:', error);
+        alert(`Erro: ${error}`);
+      } else if (error) {
+        console.log('Erro na requisição:', error);
+        alert("Não foi possível conectar ao servidor. Verifique se o servidor está em execução e acessível.");
+      } else {
+        console.log('Erro:', error);
+        alert("Houve um erro ao enviar os dados. Tente novamente.");
+      }
     } 
   }
 
