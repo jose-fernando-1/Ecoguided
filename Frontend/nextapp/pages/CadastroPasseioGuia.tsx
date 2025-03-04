@@ -175,17 +175,19 @@ const CadastroPasseioGuia = () => {
       });
 
       if (response.ok) {
+        console.log(JSON.stringify(data));
         alert('Passeio cadastrado com sucesso!');
         router.push('/FeedGuia');
       } else {
+        console.log(JSON.stringify(data));
         const error = await response.json();
         console.log('Erro na resposta da API:', error);
         alert(`Erro: ${error.message}`);
       } 
     } catch (error) {
       console.log(JSON.stringify(data));
-      // console.error("Erro na requisição:", error);
-      // alert("Houve um erro ao enviar os dados. Tente novamente.");
+      console.error("Erro na requisição:", error);
+      alert("Houve um erro ao enviar os dados. Tente novamente.");
 
     } 
   }
@@ -193,7 +195,7 @@ const CadastroPasseioGuia = () => {
   return (
     <div>
       <div className={styles.container}>
-        <NewNavbar userName="Niciu" />
+        <NewNavbar/>
         <section className={styles.headerSection}>
           <form className={styles.form} onSubmit={handleSubmit}>
             <input

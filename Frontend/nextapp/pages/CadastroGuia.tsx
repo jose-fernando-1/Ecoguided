@@ -56,9 +56,12 @@ const CadastroGuia = () => {
                 const responseData = await response.json();
                 const token = responseData.token;
                 localStorage.setItem('sessionToken', token);
+                localStorage.setItem('username', username);
+                localStorage.setItem('email', email);
+                localStorage.setItem('cpf', cpf);
+                localStorage.setItem('licenca', licenca);
                 alert('Cadastro efetuado e login realizado!');
-                router.push('/FeedGuia');
-
+                router.push('/FeedGuia')
             } else {
                 const error = await response.json();
                 alert(`Erro: ${error.message}`);
@@ -67,7 +70,6 @@ const CadastroGuia = () => {
             console.error("Erro na requisição:", error);
             alert("Houve um erro ao enviar os dados. Tente novamente.");
         }
-        router.push('/FeedGuia')
     };
 
     return (

@@ -4,13 +4,20 @@ import userAvatar from '../img/user_avatar.png';
 import styles from '../styles/CadastroGuia.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
-interface NewNavbarProps {
-  userName: string;
-}
+interface NewNavbarProps {}
 
-export default function NewNavbar({ userName }: NewNavbarProps) {
+export default function NewNavbar() {
   const router = useRouter();
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const storedUserName = localStorage.getItem('username');
+    if (storedUserName) {
+      setUserName(storedUserName);
+    }
+  }, []);
 
   return (
     <nav className={styles.navbar}>
