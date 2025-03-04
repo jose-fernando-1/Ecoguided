@@ -6,6 +6,7 @@ import Carousel from '../components/FeedGuiaCarousel';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
 import NewNavbar from '../components/NewNavbar';
+import ImagemGuia from '../img/hipster-tourist-looking-city-map.png';
 
 const FeedGuia = () => {
   const [username, setUsername] = useState('');
@@ -45,7 +46,7 @@ const FeedGuia = () => {
         </div>
 
         <div className={styles.profileDetails}>
-          <Image src="/images/guia.jpg" alt="Foto do Guia" width={250} height={250} className={styles.profileImage} />
+          <Image src={ImagemGuia} alt="Foto do Guia" width={250} height={250} className={styles.profileImage} />
           <h2>Biografia</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           <h2>Certificações</h2>
