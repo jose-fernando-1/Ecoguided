@@ -39,7 +39,6 @@ const CadastroGuia = () => {
             return;
         }
 
-
         const data = { username, password, email, cpf, licenca, is_guide: true };
 
         try {

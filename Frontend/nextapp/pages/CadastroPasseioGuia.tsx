@@ -195,7 +195,7 @@ const CadastroPasseioGuia = () => {
   return (
     <div>
       <div className={styles.container}>
-        <NewNavbar/>
+        <NewNavbar/> 
         <section className={styles.headerSection}>
           <form className={styles.form} onSubmit={handleSubmit}>
             <input
