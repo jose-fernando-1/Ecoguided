@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <NewNavbar userName="Niciu" />
+      <NewNavbar />
       
       <main className={styles.main}>
         <h1 className={styles.title}></h1>
@@ -25,10 +25,10 @@ export default function Home() {
             setValue={setTripName}
           />
         </div>
-
+{/* 
         <div className={styles.imageUploaderContainer}>
           <ImageUploader />
-        </div>
+        </div> */}
 
         <h1 className={styles.subtitle}>
           Qual o seu estilo de{" "}

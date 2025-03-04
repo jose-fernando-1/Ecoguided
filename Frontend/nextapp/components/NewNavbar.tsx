@@ -1,42 +1,46 @@
+import { useRouter } from 'next/router';
 import logo from '../img/img_logo.png';
 import userAvatar from '../img/user_avatar.png';
 import styles from '../styles/CadastroGuia.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
-interface NewNavbarProps {
-  userName: string;
-}
+interface NewNavbarProps {}
 
-export default function NewNavbar({ userName }: NewNavbarProps) {
+export default function NewNavbar() {
+  const router = useRouter();
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const storedUserName = localStorage.getItem('username');
+    if (storedUserName) {
+      setUserName(storedUserName);
+    }
+  }, []);
+
   return (
-    <div
-      className={styles['navbar']}
-      style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
-    >
-      <div className={styles['logo']}>
+    <nav className={styles.navbar}>
+      <button className={styles.backButton} onClick={() => router.back()}>
+        ←
+      </button>
+      <div className={styles.logo}>
         <Link href="/" passHref>
           <Image src={logo} alt="Eco-Guided Logo" width={190} height={35} />
         </Link>
       </div>
-      <div style={{ display: "flex", alignItems: "center", marginRight: "1rem" }}>
-        <div
-          style={{
-            fontSize: "1.2rem",
-            marginRight: "0.5rem",
-            color: "black"
-          }}
-        >
-          Seja bem-vindo, <span style={{ color: "#2e747f" }}>{userName}</span>!
-        </div>
+      <div className={styles.userSection}>
+        <span className={styles.userName}>
+          Seja bem-vindo, <span>{userName}</span>!
+        </span>
         <Image
           src={userAvatar}
           alt="User Avatar"
           width={40}
           height={40}
-          style={{ borderRadius: "50%" }}
+          className={styles.userAvatar}
         />
       </div>
-    </div>
+    </nav>
   );
 }

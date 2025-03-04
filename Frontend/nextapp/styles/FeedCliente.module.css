@@ -1,0 +1,188 @@
+/* Container geral da página */
+.homeContainer {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Navbar */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 16px 32px;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  /* Logo / Marca */
+  .brand {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logoText {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-right: 8px;
+  }
+  
+  .leafEmoji {
+    font-size: 1.5rem;
+  }
+  
+  /* Ícone de usuário (exemplo) */
+  .userSection {
+    display: flex;
+    align-items: center;
+  }
+  
+  .userIcon {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+  }
+  
+  /* Main content */
+  .mainContent {
+    padding: 32px;
+  }
+  
+  /* Seções gerais */
+  .section {
+    margin-bottom: 48px;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+  }
+  
+  /* Container de cards (geral) */
+  .cardsContainer {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap; /* Permite quebrar linha em telas menores */
+  }
+  
+  /* Card grande (para "Os mais procurados") */
+  .cardLarge {
+    background-color: #fff;
+    border-radius: 8px;
+    width: 400px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cardLarge img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+  
+  .cardLarge h3 {
+    margin: 16px;
+    font-size: 1.2rem;
+  }
+  
+  /* Card pequeno (para "Os melhores destinos") */
+  .cardSmall {
+    background-color: #fff;
+    border-radius: 8px;
+    width: 200px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .cardSmall img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+  }
+  
+  .cardSmall h3 {
+    margin: 8px;
+    font-size: 1rem;
+  }
+  
+  .cardSmall p {
+    margin: 0 8px 8px 8px;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .cardSmall button {
+    margin: 8px;
+    padding: 8px 12px;
+    background-color: #008080;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: flex-start;
+  }
+  
+  .cardSmall button:hover {
+    background-color: #006666;
+  }
+  
+  /* Seção de recomendações ("O que pensamos para você") */
+  .recommendations {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .recommendationCard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .recommendationCard h3 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+  
+  .recommendationCard p {
+    margin: 4px 0 0 0;
+    color: #666;
+  }
+  
+  .priceSection {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #008080;
+  }
+  
+  /* Botão "Comparar" */
+  .compareButton {
+    background-color: #f08a5d;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .compareButton:hover {
+    background-color: #d97950;
+  }
+  

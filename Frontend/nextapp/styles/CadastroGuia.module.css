@@ -1,4 +1,4 @@
-/* CadastroGuia.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 .h1 {
     text-align: left;
@@ -58,8 +58,7 @@
     flex-direction: column;
     align-items: center;
     padding: 2rem;
-    background-color: #edf2f7;
-    /* Fundo levemente cinza */
+    background-color: #edf2f7; /* Fundo levemente cinza */
     border-radius: 8px;
     margin: 2rem auto;
     width: 80%;
@@ -148,6 +147,7 @@
     background-color: #005bb5;
 }
 
+/* Navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -157,14 +157,67 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.logo {
+    cursor: pointer;
+}
+
+.userSection {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.userName {
+    font-size: 1.2rem;
+    color: black;
+}
+
+.userName span {
+    color: #2e747f;
+    font-weight: bold;
+}
+
+.userAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* Botão de Voltar */
+.backButton {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.backButton:hover {
+    background-color: #d32f2f;
+}
+
+.login {
+    font-family: 'Roboto', sans-serif;
+}
+
+.login p {
+    font-family: 'Roboto', sans-serif;
+}
+
 .login button {
     background: none;
     border: none;
     color: #2f855a;
     font-weight: bold;
     cursor: pointer;
+    font-family: 'Roboto', sans-serif;
 }
 
 .login button:hover {
     text-decoration: underline;
 }
+

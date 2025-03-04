@@ -4,7 +4,7 @@ import NavbarCadastro from '../components/NavbarCadastro';
 import { useRouter } from 'next/router';
 
 const CadastroGuia = () => {
-    const router = useRouter()
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -39,23 +39,32 @@ const CadastroGuia = () => {
             return;
         }
 
-
         const data = { username, password, email, cpf, licenca, is_guide: true };
 
         try {
             const response = await fetch('http://127.0.0.1:8000/api/users/signup', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data)
             });
 
             if (response.ok) {
-                alert('Cadastro efetuado!');
+                const responseData = await response.json();
+                console.log('Response Data:', responseData); 
+                const token = responseData.token;
+                console.log('Token:', token); 
+                localStorage.setItem('sessionToken', token);
+                localStorage.setItem('username', username);
+                localStorage.setItem('email', email);
+                localStorage.setItem('cpf', cpf);
+                localStorage.setItem('licenca', licenca);
+                alert('Cadastro efetuado e login realizado!');
                 router.push('/FeedGuia');
             } else {
                 const error = await response.json();
+                console.log('Error Response:', error); 
                 alert(`Erro: ${error.message}`);
             }
         } catch (error) {

@@ -3,26 +3,45 @@ import Link from 'next/link';
 import styles from '../styles/FeedGuia.module.css';
 import NavbarCadastro from '../components/NavbarCadastro';
 import Carousel from '../components/FeedGuiaCarousel';
-import router from 'next/router'
+import router from 'next/router';
+import { useEffect, useState } from 'react';
+import NewNavbar from '../components/NewNavbar';
 
 const FeedGuia = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [licenca, setLicenca] = useState('');
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    const storedEmail = localStorage.getItem('email');
+    const storedCpf = localStorage.getItem('cpf');
+    const storedLicenca = localStorage.getItem('licenca');
+
+    if (storedUsername) setUsername(storedUsername);
+    if (storedEmail) setEmail(storedEmail);
+    if (storedCpf) setCpf(storedCpf);
+    if (storedLicenca) setLicenca(storedLicenca);
+  }, []);
+
   const trips = ['Reserva da Mantiqueira', 'Praia dos Carneiros', 'Cachoeira Diamantina', 'Praia de Porto de Galinhas'];
+
   const handleNewTrip = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    router.push('/CadastroPasseioGuia')
-  }
+    router.push('/CadastroPasseioGuia');
+  };
 
   return (
     <div className={styles.container}>
-      <NavbarCadastro />
+      <NewNavbar/>
 
       <div className={styles.profileSection}>
         <div className={styles.formContainer}>
-          <input type="text" placeholder="Nome" />
-          <input type="email" placeholder="Email" />
-          <input type="text" placeholder="Cpf" />
-          <input type="password" placeholder="Senha" />
-          <input type="password" placeholder="Confirmar Senha" />
+          <input type="text" placeholder="Nome" value={username} readOnly />
+          <input type="email" placeholder="Email" value={email} readOnly />
+          <input type="text" placeholder="Cpf" value={cpf} readOnly />
+          <input type="text" placeholder="Licença" value={licenca} readOnly />
         </div>
 
         <div className={styles.profileDetails}>
@@ -55,7 +74,7 @@ const FeedGuia = () => {
         Novo Passeio
       </button>
     </div>
-  )
-}
+  );
+};
 
 export default FeedGuia;

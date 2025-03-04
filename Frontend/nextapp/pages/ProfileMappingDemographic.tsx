@@ -1,20 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/ProfileMappingDemographic.module.css';
 import { ArrowRight02Icon, ArrowLeft02Icon } from 'hugeicons-react';
 import NavbarSimple from '../components/NavbarSimple';
 import Link from 'next/link';
 
-const statesOfBrazil = [
-  'Acre', 'Alagoas', 'Amapá', 'Amazonas', 'Bahia', 'Ceará', 'Distrito Federal', 'Espírito Santo',
-  'Goiás', 'Maranhão', 'Mato Grosso', 'Mato Grosso do Sul', 'Minas Gerais', 'Pará', 'Paraíba',
-  'Paraná', 'Pernambuco', 'Piauí', 'Rio de Janeiro', 'Rio Grande do Norte', 'Rio Grande do Sul',
-  'Rondônia', 'Roraima', 'Santa Catarina', 'São Paulo', 'Sergipe', 'Tocantins'
+const citiesOfBrazil = [
+  'São Paulo', 'Rio de Janeiro', 'Salvador', 'Brasília', 'Fortaleza', 'Belo Horizonte', 'Manaus', 'Curitiba',
+  'Recife', 'Goiânia', 'Belém', 'Porto Alegre', 'Guarulhos', 'Campinas', 'São Luís', 'São Gonçalo',
+  'Maceió', 'Duque de Caxias', 'Natal', 'Teresina', 'Campo Grande', 'São Bernardo do Campo', 'João Pessoa',
+  'Nova Iguaçu', 'São José dos Campos', 'Santo André', 'Ribeirão Preto', 'Jaboatão dos Guararapes', 'Uberlândia'
 ];
 
 const DemographicPage = () => {
-  const [selectedGender, setSelectedGender] = useState('Feminino');
-  const [selectedAge, setSelectedAge] = useState('25-34 anos');
-  const [selectedState, setSelectedState] = useState('Pernambuco');
+  const [selectedGender, setSelectedGender] = useState<string>('Feminino');
+  const [selectedAge, setSelectedAge] = useState<string>('25-34 anos');
+  const [selectedCity, setSelectedCity] = useState<string>('Recife');
+
+  useEffect(() => {   
+    const storedGender = localStorage.getItem('selectedGender');
+    if (storedGender) {
+      setSelectedGender(storedGender);
+    }
+    const storedAge = localStorage.getItem('selectedAge');
+    if (storedAge) {
+      setSelectedAge(storedAge);
+    }
+    const storedCity = localStorage.getItem('selectedCity');
+    if (storedCity) {
+      setSelectedCity(storedCity);
+    }
+  }, []);
+
+  const handleGenderChange = (gender: string) => {
+    setSelectedGender(gender);
+    localStorage.setItem('selectedGender', gender);
+  };
+
+  const handleAgeChange = (age: string) => {
+    setSelectedAge(age);
+    localStorage.setItem('selectedAge', age);
+  };
+
+  const handleCityChange = (city: string) => {
+    setSelectedCity(city);
+    localStorage.setItem('selectedCity', city);
+  };
 
   return (
     <div className={styles.container}>
@@ -34,7 +64,7 @@ const DemographicPage = () => {
               <button
                 key={gender}
                 className={`${styles.option} ${selectedGender === gender ? styles.selected : ''}`}
-                onClick={() => setSelectedGender(gender)}
+                onClick={() => handleGenderChange(gender)}
               >
                 {gender}
               </button>
@@ -50,7 +80,7 @@ const DemographicPage = () => {
               <button
                 key={age}
                 className={`${styles.option} ${selectedAge === age ? styles.selected : ''}`}
-                onClick={() => setSelectedAge(age)}
+                onClick={() => handleAgeChange(age)}
               >
                 {age}
               </button>
@@ -60,14 +90,14 @@ const DemographicPage = () => {
 
         {/* Seção de País/Região */}
         <div className={styles.section}>
-          <h3>País/Região</h3>
+          <h3>País/Cidade</h3>
           <div className={styles.selectGroup}>
             <select className={styles.select} value="Brasil" disabled>
               <option>Brasil</option>
             </select>
-            <select className={styles.select} value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
-              {statesOfBrazil.map((state) => (
-                <option key={state} value={state}>{state}</option>
+            <select className={styles.select} value={selectedCity} onChange={(e) => handleCityChange(e.target.value)}>
+              {citiesOfBrazil.map((city) => (
+                <option key={city} value={city}>{city}</option>
               ))}
             </select>
           </div>

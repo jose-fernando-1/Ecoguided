@@ -19,21 +19,7 @@ Content-Type: application/json
 # Ver usuarios cadastrados
 GET http://127.0.0.1:8000/api/users/
 Content-Type: application/json
-
-###
-# Ver viagens participadas pelo user 
-GET http://127.0.0.1:8000/api/users/trips
-Authorization: token bb536087159b5c6721f0376868b2e4e54d45b8f0
-
-Content-Type: application/json
-
-###
-# Ver viagens cadastradas pelo guia
-GET http://127.0.0.1:8000/api/users/guide_trips
-Authorization: token bb536087159b5c6721f0376868b2e4e54d45b8f0
-
-Content-Type: application/json
-
+Authorization: token de06c2db62d79e4f61d31edc3f531083e4aa86a1
 ###
 
 # Fazer login e receber o token
@@ -68,8 +54,7 @@ Authorization: token 461a5e09cc0bdc99446afff880d4daf357b76c64
 # Cadastro de passeio (Necessário passar token do guia logado)
 POST http://127.0.0.1:8000/api/trips/
 Content-Type: application/json
-Authorization: token de06c2db62d79e4f61d31edc3f531083e4aa86a1
-
+Authorization: token 4b65d8c539bfffbb36e8de8df963ecd0cc14f79c
 
 { "title": "Passeio Muito ruim!!!!!!",
     "description": "arvore e mais coisa",

@@ -8,13 +8,13 @@ const NavbarCadastro = () => {
     <div className={styles['navbar']}>
       <div className={styles['logo']}>
         <Link href="/" passHref>
-            <Image src={logo} alt="Eco-Guided Logo" width={190} height={35} />
+          <Image src={logo} alt="Eco-Guided Logo" width={190} height={35} />
         </Link>
       </div>
       <div className={styles['login']}>
         <p>
           Já possui uma conta? 
-          <Link href="/Login" passHref >
+          <Link href="/Login" passHref>
             <button>Faça Login</button>
           </Link>
         </p>
