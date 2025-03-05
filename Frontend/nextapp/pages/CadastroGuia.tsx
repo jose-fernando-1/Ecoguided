@@ -1,5 +1,5 @@
 import styles from '../styles/CadastroGuia.module.css';
-import { UserMultiple02Icon, StarIcon, Route03Icon } from 'hugeicons-react';
+import { UserMultiple02Icon } from 'hugeicons-react';
 import NavbarCadastro from '../components/NavbarCadastro';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
