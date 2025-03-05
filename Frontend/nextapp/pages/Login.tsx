@@ -28,20 +28,25 @@ const Login: React.FC = () => {
         body: JSON.stringify(data)
       });
 
+      console.log('Response:', response);
+
       if (response.ok) {
         const responseData = await response.json();
         const token = responseData.token;
-        const isGuide = {is_guide: 'True'}
+        const licenca = responseData.user.licenca; 
         localStorage.setItem('sessionToken', token);
         localStorage.setItem('username', username);
+        localStorage.setItem('licenca', licenca); 
         alert('Login efetuado');
-        if (isGuide) {
+
+        if (licenca) {
           router.push('/FeedGuia');
         } else {
           router.push('/FeedCliente');
         }
       } else {
         const error = await response.json();
+        console.log('Error Response:', error);
         alert(`Erro: ${error.message}`);
       }
 

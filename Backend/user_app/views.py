@@ -54,8 +54,12 @@ def login(request):
         return Response("missing user", status=status.HTTP_404_NOT_FOUND)
     # pega token do user
     token, created = Token.objects.get_or_create(user=user)
-    # chama serializer para obter dados do usuario
-    serializer = CustomUserSerializer(user)
+    
+    # Verifica se o usuário é um guia
+    if hasattr(user, 'ecoguide') and user.ecoguide.licenca is not None:
+        serializer = GuideSerializer(user.ecoguide)
+    else:
+        serializer = CustomUserSerializer(user)
     return Response({'token': token.key, 'user': serializer.data})
 
 

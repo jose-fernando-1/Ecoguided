@@ -57,9 +57,7 @@ const CadastroGuia = () => {
 
             if (response.ok) {
                 const responseData = await response.json();
-                console.log('Response Data:', responseData); 
                 const token = responseData.token;
-                console.log('Token:', token); 
                 localStorage.setItem('sessionToken', token);
                 localStorage.setItem('username', username);
                 localStorage.setItem('email', email);
