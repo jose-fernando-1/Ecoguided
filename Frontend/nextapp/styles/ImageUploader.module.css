@@ -1,4 +1,4 @@
-.container {
+/* .container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,6 +25,32 @@
     border: 2px dashed #aaa;
     cursor: pointer;
     font-size: 24px;
+  }
+  
+  .uploadButton input {
+    display: none;
+  }
+   */
+
+   .uploadButton {
+    width: 150px; /* Aumentei para melhor leitura */
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #2e747f; /* Cor combinando com o tema */
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #2e747f;
+    background-color: white;
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  .uploadButton:hover {
+    background-color: #2e747f;
+    color: white;
   }
   
   .uploadButton input {

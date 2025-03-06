@@ -1,7 +1,4 @@
 from django.db import models
-
-# Create your models here.
-# models.py
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -30,27 +27,18 @@ class EcoGuide(CustomUser):
     licenca = models.CharField(max_length=15, blank=False, null=False, default=0) # Número de Licença do guia
 
 
-
-### Preferências do Usuário (Formulário inicial) ### 
-class EcoTripStyle(models.Model):
-    name = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-
-
-class TravelCompanionPreference(models.Model):
-    name = models.CharField(max_length=50)
+# Categoria de preferência do usuário, serve para armazenar váriar preferências em um atributo só
+class PreferenceCategory(models.Model):
+    CATEGORY_CHOICES = [
+        ('ecotrip_style', 'Estilo Ecotrip'),
+        ('travel_companion', 'Companheiro de Viagem'),
+    ]
+    
+    name = models.CharField(max_length=50, unique=True)
+    category = models.CharField(max_length=20,choices=CATEGORY_CHOICES, null=True)
 
     def __str__(self):
-        return self.name
-
-
-class TravelPriority(models.Model):
-    name = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
+        return self.name + self.category
 
 
 class UserPreference(models.Model):
@@ -65,40 +53,39 @@ class UserPreference(models.Model):
     )
     faixa_etaria = models.CharField(
         max_length=15,
-        choices=[('18-24', '18-24 anos'), ('25-34', '25-34 anos'), ('35-44', '35-44 anos'), 
-                 ('45-54', '45-54 anos'), ('55+', '55+ anos')],
+        choices=[('18-24 anos', '18-24 anos'), ('25-34 anos', '25-34 anos'), ('35-44 anos', '35-44 anos'), 
+                 ('45-54 anos', '45-54 anos'), ('55+ anos', '55+ anos')],
         blank=True,
         null=True
     )
     pais_regiao = models.CharField(max_length=50, blank=True, null=True)
 
     # Lifestyle
-    estilo_ecotrip = models.ManyToManyField(EcoTripStyle, blank=True)
-    prefere_viajar_com = models.ManyToManyField(TravelCompanionPreference, blank=True)
+    estilo_ecotrip = models.ManyToManyField(PreferenceCategory, blank=True, related_name='preferencia_estilo')
+    prefere_viajar_com = models.ManyToManyField(PreferenceCategory, blank=True, related_name="preferencia_companhia")
     viagens_anuais = models.CharField(
         max_length=15,
-        choices=[('Nunca', 'Nunca'), ('1-2', '1-2 vezes'), ('3-5', '3-5 vezes'), ('5+', '5+ vezes')],
+        choices=[('Nunca', 'Nunca'), ('1-2 vezes', '1-2 vezes'), ('3-5 vezes', '3-5 vezes'), ('5+ vezes', '5+ vezes')],
         blank=True,
         null=True
     )
 
     # Financeiro
+    # Seria útil mapear isso para valores reais, o usuário pode não ter noção da quantidade de dinheiro que essa preferencia se refere
     orcamento_medio = models.CharField(
         max_length=5,
         choices=[('$', '$'), ('$$', '$$'), ('$$$', '$$$'), ('$$$$', '$$$$'), ('$$$$$', '$$$$$')],
         blank=True,
         null=True
     )
-    prioridade_viagem = models.ManyToManyField(TravelPriority, blank=True)
-
     # Sustentabilidade
     importancia_sustentabilidade = models.CharField(
         max_length=20,
         choices=[
-            ('Muito importante', 'Muito importante'),
-            ('Importante', 'Importante'),
-            ('Pouco importante', 'Pouco importante'),
-            ('Nada importante', 'Nada importante')
+            ('Muito Importante','Muito Importante'),
+            ('Importante','Importante'),
+            ('Pouco Importante','Pouco Importante'),
+            ('Nada Importante','Nada Importante')
         ],
         blank=True,
         null=True
@@ -129,32 +116,4 @@ class UserPreference(models.Model):
         return f"Preferences of {self.user.username}"
 
     
-    
-'''
-class CustomUser(AbstractUser):
-    cpf = models.CharField(max_length=12, blank=False, null=False)
 
-    def __str__(self):
-        return self.username
-class TURISTA(AbstractUser):
-    perfil = onetoonefield(...)
-    
-    def __str__(self):
-        return self.username
-
-
-class GUIA(AbstractUser):
-    user = onetoonefield(CustomUser, guia)
-    perfil = onetoonefield(...)
-    id_guia = ...
-    especialidade = 
-    def __str__(self):
-        return self.username
-
-'''
-
-# classe cartao de credito
-
-# 
-
-# classe perfil contendo info do usuário

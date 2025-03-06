@@ -8,10 +8,13 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
-from .models import CustomUser, UserPreference
-from .serializers import CustomUserSerializer, GuideSerializer, UserPreferenceSerializer
+from .models import CustomUser, EcoGuide, UserPreference, PreferenceCategory
+from trips.models import Trip
+from trips.serializers import TripSerializer
+from .serializers import CustomUserSerializer, GuideSerializer, UserPreferenceSerializer,PreferenceCategorySerializer
 from django.contrib.auth import get_user_model
 
+from django_filters.rest_framework import DjangoFilterBackend
 User = get_user_model()  # Obter usuário customizado, é necessário por conta da autenticação
 
 '''
@@ -41,19 +44,7 @@ def signup(request):
         return Response({'token': token.key, 'user': serializer.data})
     return Response(serializer.errors, status=status.HTTP_200_OK)
 
-'''
-@api_view(['POST'])
 
-@permission_classes([Token])
-def subscribe_into_trip(request):
-    participante = get_object_or_404(User, username=request.data['username'] ou id)
-    trip = get_object_or_404(Trip, id=request.data['id_viagem'])
-    
-    trip = Trip.objects.get(trip = trip)
-    if trip.get_avaliable_slots():
-        trip.participants.add(participant)
-
-'''
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login(request):
@@ -76,9 +67,21 @@ def logout(request):
     return Response({'message': 'Logout realizado com sucesso!'}, status=status.HTTP_200_OK)
 
 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+class UserRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+    def perform_destroy(self, instance):
+        return super().perform_destroy(instance)
+    
+    
+    
+    
+    
 class UserPreferenceView(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [TokenAuthentication]
+    permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
         user = request.user  # Obtém o usuário autenticado
@@ -98,6 +101,16 @@ class UserPreferenceView(APIView):
 
 
 
+class UserPreferenceRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UserPreferenceSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        # Retorna as preferências do usuário autenticado
+        return get_object_or_404(UserPreference, user=self.request.user)
+
+
+
 class UserList(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
@@ -106,3 +119,77 @@ class UserList(APIView):
         return Response(serializer.data)
 
 
+# Preferências Categóricas
+class PreferenceCategoryView(generics.ListCreateAPIView):
+    queryset = PreferenceCategory.objects.all()
+    serializer_class = PreferenceCategorySerializer
+    permission_classes = [AllowAny]
+    filter_backends = [DjangoFilterBackend]
+
+
+class PreferenceCategoryRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = PreferenceCategory.objects.all()
+    serializer_class = PreferenceCategorySerializer
+    permission_classes = [AllowAny]
+    
+    
+class RecommendationSystem(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self,request):
+        user = request.user
+        
+        preferences = get_object_or_404(UserPreference, user=user)
+        trips = Trip.objects.all()
+        budget_map = {'$': 100, '$$': 300, '$$$': 600, '$$$$': 1000, '$$$$$': 2000}  
+        preferred_styles = preferences.estilo_ecotrip.values_list('name', flat=True)
+        preferred_companion = preferences.prefere_viajar_com.values_list('name', flat=True)
+        scored_trips = []
+        for trip in trips:
+            score = 0
+            for tag in trip.tags.all():
+                print(tag.name)
+                if tag.name in preferred_styles:
+                    score += 2
+                elif tag.name in preferred_companion:
+                    score +=1
+            print(score)
+            scored_trips.append((score, trip))
+        # Ordenar os passeios por score (do maior para o menor)
+        scored_trips.sort(reverse=True, key=lambda x: x[0])
+        recommended_trips = [trip[1] for trip in scored_trips]
+
+        # Serializar e retornar os passeios recomendados
+        serializer = TripSerializer(recommended_trips, many=True)
+        return Response(serializer.data)
+
+
+        
+# Retornar viagens participadas
+
+class UserTrips(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        trips = Trip.objects.filter(participants=user)
+        if not trips:
+            return Response({"message": "Você não se cadastrou em nenhuma viagem."}, status=status.HTTP_200_OK)
+        serializer = TripSerializer(trips, many=True)
+        
+        return Response(serializer.data)
+        
+class GuideTrips(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        guide = get_object_or_404(EcoGuide, id=user.id)
+        if not isinstance(guide, EcoGuide):  # Verifica se o usuário é uma instância de EcoGuide
+            return Response({"message": "Apenas EcoGuias podem ver viagens criadas"}, status=status.HTTP_401_UNAUTHORIZED)
+        trips = Trip.objects.filter(guide=user)
+        if not trips:
+            return Response({"message": "Você não criou nenhuma viagem."}, status=status.HTTP_200_OK)
+        serializer = TripSerializer(trips, many=True)
+        
+        return Response(serializer.data)
