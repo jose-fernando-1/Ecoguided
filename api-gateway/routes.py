@@ -19,6 +19,8 @@ async def forward_request(service: str, path: str, method: str, data=None):
             response = await client.post(url, json=data)
         elif method == "PATCH":
             response = await client.patch(url, json=data)
+        elif method == "DELETE":
+            response = await client.delete(url)
         else:
             raise HTTPException(status_code=405, detail="Método não permitido")
     
@@ -35,3 +37,7 @@ async def proxy_post(service: str, path: str, data: dict):
 @router.patch("/{service}/{path:path}")
 async def proxy_patch(service: str, path: str, data: dict):
     return await forward_request(service, f"/{path}", "PATCH", data)
+
+@router.delete("/{service}/{path:path}")
+async def proxy_delete(service: str, path: str):
+    return await forward_request(service, f"/{path}", "DELETE")
