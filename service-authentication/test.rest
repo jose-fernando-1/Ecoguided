@@ -1,0 +1,40 @@
+http://127.0.0.1:8003/authentication/register/
+
+### Testar o endpoint de registro
+POST http://127.0.0.1:8003/api/auth/register/
+Content-Type: application/json
+
+{
+    "username": "testuser",
+    "password": "testpassword",
+    "email": "testuser@example.com"
+}
+
+### Testar o endpoint de obtenção de token
+POST http://127.0.0.1:8003/api/auth/token/
+Content-Type: application/json
+
+{
+    "username": "testuser",
+    "password": "testpassword"
+}
+
+### Testar o endpoint de atualização de token
+POST http://127.0.0.1:8003/api/auth/token/refresh/
+Content-Type: application/json
+
+{
+    "refresh": "your_refresh_token_here"
+}
+
+### Testar um endpoint protegido
+GET http://127.0.0.1:8003/api/protected/
+Authorization: Bearer your_access_token_here
+
+### Testar o endpoint de deletar usuário
+DELETE http://127.0.0.1:8003/api/auth/delete/2/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMzc5ODI4LCJpYXQiOjE3NDEzNzk1MjgsImp0aSI6IjQ4YWQ4OGM0NjcxODRmNzg4MzI4MTI3MGU2NjllNzJkIiwidXNlcl9pZCI6Mn0.cml8rKrfMni7WhbzHzgxqgcFP9IKl4znQCoM0_LglPI
+
+### Testar o endpoint de listar usuários
+GET http://127.0.0.1:8003/api/auth/list/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMzgwMjU3LCJpYXQiOjE3NDEzNzk5NTcsImp0aSI6IjU3ZjQ5OWRkOGFjMjQ3MjlhMGQ1ZjA2NWYzN2ExM2NlIiwidXNlcl9pZCI6NH0.Hv3GU8fEMwu7A130WceFD-UY0kYWL4UHr6eZe6PvTF4
