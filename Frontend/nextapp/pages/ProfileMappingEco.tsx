@@ -106,7 +106,7 @@ const ProfileMappingEco = () => {
     };
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/users/preferences', data, {
+      const response = await axios.post('http://127.0.0.1:8000/users/preferences', data, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `token ${authToken}`,

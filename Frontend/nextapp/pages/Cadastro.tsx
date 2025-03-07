@@ -73,7 +73,7 @@ const Cadastro = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post<{ token: string }>('http://127.0.0.1:8000/api/users/signup', formData, {
+      const response = await axios.post<{ token: string }>('http://127.0.0.1:8000/users/signup', formData, {
         headers: {
           'Content-Type': 'application/json'
         }

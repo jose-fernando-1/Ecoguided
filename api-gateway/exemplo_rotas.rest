@@ -1,0 +1,38 @@
+#ProfileMappingEco
+  const response = await axios.post('http://127.0.0.1:8000/users/preferences', data, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `token ${authToken}`,
+    },
+  });
+
+#Login
+  const response = await fetch('http://127.0.0.1:8000/users/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+
+#CadastroPasseioGuia
+  const response = await axios.post('http://127.0.0.1:8000/trips/newtrip', data, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `token ${token}`
+    }
+  });
+
+#CadastroGuia
+  const response = await fetch('http://127.0.0.1:8000/users/signup', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data)
+  });
+
+#Cadastro
+    const response = await axios.post<{ token: string }>('http://127.0.0.1:8000/users/signup', formData, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });

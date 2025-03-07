@@ -1,11 +1,11 @@
 # routes.py
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 import httpx
 from config import SERVICES
 
 router = APIRouter()
 
-async def forward_request(service: str, path: str, method: str, data=None):
+async def forward_request(service: str, path: str, method: str, data=None, params=None):
     """Encaminha a requisição para o serviço correto."""
     if service not in SERVICES:
         raise HTTPException(status_code=404, detail="Serviço não encontrado")
@@ -14,7 +14,7 @@ async def forward_request(service: str, path: str, method: str, data=None):
     
     async with httpx.AsyncClient() as client:
         if method == "GET":
-            response = await client.get(url)
+            response = await client.get(url, params=params)
         elif method == "POST":
             response = await client.post(url, json=data)
         elif method == "PATCH":
@@ -27,8 +27,9 @@ async def forward_request(service: str, path: str, method: str, data=None):
     return response.json()
 
 @router.get("/{service}/{path:path}")
-async def proxy_get(service: str, path: str):
-    return await forward_request(service, f"/{path}", "GET")
+async def proxy_get(service: str, path: str, request: Request):
+    params = dict(request.query_params)
+    return await forward_request(service, f"/{path}", "GET", params=params)
 
 @router.post("/{service}/{path:path}")
 async def proxy_post(service: str, path: str, data: dict):
@@ -38,6 +39,6 @@ async def proxy_post(service: str, path: str, data: dict):
 async def proxy_patch(service: str, path: str, data: dict):
     return await forward_request(service, f"/{path}", "PATCH", data)
 
-@router.delete("/{service}/{path:path}")
-async def proxy_delete(service: str, path: str):
-    return await forward_request(service, f"/{path}", "DELETE")
+@router.delete("/{service}/{path:path}/{id}")
+async def proxy_delete(service: str, path: str, id: int):
+    return await forward_request(service, f"/{path}/{id}", "DELETE")
