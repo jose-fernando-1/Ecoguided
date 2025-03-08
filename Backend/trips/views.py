@@ -14,7 +14,7 @@ from rest_framework.generics import ListAPIView
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.filters import OrderingFilter
-
+from .filters import TripFilter
 
 
 
@@ -73,6 +73,7 @@ class TripsView(ListAPIView):
     serializer_class = TripSerializer
     queryset =  Trip.objects.all()
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_class = TripFilter
     permission_classes = [AllowAny]
     search_fields = ( 
         '^title', 

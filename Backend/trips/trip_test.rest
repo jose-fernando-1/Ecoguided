@@ -81,3 +81,35 @@ Content-Type: application/json
 # Ordenar por maior preço
 GET http://127.0.0.1:8000/api/get_trips/?ordering=-price 
 Content-Type: application/json
+
+
+
+###
+# Buscar trips com filtros aplicados (cidade, estilo, faixa de preço, pesquisa no título e ordenação)
+GET http://127.0.0.1:8000/api/get_trips/?city=Recife&style=aqua&price_range=$&search=Passeio&ordering=-price
+Content-Type: application/json
+
+###
+# Buscar trips pelo inicio do nome
+GET http://127.0.0.1:8000/api/get_trips/?search=Trilha
+Content-Type: application/json
+
+###
+# Buscar trips com filtros (cidade, estilo, faixa de preço, ordenação)
+GET http://127.0.0.1:8000/api/get_trips/?city=Recife&style=passaro&price_range=$&ordering=-price
+Content-Type: application/json
+
+# Estilo Ecotrip está mapeado desta maneira:
+'''
+'ecotrip_style': [
+            ('passaro', 'Observação de Pássaros'),
+            ('aqua', 'Aqua Trekking'),
+            ('trilha', 'Trilhas e Caminhadas'),
+            ('ecodiving', 'Eco-Diving'),
+            ('arborismo', 'Arborismo'),
+            ('cavalo', 'Passeios a Cavalo'),
+            ('canoa', 'Canoagem e Caiaque'),
+            ('ciclismo', 'Ciclismo de Montanha'),
+        ],
+
+'''
