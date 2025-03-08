@@ -111,7 +111,7 @@
     color: #777;
   }
   
-  /* Seção de preços e botão de comparar */
+  /* Seção de preços e botão de comprar */
   .priceRow {
     display: flex;
     align-items: center;
@@ -131,8 +131,8 @@
     color: #008000; /* Verde */
   }
   
-  /* Botão "Comparar" */
-  .compareButton {
+  /* Botão "Comprar" */
+  .buyButton {
     margin-left: auto; /* empurra para a direita */
     background-color: #008080;
     border: none;
@@ -145,12 +145,11 @@
     gap: 4px;
   }
   
-  .compareButton:hover {
+  .buyButton:hover {
     background-color: #006666;
   }
   
   /* Ícone no botão */
-  .compareIcon {
+  .buyIcon {
     font-size: 1rem; /* Ajuste conforme o ícone desejado */
   }
-  
