@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'user_app',
     'trips',
     'django_filters',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -103,7 +104,14 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter', 
 
     ],
-        
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'EcoGuided API',
+    'DESCRIPTION': 'API documentation for the EcoGuided project',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 
