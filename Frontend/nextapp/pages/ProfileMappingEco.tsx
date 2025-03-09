@@ -38,7 +38,7 @@ const ProfileMappingEco = () => {
     if (storedEcoPreference) {
       setSelectedEcoPreference(storedEcoPreference);
     }
-    const storedAuthToken = localStorage.getItem('authToken');
+    const storedAuthToken = localStorage.getItem('sessionToken');
     if (storedAuthToken) {
       setAuthToken(storedAuthToken);
     }

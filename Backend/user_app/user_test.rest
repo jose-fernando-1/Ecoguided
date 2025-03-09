@@ -41,7 +41,7 @@ Content-Type: application/json
 POST http://127.0.0.1:8000/api/users/login
 Content-Type: application/json
 
-{ "username": "guide", "password": "a"}
+{ "username": "user2", "password": "a"}
 
 ###
 
@@ -49,7 +49,7 @@ Content-Type: application/json
 # Fazer logout (Excluir Token)
 POST http://127.0.0.1:8000/api/users/logout 
 Content-Type: application/json
-Authorization: token 44f0ab236f925dfeb18f60a92391c082c8cfd513
+Authorization: token 0f66758983d6be67fbf2abaf111926963094feb2
 
 
 ###
@@ -67,16 +67,16 @@ Content-Type: application/json
 # Aplicar preferencias ao usuário
 POST  http://127.0.0.1:8000/api/users/preferences
 Content-Type: application/json
-Authorization: token 86bb4825a6126c1f2ed493e6e15a93849384e9c9
+Authorization: token 667dd736eacdb7717de116c570d5b2666dc03fea
 
 { "genero": "Outro",
-  "faixa_etaria": "25-34",
+  "faixa_etaria": "25-34 anos",
   "pais_regiao": "Brasil",
   "estilo_ecotrip": [1,2,3],
   "prefere_viajar_com": [10,11,12],
-  "viagens_anuais": "3-5",
+  "viagens_anuais": "3-5 vezes",
   "orcamento_medio": "$",
-  "importancia_sustentabilidade": "pouco",
+  "importancia_sustentabilidade": "Pouco Importante",
   "pagaria_por_servicos_sustentaveis": "Sim, sem problemas!",
   "participa_ecoturismo": "Sim, frequentemente"
 }

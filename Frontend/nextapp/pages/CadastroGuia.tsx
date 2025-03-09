@@ -1,7 +1,12 @@
 import styles from '../styles/CadastroGuia.module.css';
-import { UserMultiple02Icon, KayakIcon, StarIcon, Route03Icon } from 'hugeicons-react';
+import { UserMultiple02Icon } from 'hugeicons-react';
 import NavbarCadastro from '../components/NavbarCadastro';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
+
+import cadpar1 from '../img/cadpar1.png';
+import cadpar2 from '../img/cadpar2.png';
+import cadpar3 from '../img/cadpar3.png';
 
 const CadastroGuia = () => {
     const router = useRouter();
@@ -39,7 +44,7 @@ const CadastroGuia = () => {
             return;
         }
 
-        const data = { username, password, email, cpf, licenca, is_guide: true };
+        const data = { username, password, email, cpf, licenca, is_guide: 'True' };
 
         try {
             const response = await fetch('http://127.0.0.1:8000/api/users/signup', {
@@ -52,9 +57,7 @@ const CadastroGuia = () => {
 
             if (response.ok) {
                 const responseData = await response.json();
-                console.log('Response Data:', responseData); 
                 const token = responseData.token;
-                console.log('Token:', token); 
                 localStorage.setItem('sessionToken', token);
                 localStorage.setItem('username', username);
                 localStorage.setItem('email', email);
@@ -84,19 +87,19 @@ const CadastroGuia = () => {
             </div>
             <div className={styles['iconesTextos']}>
                 <div className={styles['iconTextContainer']}>
-                    <KayakIcon className={styles['icon']} />
+                    <Image src={cadpar1} alt="Icon" width={50} height={50} className={styles['icon']} />
                     <p>
                         Crie pacotes personalizados e conecte-se com turistas que valorizam experiências autênticas e sustentáveis.
                     </p>
                 </div>
                 <div className={styles['iconTextContainer']}>
-                    <StarIcon className={styles['icon']} />
+                    <Image src={cadpar2} alt="Icon" width={50} height={50} className={styles['icon']} />
                     <p>
                         Gerencie suas reservas, interaja com clientes e receba avaliações para impulsionar sua credibilidade
                     </p>
                 </div>
                 <div className={styles['iconTextContainer']}>
-                    <Route03Icon className={styles['icon']} />
+                    <Image src={cadpar3} alt="Icon" width={50} height={50} className={styles['icon']} />
                     <p>
                         Adicione fotos, descrições e preços às suas rotas para criar pacotes atraentes e ofereça passeios sustentáveis.
                     </p>

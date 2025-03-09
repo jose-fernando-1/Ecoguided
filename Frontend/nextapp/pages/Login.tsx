@@ -28,16 +28,25 @@ const Login: React.FC = () => {
         body: JSON.stringify(data)
       });
 
+      console.log('Response:', response);
+
       if (response.ok) {
-
-        const responseData =  await response.json();
+        const responseData = await response.json();
         const token = responseData.token;
+        const licenca = responseData.user.licenca; 
         localStorage.setItem('sessionToken', token);
+        localStorage.setItem('username', username);
+        localStorage.setItem('licenca', licenca); 
         alert('Login efetuado');
-        router.push('/LandingPage');
 
+        if (licenca) {
+          router.push('/FeedGuia');
+        } else {
+          router.push('/FeedCliente');
+        }
       } else {
         const error = await response.json();
+        console.log('Error Response:', error);
         alert(`Erro: ${error.message}`);
       }
 

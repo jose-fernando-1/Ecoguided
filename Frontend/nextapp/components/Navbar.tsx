@@ -4,9 +4,11 @@ import styles from '../styles/LandingPage.module.css';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Logout from './Logout';
 
 const Navbar = () => {
   const [username, setUsername] = useState<string | null>(null);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -17,10 +19,7 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('username');
-    localStorage.removeItem('sessionToken');
-    setUsername(null);
-    router.push('/');
+    setIsLoggingOut(true);
   };
 
   const scrollToSection = (id: any) => {
@@ -63,6 +62,7 @@ const Navbar = () => {
           </>
         )}
       </div>
+      {isLoggingOut && <Logout />}
     </nav>
   );
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../styles/TravelCard.module.css";
 import Image from "next/image";
+import { useRouter } from 'next/router';
 
 interface TravelCardProps {
     imageUrl: string;    // URL da imagem
@@ -9,9 +10,16 @@ interface TravelCardProps {
     rating: number;      // Nota (ex.: 4.8)
     oldPrice: number;    // Preço antigo
     newPrice: number;    // Preço novo
-  }
+    id: string;          // ID do destino
+}
 
-export default function TravelCard({imageUrl,title,author,rating,oldPrice,newPrice}: TravelCardProps) {
+export default function TravelCard({imageUrl, title, author, rating, oldPrice, newPrice, id}: TravelCardProps) {
+    const router = useRouter();
+
+    const handleComprar = () => {
+        router.push('/Carrinho');
+    }
+
     return (
         <div className={styles.travelCard}>
           {/* Imagem à esquerda */}
@@ -47,9 +55,9 @@ export default function TravelCard({imageUrl,title,author,rating,oldPrice,newPri
             <div className={styles.priceRow}>
               <span className={styles.oldPrice}>R${oldPrice}</span>
               <span className={styles.newPrice}>R${newPrice}</span>
-              <button className={styles.compareButton}>
-                Comparar
-                <span className={styles.compareIcon}>🛒</span>
+              <button className={styles.buyButton} onClick={handleComprar}>
+                Comprar
+                <span className={styles.buyIcon}>🛒</span>
               </button>
             </div>
           </div>

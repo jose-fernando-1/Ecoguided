@@ -1,11 +1,11 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import styles from '../styles/FeedGuia.module.css';
 import NavbarCadastro from '../components/NavbarCadastro';
 import Carousel from '../components/FeedGuiaCarousel';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
 import NewNavbar from '../components/NewNavbar';
+import ImagemGuia from '../img/hipster-tourist-looking-city-map.png';
 
 const FeedGuia = () => {
   const [username, setUsername] = useState('');
@@ -25,7 +25,6 @@ const FeedGuia = () => {
     if (storedLicenca) setLicenca(storedLicenca);
   }, []);
 
-  const trips = ['Reserva da Mantiqueira', 'Praia dos Carneiros', 'Cachoeira Diamantina', 'Praia de Porto de Galinhas'];
 
   const handleNewTrip = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -45,7 +44,7 @@ const FeedGuia = () => {
         </div>
 
         <div className={styles.profileDetails}>
-          <Image src="/images/guia.jpg" alt="Foto do Guia" width={250} height={250} className={styles.profileImage} />
+          <Image src={ImagemGuia} alt="Foto do Guia" width={250} height={250} className={styles.profileImage} />
           <h2>Biografia</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           <h2>Certificações</h2>
@@ -69,7 +68,7 @@ const FeedGuia = () => {
       </div>
 
       <h2>Passeios</h2>
-      <Carousel trips={trips} />
+      <Carousel />
       <button className={styles.newTrip} onClick={handleNewTrip}>
         Novo Passeio
       </button>

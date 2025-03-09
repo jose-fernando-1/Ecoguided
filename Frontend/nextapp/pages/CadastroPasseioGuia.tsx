@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -130,14 +131,6 @@ const CadastroPasseioGuia = () => {
     setImages(prevImages => prevImages.filter((_, i) => i !== index));
   };
 
-  const toggleTripSelection = (trip: number) => {
-    setSelectedTrips(prevSelectedTrips =>
-      prevSelectedTrips.includes(trip)
-        ? prevSelectedTrips.filter(t => t !== trip)
-        : [...prevSelectedTrips, trip]
-    );
-  };
-
   const convertDateToDjangoFormat = (dateString: string) => {
     const [year, month, day] = dateString.split('-');
     return `${year}-${month}-${day}`;
@@ -164,39 +157,78 @@ const CadastroPasseioGuia = () => {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/trips/', {
-        method: 'POST',
+      const response = await axios.post('http://127.0.0.1:8000/api/trips/', data, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `token ${token}`
-        },
-        body: JSON.stringify(data)
+        }
       });
-
       console.log(token)
-      if (response.ok) {
+      if (response.status === 200 || response.status === 201) {
         console.log(JSON.stringify(data));
         alert('Passeio cadastrado com sucesso!');
+        const tripId = (response.data as { id: number }).id;
+        localStorage.setItem('tripId', tripId.toString());
         router.push('/FeedGuia');
       } else {
-        console.log(JSON.stringify(data));
-        const error = await response.json();
-        console.log('Erro na resposta da API:', error);
-        alert(`Erro: ${error.message}`);
+        console.log('Erro na resposta da API:', response.data);
+        alert(`Erro: ${response.data}`);
       } 
     } catch (error) {
-      console.log(JSON.stringify(data));
       console.error("Erro na requisição:", error);
-      alert("Houve um erro ao enviar os dados. Tente novamente.")
+      if (error) {
+        console.log('Erro na resposta da API:', error);
+        alert(`Erro: ${error}`);
+      } else if (error) {
+        console.log('Erro na requisição:', error);
+        alert("Não foi possível conectar ao servidor. Verifique se o servidor está em execução e acessível.");
+      } else {
+        console.log('Erro:', error);
+        alert("Houve um erro ao enviar os dados. Tente novamente.");
+      }
     } 
   }
+
+  const handleDeleteTrip = async () => {
+    const tripId = localStorage.getItem('tripId');
+    if (!tripId) {
+      alert("Erro: Nenhum passeio selecionado para exclusão.");
+      return;
+    }
+  
+    const token = localStorage.getItem('sessionToken');
+    if (!token) {
+      alert("Erro: Usuário não autenticado.");
+      return;
+    }
+  
+    try {
+      const response = await axios.delete(`http://127.0.0.1:8000/api/trips/${tripId}/`, {
+        headers: {
+          'Authorization': `token ${token}`
+        }
+      });
+  
+      if (response.status === 204) {
+        alert('Passeio excluído com sucesso!');
+        localStorage.removeItem('tripId');
+        router.push('/FeedGuia');
+      } else {
+        console.log('Erro na resposta da API:', response.data);
+        alert(`Erro: ${response.data}`);
+      }
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+      alert("Houve um erro ao excluir o passeio. Tente novamente.");
+    }
+  };
 
   return (
     <div>
       <div className={styles.container}>
         <NewNavbar/> 
         <section className={styles.headerSection}>
-          <form className={styles.form} onSubmit={handleSubmit}>
+          <form className={styles.form}>
             <input
               type="text"
               className={styles.titleInput}
@@ -294,7 +326,7 @@ const CadastroPasseioGuia = () => {
               </div>
 
               <div className={styles.actionButtons}>
-                <button type="button" className={styles.deleteButton}>Excluir passeio</button>
+                <button type="button" className={styles.deleteButton} onClick={handleDeleteTrip}>Excluir passeio</button>
                 <button type="submit" className={styles.confirmButton} onClick={handleSubmit}>Confirmar</button>
               </div>
             </section>
