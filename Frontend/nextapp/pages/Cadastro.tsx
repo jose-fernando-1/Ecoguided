@@ -80,7 +80,7 @@ const Cadastro = () => {
       });
       if (response.status === 200) {
         const token = response.data.token;
-        localStorage.setItem('authToken', token);
+        localStorage.setItem('sessionToken', token);
         localStorage.setItem('username', formData.username);
         console.log('Cadastro realizado com sucesso:', response.data);
         alert('Cadastro efetuado!');
