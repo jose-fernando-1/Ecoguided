@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import styles from '../styles/FeedGuia.module.css';
 import NavbarCadastro from '../components/NavbarCadastro';
 import Carousel from '../components/FeedGuiaCarousel';
@@ -26,7 +25,6 @@ const FeedGuia = () => {
     if (storedLicenca) setLicenca(storedLicenca);
   }, []);
 
-  const trips = ['Reserva da Mantiqueira', 'Praia dos Carneiros', 'Cachoeira Diamantina', 'Praia de Porto de Galinhas'];
 
   const handleNewTrip = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -70,7 +68,7 @@ const FeedGuia = () => {
       </div>
 
       <h2>Passeios</h2>
-      <Carousel trips={trips} />
+      <Carousel />
       <button className={styles.newTrip} onClick={handleNewTrip}>
         Novo Passeio
       </button>

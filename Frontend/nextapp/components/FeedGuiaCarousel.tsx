@@ -1,26 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import styles from '../styles/FeedGuiaCarousel.module.css';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import CachoeiraDiamantina from '../img/cachoeira_diamantina.png';
 import PraiaDePortoDeGalinhas from '../img/porto_de_galinha.png';
 import PraiaDosCarneiros from '../img/praia_carneiros.png';
 import ReservaDaMantiqueira from '../img/Reserva_da_mantiqueira.png';
 
-interface CarouselProps {
-  trips: string[];
-}
+const FeedGuiaCarousel = () => {
+  const [trips, setTrips] = useState<any[]>([]);
+  const router = useRouter();
 
-const FeedGuiaCarousel = ({ trips }: CarouselProps) => {
-  const images = [
-    ReservaDaMantiqueira,
-    PraiaDosCarneiros,
-    CachoeiraDiamantina,
-    PraiaDePortoDeGalinhas,
-  ];
+  useEffect(() => {
+    const fetchTrips = async () => {
+      const sessionToken = localStorage.getItem('sessionToken');
+      if (!sessionToken) {
+        alert('Você precisa estar logado.');
+        router.push('/login');
+        return;
+      }
+
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/users/guide_trips', {
+          headers: {
+            'Authorization': `token ${sessionToken}`
+          }
+        });
+        const data = await response.json();
+        setTrips(data);
+      } catch (error) {
+        console.error('Error fetching trips:', error);
+      }
+    };
+
+    fetchTrips();
+  }, [router]);
 
   return (
     <div className={styles.carouselContainer}>
@@ -35,13 +53,17 @@ const FeedGuiaCarousel = ({ trips }: CarouselProps) => {
           480: { slidesPerView: 1 },
         }}
       >
-        {trips.map((trip, index) => (
-          <SwiperSlide key={index}>
+        {trips.map((trip) => (
+          <SwiperSlide key={trip.id}>
             <div className={styles.card}>
-              <Image src={images[index]} alt={trip} width={300} height={200} className={styles.cardImage} />
+              {trip.photo ? (
+                <Image src={trip.photo} alt={trip.title} width={300} height={200} className={styles.cardImage} />
+              ) : (
+                <div className={styles.cardImagePlaceholder}>No Image</div>
+              )}
               <div className={styles.cardContent}>
-                <h3 className={styles.cardTitle}>{trip}</h3>
-                <p className={styles.cardDescription}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h3 className={styles.cardTitle}>{trip.title}</h3>
+                <p className={styles.cardDescription}>{trip.description}</p>
                 <button className={styles.cardButton}>Editar</button>
               </div>
             </div>
