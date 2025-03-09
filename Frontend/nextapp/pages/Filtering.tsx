@@ -9,7 +9,7 @@ const Filtering = () => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            router.push('/FeedCliente');
+            router.push('/ResultadoFiltro');
         }, 2500);
 
         return () => clearTimeout(timer);
