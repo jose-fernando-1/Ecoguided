@@ -53,22 +53,26 @@ const FeedGuiaCarousel = () => {
           480: { slidesPerView: 1 },
         }}
       >
-        {trips.map((trip) => (
-          <SwiperSlide key={trip.id}>
-            <div className={styles.card}>
-              {trip.photo ? (
-                <Image src={trip.photo} alt={trip.title} width={300} height={200} className={styles.cardImage} />
-              ) : (
-                <div className={styles.cardImagePlaceholder}>No Image</div>
-              )}
-              <div className={styles.cardContent}>
-                <h3 className={styles.cardTitle}>{trip.title}</h3>
-                <p className={styles.cardDescription}>{trip.description}</p>
-                <button className={styles.cardButton}>Editar</button>
+        {trips[0] === undefined ? (
+          <div className={styles.noTripsMessage}>Não há passeios cadastrados.</div>
+        ) : (
+          trips.map((trip) => (
+            <SwiperSlide key={trip.id}>
+              <div className={styles.card}>
+                {trip.photo ? (
+                  <Image src={trip.photo} alt={trip.title} width={300} height={200} className={styles.cardImage} />
+                ) : (
+                  <div className={styles.cardImagePlaceholder}>No Image</div>
+                )}
+                <div className={styles.cardContent}>
+                  <h3 className={styles.cardTitle}>{trip.title}</h3>
+                  <p className={styles.cardDescription}>{trip.description}</p>
+                  <button className={styles.cardButton}>Editar</button>
+                </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
+            </SwiperSlide>
+          ))
+        )}
       </Swiper>
     </div>
   );
