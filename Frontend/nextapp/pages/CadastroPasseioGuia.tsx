@@ -28,8 +28,20 @@ const ecoTripStyles = [
   { key: 8, label: 'Ciclismo de Montanha' }
 ];
 
+interface TripData {
+  title: string;
+  description: string;
+  location: string;
+  date: string;
+  max_participants: number;
+  price: number;
+  tags: number[];
+  images?: string[];
+}
+
 const CadastroPasseioGuia = () => {
   const router = useRouter();
+  const { id } = router.query;
 
   const [images, setImages] = useState<string[]>([]);
   const [title, setTitle] = useState('');
@@ -41,81 +53,64 @@ const CadastroPasseioGuia = () => {
   const [price, setPrice] = useState<number | ''>('');
 
   useEffect(() => {
-    const storedTitle = localStorage.getItem('title');
-    if (storedTitle) {
-      setTitle(storedTitle);
+    if (id) {
+      const fetchTrip = async () => {
+        const sessionToken = localStorage.getItem('sessionToken');
+        try {
+          const response = await axios.get<TripData>(`http://127.0.0.1:8000/api/trips/${id}/`, {
+            headers: {
+              'Authorization': `token ${sessionToken}`
+            }
+          });
+          const data = response.data;
+          setTitle(data.title);
+          setDescription(data.description);
+          setLocation(data.location);
+          setDate(data.date);
+          setMaxParticipants(data.max_participants);
+          setPrice(data.price);
+          setSelectedTrips(data.tags);
+          setImages(data.images || []);
+        } catch (error) {
+          console.error('Error fetching trip:', error);
+        }
+      };
+
+      fetchTrip();
     }
-  
-    const storedDescription = localStorage.getItem('description');
-    if (storedDescription) {
-      setDescription(storedDescription);
-    }
-  
-    const storedLocation = localStorage.getItem('location');
-    if (storedLocation) {
-      setLocation(storedLocation);
-    }
-  
-    const storedDate = localStorage.getItem('date');
-    if (storedDate) {
-      setDate(storedDate);
-    }
-  
-    const storedMaxParticipants = localStorage.getItem('maxParticipants');
-    if (storedMaxParticipants) {
-      setMaxParticipants(Number(storedMaxParticipants));
-    }
-  
-    const storedPrice = localStorage.getItem('price');
-    if (storedPrice) {
-      setPrice(Number(storedPrice));
-    }
-  
-    const storedTrips = localStorage.getItem('selectedTrips');
-    if (storedTrips) {
-      setSelectedTrips(JSON.parse(storedTrips));
-    }
-  }, []);
+  }, [id]);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
-    localStorage.setItem('title', e.target.value);
   };
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.target.value);
-    localStorage.setItem('description', e.target.value);
   };
 
   const handleLocationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setLocation(e.target.value);
-    localStorage.setItem('location', e.target.value);
   };
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDate(e.target.value)
-    localStorage.setItem('date', e.target.value);
+    setDate(e.target.value);
   };
 
   const handleParticipantsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
     setMaxParticipants(value);
-    localStorage.setItem('maxParticipants', value.toString());
   };
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
     setPrice(value > 0 ? value : '');
-    localStorage.setItem('price', value.toString());
-  }
+  };
 
   const handleSelectedTripsChange = (tripKey: number) => {
     setSelectedTrips(prevSelectedTrips => {
       const updatedTrips = prevSelectedTrips.includes(tripKey)
-        ? prevSelectedTrips.filter(key => key !== tripKey) 
-        : [...prevSelectedTrips, tripKey]; 
-  
-      localStorage.setItem('selectedTrips', JSON.stringify(updatedTrips));
+        ? prevSelectedTrips.filter(key => key !== tripKey)
+        : [...prevSelectedTrips, tripKey];
       return updatedTrips;
     });
   };
@@ -148,7 +143,7 @@ const CadastroPasseioGuia = () => {
       tags: selectedTrips,
     };
 
-    console.log('Dados enviados:', data); 
+    console.log('Dados enviados:', data);
 
     const token = localStorage.getItem('sessionToken');
     if (!token) {
@@ -157,76 +152,60 @@ const CadastroPasseioGuia = () => {
     }
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/trips/', data, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `token ${token}`
-        }
-      });
-      console.log(token)
-      if (response.status === 200 || response.status === 201) {
-        console.log(JSON.stringify(data));
-        alert('Passeio cadastrado com sucesso!');
-        const tripId = (response.data as { id: number }).id;
-        localStorage.setItem('tripId', tripId.toString());
-        router.push('/FeedGuia');
-      } else {
-        console.log('Erro na resposta da API:', response.data);
-        alert(`Erro: ${response.data}`);
-      } 
-    } catch (error) {
-      console.error("Erro na requisição:", error);
-      if (error) {
-        console.log('Erro na resposta da API:', error);
-        alert(`Erro: ${error}`);
-      } else if (error) {
-        console.log('Erro na requisição:', error);
-        alert("Não foi possível conectar ao servidor. Verifique se o servidor está em execução e acessível.");
-      } else {
-        console.log('Erro:', error);
-        alert("Houve um erro ao enviar os dados. Tente novamente.");
-      }
-    } 
-  }
+      if (id) {
+        // Editar passeio existente (requisição PATCH)
+        const response = await axios.patch(`http://127.0.0.1:8000/api/trips/${id}/`, data, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `token ${token}`
+          }
+        });
 
-  const handleDeleteTrip = async () => {
-    const tripId = localStorage.getItem('tripId');
-    if (!tripId) {
-      alert("Erro: Nenhum passeio selecionado para exclusão.");
-      return;
-    }
-  
-    const token = localStorage.getItem('sessionToken');
-    if (!token) {
-      alert("Erro: Usuário não autenticado.");
-      return;
-    }
-  
-    try {
-      const response = await axios.delete(`http://127.0.0.1:8000/api/trips/${tripId}/`, {
-        headers: {
-          'Authorization': `token ${token}`
+        if (response.status === 200 || response.status === 201) {
+          alert('Passeio atualizado com sucesso!');
+          router.push('/FeedGuia');
+        } else {
+          console.log('Erro na resposta da API:', response.data);
+          alert(`Erro: ${response.data}`);
         }
-      });
-  
-      if (response.status === 204) {
-        alert('Passeio excluído com sucesso!');
-        localStorage.removeItem('tripId');
-        router.push('/FeedGuia');
       } else {
-        console.log('Erro na resposta da API:', response.data);
-        alert(`Erro: ${response.data}`);
+        // Cadastrar novo passeio (requisição POST)
+        const response = await axios.post('http://127.0.0.1:8000/api/trips/', data, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `token ${token}`
+          }
+        });
+
+        if (response.status === 201) {
+          alert('Passeio cadastrado com sucesso!');
+          router.push('/FeedGuia');
+        } else {
+          console.log('Erro na resposta da API:', response.data);
+          alert(`Erro: ${response.data}`);
+        }
       }
     } catch (error) {
       console.error("Erro na requisição:", error);
-      alert("Houve um erro ao excluir o passeio. Tente novamente.");
+      alert("Houve um erro ao enviar os dados. Tente novamente.");
     }
+  };
+
+  const handleClear = () => {
+    setTitle('');
+    setDescription('');
+    setLocation('');
+    setDate('');
+    setMaxParticipants('');
+    setPrice('');
+    setSelectedTrips([]);
+    setImages([]);
   };
 
   return (
     <div>
       <div className={styles.container}>
-        <NewNavbar/> 
+        <NewNavbar />
         <section className={styles.headerSection}>
           <form className={styles.form}>
             <input
@@ -305,12 +284,12 @@ const CadastroPasseioGuia = () => {
                   placeholder="Data / Horário"
                   className={styles.detailInput}
                   value={date}
-                  onChange={handleDateChange} 
+                  onChange={handleDateChange}
                 />
                 <select
                   className={styles.detailInput}
                   value={location}
-                  onChange={handleLocationChange} 
+                  onChange={handleLocationChange}
                 >
                   {citiesOfBrazil.map((city) => (
                     <option key={city} value={city}>{city}</option>
@@ -321,13 +300,13 @@ const CadastroPasseioGuia = () => {
                   placeholder="Preço"
                   className={styles.detailInput}
                   value={price}
-                  onChange={handlePriceChange} 
+                  onChange={handlePriceChange}
                 />
               </div>
 
               <div className={styles.actionButtons}>
-                <button type="button" className={styles.deleteButton} onClick={handleDeleteTrip}>Excluir passeio</button>
-                <button type="submit" className={styles.confirmButton} onClick={handleSubmit}>Confirmar</button>
+                <button type="button" className={styles.deleteButton} onClick={handleClear}>Limpar</button>
+                <button type="button" className={styles.confirmButton} onClick={handleSubmit}>Confirmar</button>
               </div>
             </section>
           </form>

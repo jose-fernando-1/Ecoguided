@@ -94,14 +94,7 @@ const FeedGuia = () => {
           </div>
         </div>
       </div>
-
-      <h2>Qual o seu estilo de ecotrip?</h2>
-      <div className={styles.tags}>
-        {['Observação de Pássaros', 'Água Trekking', 'Trilhas e Caminhadas', 'Eco-Diving', 'Arborismo', 'Passeios a Cavalo', 'Canoagem e Caiaque', 'Ciclismo de Montanha'].map(tag => (
-          <button key={tag}>{tag}</button>
-        ))}
-      </div>
-
+      <p></p>
       <h2>Passeios</h2>
       <Carousel />
       <button className={styles.newTrip} onClick={handleNewTrip}>
