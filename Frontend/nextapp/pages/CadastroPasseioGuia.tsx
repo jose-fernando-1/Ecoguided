@@ -131,14 +131,6 @@ const CadastroPasseioGuia = () => {
     setImages(prevImages => prevImages.filter((_, i) => i !== index));
   };
 
-  const toggleTripSelection = (trip: number) => {
-    setSelectedTrips(prevSelectedTrips =>
-      prevSelectedTrips.includes(trip)
-        ? prevSelectedTrips.filter(t => t !== trip)
-        : [...prevSelectedTrips, trip]
-    );
-  };
-
   const convertDateToDjangoFormat = (dateString: string) => {
     const [year, month, day] = dateString.split('-');
     return `${year}-${month}-${day}`;
@@ -175,6 +167,8 @@ const CadastroPasseioGuia = () => {
       if (response.status === 200 || response.status === 201) {
         console.log(JSON.stringify(data));
         alert('Passeio cadastrado com sucesso!');
+        const tripId = (response.data as { id: number }).id;
+        localStorage.setItem('tripId', tripId.toString());
         router.push('/FeedGuia');
       } else {
         console.log('Erro na resposta da API:', response.data);
@@ -194,6 +188,40 @@ const CadastroPasseioGuia = () => {
       }
     } 
   }
+
+  const handleDeleteTrip = async () => {
+    const tripId = localStorage.getItem('tripId');
+    if (!tripId) {
+      alert("Erro: Nenhum passeio selecionado para exclusão.");
+      return;
+    }
+  
+    const token = localStorage.getItem('sessionToken');
+    if (!token) {
+      alert("Erro: Usuário não autenticado.");
+      return;
+    }
+  
+    try {
+      const response = await axios.delete(`http://127.0.0.1:8000/api/trips/${tripId}/`, {
+        headers: {
+          'Authorization': `token ${token}`
+        }
+      });
+  
+      if (response.status === 204) {
+        alert('Passeio excluído com sucesso!');
+        localStorage.removeItem('tripId');
+        router.push('/FeedGuia');
+      } else {
+        console.log('Erro na resposta da API:', response.data);
+        alert(`Erro: ${response.data}`);
+      }
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+      alert("Houve um erro ao excluir o passeio. Tente novamente.");
+    }
+  };
 
   return (
     <div>
@@ -298,7 +326,7 @@ const CadastroPasseioGuia = () => {
               </div>
 
               <div className={styles.actionButtons}>
-                <button type="button" className={styles.deleteButton}>Excluir passeio</button>
+                <button type="button" className={styles.deleteButton} onClick={handleDeleteTrip}>Excluir passeio</button>
                 <button type="submit" className={styles.confirmButton} onClick={handleSubmit}>Confirmar</button>
               </div>
             </section>
