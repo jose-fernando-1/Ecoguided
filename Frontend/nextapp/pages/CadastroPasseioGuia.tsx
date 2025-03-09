@@ -200,7 +200,7 @@ const CadastroPasseioGuia = () => {
       <div className={styles.container}>
         <NewNavbar/> 
         <section className={styles.headerSection}>
-          <form className={styles.form} onSubmit={handleSubmit}>
+          <form className={styles.form}>
             <input
               type="text"
               className={styles.titleInput}
