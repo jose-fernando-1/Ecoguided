@@ -1,40 +1,61 @@
-import React from 'react'
-import TravelCard from '../components/TravelCard'
-import styles from '../styles/FeedCliente.module.css'
-import NavbarSimpleUser from '../components/NavbarSimpleUser'
+import React, { useEffect, useState } from 'react';
+import TravelCard from '../components/TravelCard';
+import styles from '../styles/FeedCliente.module.css';
+import NavbarSimpleUser from '../components/NavbarSimpleUser';
 
-const ResultadoFiltro = () => {
-  return (
-    <div>
-        <NavbarSimpleUser/>
-        <section className={styles.section}>
-          <h2 style={{display:'flex', position:'relative', paddingLeft:'250px'}}>O que encontramos para você </h2>
-          <div className={styles.recommendations}>
-            <TravelCard id={'trilha_dos_cocais'} imageUrl={'/trilha_dos_cocais.png'}
-             title={'Trilha dos cocais'}
-             author={'Autor'} 
-             rating={5} 
-             oldPrice={150} 
-             newPrice={99}></TravelCard>
-
-            <TravelCard id={'praia_pescadores'} imageUrl={'/praia_pescadores.png'}
-             title={'Pria dos pescadores'}
-             author={'Autor'} 
-             rating={5} 
-             oldPrice={199} 
-             newPrice={149}></TravelCard>
-
-            <TravelCard id={'alpes_suicos'} imageUrl={'/alpes_suiços.png'}
-             title={'Alpes suiços'}
-             author={'Autor'} 
-             rating={5} 
-             oldPrice={1199} 
-             newPrice={999}></TravelCard>
-             
-          </div>
-        </section>
-    </div>
-  )
+interface Trip {
+  id: number;
+  imageUrl: string;
+  title: string;
+  author: string;
+  rating: number;
+  oldPrice: number;
+  newPrice: number;
+  ecotripStyle: string; // Adicionado para incluir o estilo de EcoTrip
 }
 
-export default ResultadoFiltro
+const ResultadoFiltro = () => {
+  const [trips, setTrips] = useState<Trip[]>([]);
+
+  useEffect(() => {
+    const fetchTrips = async () => {
+      const filters = JSON.parse(localStorage.getItem('filters') || '{}');
+      const { city, ecotrip_style, companion, price_range } = filters;
+
+      const response = await fetch(`http://127.0.0.1:8000/api/get_trips/?city=${city}&ecotrip_style=${ecotrip_style}&companion=${companion}&price_range=${price_range}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+      setTrips(data);
+    };
+
+    fetchTrips();
+  }, []);
+
+  return (
+    <div>
+      <NavbarSimpleUser />
+      <section className={styles.section}>
+        <h2 style={{ display: 'flex', position: 'relative', paddingLeft: '250px' }}>O que encontramos para você </h2>
+        <div className={styles.recommendations}>
+          {trips.map((trip) => (
+            <TravelCard
+              key={trip.id}
+              id={trip.id.toString()}
+              imageUrl={trip.imageUrl}
+              title={trip.title}
+              author={trip.author}
+              rating={trip.rating}
+              oldPrice={trip.oldPrice}
+              newPrice={trip.newPrice}
+            />
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default ResultadoFiltro;
