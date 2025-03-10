@@ -9,12 +9,18 @@ import Equipe from '../components/Equipe';
 import logout from '../scripts/logout';
 import Button from '../components/Button';
 import FilterPopup from '../components/FilterPopup';
+import { useRouter } from 'next/router';
 
 const LandingPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const router = useRouter();
 
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
+  };
+
+  const applyFilters = (newFilters: any) => {
+    router.push('/ResultadoFiltro');
   };
 
   return (
@@ -45,7 +51,7 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-      <FilterPopup isOpen={isPopupOpen} onClose={togglePopup} />
+      <FilterPopup isOpen={isPopupOpen} onClose={togglePopup} onApply={applyFilters} />
       <section className={styles['most-wanted']}>
         <h2>Os mais procurados....</h2>
       </section>

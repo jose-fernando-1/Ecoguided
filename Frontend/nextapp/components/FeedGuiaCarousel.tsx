@@ -40,6 +40,30 @@ const FeedGuiaCarousel = () => {
     fetchTrips();
   }, [router]);
 
+  const handleEdit = (tripId: number) => {
+    router.push(`/CadastroPasseioGuia?id=${tripId}`);
+  };
+
+  const handleDelete = async (tripId: number) => {
+    const sessionToken = localStorage.getItem('sessionToken');
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/trips/${tripId}/`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `token ${sessionToken}`
+        }
+      });
+
+      if (response.ok) {
+        setTrips(trips.filter(trip => trip.id !== tripId));
+      } else {
+        console.error('Failed to delete trip');
+      }
+    } catch (error) {
+      console.error('Error deleting trip:', error);
+    }
+  };
+
   return (
     <div className={styles.carouselContainer}>
       <Swiper
@@ -67,7 +91,8 @@ const FeedGuiaCarousel = () => {
                 <div className={styles.cardContent}>
                   <h3 className={styles.cardTitle}>{trip.title}</h3>
                   <p className={styles.cardDescription}>{trip.description}</p>
-                  <button className={styles.cardButton}>Editar</button>
+                  <button className={styles.cardButton} onClick={() => handleEdit(trip.id)}>Editar</button>
+                  <button className={styles.cardButtonDelete} onClick={() => handleDelete(trip.id)}>Excluir</button>
                 </div>
               </div>
             </SwiperSlide>

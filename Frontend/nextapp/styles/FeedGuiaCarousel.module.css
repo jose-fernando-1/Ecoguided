@@ -45,6 +45,21 @@
   cursor: pointer;
 }
 
+.cardButtonDelete {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  cursor: pointer;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
+.cardButtonDelete:hover {
+  background-color: darkred;
+}
+
 /* Ajuste da posição da paginação */
 .swiper-pagination {
   bottom: 10px; /* Ajusta a posição da paginação para baixo */
