@@ -11,7 +11,7 @@
   "dependencies": {
     "axios": "^1.8.3",
     "hugeicons-react": "^0.3.0",
-    "next": "15.2.3",
+    "next": "15.2.4",
     "nextapp": "file:",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
