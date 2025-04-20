@@ -13,7 +13,7 @@
     "hugeicons-react": "^0.3.0",
     "next": "15.2.3",
     "nextapp": "file:",
-    "react": "^19.0.0",
+    "react": "^19.1.0",
     "react-dom": "^19.0.0",
     "react-slick": "^0.30.3",
     "slick-carousel": "^1.8.1",
